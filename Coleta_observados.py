@@ -103,8 +103,6 @@ def agrega_chuva(sr_chuva, base_agregacao, tolerancia_chuva):
 
 
 
-#IMPORTA BIBLIOTECAS
-from funcao_coleta_banco_2 import funcao_coleta_banco, agrega_vazao, agrega_chuva,coletar_dados
 import datetime as dt, pandas as pd
 
 
@@ -117,21 +115,21 @@ postos_vazao = {
                 'Pontilhao':'25555031',
                 'Santa_Cruz_Timbo':'26125049',
                 'Sao_Mateus_Sul':'25525023',
-                'Divisa':'26055019',
-                'Fluviopolis':'26025035',
+                #'Divisa':'26055019',
+                #'Fluviopolis':'26025035',
                 'Uniao_da_Vitoria':'26145104',
-                'Madereira_Gavazzoni':'25485116',
-                'Jangada':'26225115',
+                #'Madereira_Gavazzoni':'25485116',
+                #'Jangada':'26225115',
                 ### Foz_do_Areia':'GBM',
-                'Solais_Novo':'26055155',
-                'Porto_Santo_Antonio':'25235306',
-                'Aguas_do_Vere':'25465256',
+                #'Solais_Novo':'26055155',
+                #'Porto_Santo_Antonio':'25235306',
+                #'Aguas_do_Vere':'25465256',
                 ### 'Segredo':'SGD',
                 ### 'Foz_do_Chopim':'FCH',
                 ### 'Santa_Clara':'SCL',
                 ### 'Salto_Caxias':'SCX',
-                'Porto_Capanema':'25345435',
-                'Hotel_Cataratas':'25685442'
+                #'Porto_Capanema':'25345435',
+                #'Hotel_Cataratas':'25685442'
 
             }
 
@@ -170,16 +168,17 @@ postos_precip = {
 dir_dados = "/home/bruno/Documentos/Coleta_Dados"
 dir_observado = "/home/bruno/Documentos/Observado"
 dir_home = "/home/bruno"
+dir_seca = '/home/bruno/Documentos/Seca_Iguacu/Dados_Estacoes'
 
 
 ## COLETA DADOS VAZAO
 
-os.chdir(dir_observado)
+os.chdir(dir_seca)
 
 for posto_nome, posto_codigo in postos_vazao.items():
     print('Coletando vazao',posto_nome)
-    t_ini = dt.datetime(2015, 9, 3,  0,  0) #AAAA, M, D, H, Min
-    t_fim = dt.datetime(2020, 8, 18, 23, 59)
+    t_ini = dt.datetime(1930, 1, 1,  0,  0) #AAAA, M, D, H, Min
+    t_fim = dt.datetime(2020, 8, 25, 23, 59)
     dados=coletar_dados(t_ini,t_fim,posto_codigo,'(33)') #07 p precip e 33 p vazao
     dados.to_csv(f'vazao_{posto_nome}.csv')
     print(posto_nome, 'acabou - ',list(postos_vazao).index(posto_nome)+1,"/",len(postos_vazao))
