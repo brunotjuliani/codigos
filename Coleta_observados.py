@@ -109,15 +109,15 @@ import datetime as dt, pandas as pd
 ## LISTA POSTOS VAZAO
 
 postos_vazao = {
-                'Rio_Negro':'26064948',
-                'Porto_Amazonas':'25334953',
-                'Sao_Bento':'25564947',
+                #'Rio_Negro':'26064948',
+                #'Porto_Amazonas':'25334953',
+                #'Sao_Bento':'25564947',
                 'Pontilhao':'25555031',
-                'Santa_Cruz_Timbo':'26125049',
-                'Sao_Mateus_Sul':'25525023',
+                #'Santa_Cruz_Timbo':'26125049',
+                #'Sao_Mateus_Sul':'25525023',
                 #'Divisa':'26055019',
                 #'Fluviopolis':'26025035',
-                'Uniao_da_Vitoria':'26145104',
+                #'Uniao_da_Vitoria':'26145104',
                 #'Madereira_Gavazzoni':'25485116',
                 #'Jangada':'26225115',
                 ### Foz_do_Areia':'GBM',
@@ -177,10 +177,10 @@ os.chdir(dir_seca)
 
 for posto_nome, posto_codigo in postos_vazao.items():
     print('Coletando vazao',posto_nome)
-    t_ini = dt.datetime(1930, 1, 1,  0,  0) #AAAA, M, D, H, Min
-    t_fim = dt.datetime(2020, 8, 25, 23, 59)
+    t_ini = dt.datetime(1990, 1, 1,  0,  0) #AAAA, M, D, H, Min
+    t_fim = dt.datetime(2020, 8, 26, 23, 59)
     dados=coletar_dados(t_ini,t_fim,posto_codigo,'(33)') #07 p precip e 33 p vazao
-    dados.to_csv(f'vazao_{posto_nome}.csv')
+    dados.to_csv(f'{posto_nome}_telemetrica.csv')
     print(posto_nome, 'acabou - ',list(postos_vazao).index(posto_nome)+1,"/",len(postos_vazao))
 
 

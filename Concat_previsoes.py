@@ -23,10 +23,11 @@ dir_horizontes = "/home/bruno/Documentos/Historico_Horizontes"
 #DEFINICAO DOS MODELOS / ESTACOES A SEREM AVALIADOS
 
 calibracoes = {
-                '112':'Rio_Negro','114':'Rio_Negro', '116':'Rio_Negro','117':'Rio_Negro',
-                '212':'Porto_Amazonas','214':'Porto_Amazonas','216':'Porto_Amazonas','217':'Porto_Amazonas',
-                '312':'Sao_Bento','314':'Sao_Bento','316':'Sao_Bento','317':'Sao_Bento',
-                '412':'Pontilhao','414':'Pontilhao', '416':'Pontilhao', '417':'Pontilhao',
+                #'112':'Rio_Negro','114':'Rio_Negro', '116':'Rio_Negro','117':'Rio_Negro',
+                #'212':'Porto_Amazonas','214':'Porto_Amazonas','216':'Porto_Amazonas','217':'Porto_Amazonas',
+                #'312':'Sao_Bento','314':'Sao_Bento','316':'Sao_Bento','317':'Sao_Bento',
+                #'412':'Pontilhao','414':'Pontilhao',
+                '416':'Pontilhao', '417':'Pontilhao',
                 #'512':'Santa_Cruz_Timbo','514':'Santa_Cruz_Timbo','516':'Santa_Cruz_Timbo','517':'Santa_Cruz_Timbo',
                 #'612':'Sao_Mateus_Sul','614':'Sao_Mateus_Sul','616':'Sao_Mateus_Sul','617':'Sao_Mateus_Sul',
                 #'712':'Divisa','714':'Divisa','716':'Divisa','717':'Divisa',

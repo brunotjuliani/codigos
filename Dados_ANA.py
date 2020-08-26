@@ -1,24 +1,25 @@
 import hydrobr
 import pandas as pd
+import os
 
+dir_seca = '/home/bruno/Documentos/Seca_Iguacu/Dados_Estacoes'
+os.chdir(dir_seca)
 
-PR = hydrobr.get_data.ANA.list_prec_stations(state='Paraná', source='ANA')
+estacoes = {#'Rio_Negro':'65100000',
+            #'Porto_Amazonas':'65035000',
+            #'Sao_Bento':'65155000',
+            #'Pontilhao':'65200000',
+            #'Santa_Cruz_Timbo':'65295000',
+            #'Sao_Mateus_Sul':'65060000',
+            'Uniao_da_Vitoria':'65310000',
+            }
 
-
-print(PR)
-
-
-estacoes_60anos = pd.DataFrame()
-for i in PR.index:
-    linha_estacao = pd.DataFrame()
-    codigo = {PR.loc[i,"Code"]}
-    serie = hydrobr.get_data.ANA.prec_data(codigo, only_consisted=False)
-    tamanho = len(serie) / 365
-    falhas = serie.isna().sum()
-    falha_percent = (falhas / len(serie))*100
-    if tamanho >= 60:
-        linha_estacao = PR.iloc[[i,]]
-        linha_estacao["N_Anos"] = tamanho
-        linha_estacao["Falhas_porcent"] = falha_percent
-        concatenar = [estacoes_60anos, linha_estacao]
-        estacoes_60anos = pd.concat(concatenar)
+for estacao_nome,estacao_cod in estacoes.items():
+    serie = hydrobr.get_data.ANA.flow_data({estacao_cod}, only_consisted=False)
+    serie.index.name = 'data'
+    if estacao_cod.endswith('00'):
+        tipo = 'convencional'
+    if estacao_cod.endswith('01'):
+        tipo = 'telemetrica'
+    serie.columns = [tipo]
+    serie.to_csv(estacao_nome+'_'+tipo+'.csv')
