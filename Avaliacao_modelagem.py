@@ -19,12 +19,13 @@ data_fim = dt.datetime(2020, 8, 20,  23,  59)
 
 
 #DEFINICAO MODELOS
-modelos = ["112", "114"]
+modelos = ["112", "114", "116", "117"]
+horas_resumo = [1, 6] + list(np.arange(12,169,12))
 horizontes = range(168)
-
 
 #IMPORTA MODELO A ANALIZAR
 for modelo in modelos:
+    os.chdir(dir_horizontes)
     gbl["evolucao_horizontes_"+modelo] = pd.DataFrame()
     for horizonte in horizontes:
         os.chdir(dir_horizontes + "/" + modelo)
@@ -47,3 +48,4 @@ for modelo in modelos:
     plt.savefig(modelo+"_Avaliacao_"+data_ini.strftime("%Y%m%d")+"_"+data_fim.strftime("%Y%m%d")+".png")
     plt.close()
     gbl["evolucao_horizontes_"+modelo].to_csv(modelo+"_Avaliacao_"+data_ini.strftime("%Y%m%d")+"_"+data_fim.strftime("%Y%m%d")+".csv")
+    gbl["evolucao_horizontes_"+modelo].loc[gbl["evolucao_horizontes_"+modelo]['Hora'].isin(horas_resumo)].to_csv(modelo+"_Resumo_"+data_ini.strftime("%Y%m%d")+"_"+data_fim.strftime("%Y%m%d")+".csv")

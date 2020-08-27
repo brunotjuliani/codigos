@@ -18,8 +18,8 @@ for estacao in estacoes:
     nome_estacao = estacao
     serie_original.columns = ['data', 'convencional', 'telemetrica', 'preenchimento']
     serie_tratada = serie_original[['data', 'preenchimento']]
-    serie_tratada['q_m3s_corr'] = serie_tratada['preenchimento'].interpolate(
+    serie_tratada['q_m3s'] = serie_tratada['preenchimento'].interpolate(
         method = 'spline', order = 3, limit_direction ='forward')
-    serie_tratada.to_csv(estacao+'_preenchimento.csv', index = False)
+    serie_tratada = serie_tratada.drop('preenchimento',1).dropna()
+    serie_tratada.to_csv(estacao+'_final.csv', index = False)
     #serie_tratada.to_csv(nome_estacao+'_vazao_tratada.csv', index = False)
-    
