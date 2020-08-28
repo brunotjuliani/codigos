@@ -23,16 +23,16 @@ dir_horizontes = "/home/bruno/Documentos/Historico_Horizontes"
 #DEFINICAO DOS MODELOS / ESTACOES A SEREM AVALIADOS
 
 calibracoes = {
-                #'112':'Rio_Negro','114':'Rio_Negro', '116':'Rio_Negro','117':'Rio_Negro',
-                #'212':'Porto_Amazonas','214':'Porto_Amazonas','216':'Porto_Amazonas','217':'Porto_Amazonas',
-                #'312':'Sao_Bento','314':'Sao_Bento','316':'Sao_Bento','317':'Sao_Bento',
-                #'412':'Pontilhao','414':'Pontilhao', '416':'Pontilhao', '417':'Pontilhao',
-                #'512':'Santa_Cruz_Timbo','514':'Santa_Cruz_Timbo','516':'Santa_Cruz_Timbo','517':'Santa_Cruz_Timbo',
-                #'612':'Sao_Mateus_Sul','614':'Sao_Mateus_Sul','616':'Sao_Mateus_Sul','617':'Sao_Mateus_Sul',
-                #'712':'Divisa','714':'Divisa','716':'Divisa','717':'Divisa',
-                #'812':'Fluviopolis','814':'Fluviopolis','816':'Fluviopolis','817':'Fluviopolis',
-                #'912':'Uniao_da_Vitoria', '914':'Uniao_da_Vitoria', '916':'Uniao_da_Vitoria', '917':'Uniao_da_Vitoria',
-                #'1010':'Madereira_Gavazzoni', '1012':'Madereira_Gavazzoni', '1014':'Madereira_Gavazzoni', '1015':'Madereira_Gavazzoni',
+                '112':'Rio_Negro', '114':'Rio_Negro', '116':'Rio_Negro','117':'Rio_Negro',
+                '212':'Porto_Amazonas','214':'Porto_Amazonas','216':'Porto_Amazonas','217':'Porto_Amazonas',
+                '312':'Sao_Bento','314':'Sao_Bento','316':'Sao_Bento','317':'Sao_Bento',
+                '412':'Pontilhao','414':'Pontilhao', '416':'Pontilhao', '417':'Pontilhao',
+                '512':'Santa_Cruz_Timbo','514':'Santa_Cruz_Timbo','516':'Santa_Cruz_Timbo','517':'Santa_Cruz_Timbo',
+                '612':'Sao_Mateus_Sul','614':'Sao_Mateus_Sul','616':'Sao_Mateus_Sul','617':'Sao_Mateus_Sul',
+                '712':'Divisa','714':'Divisa','716':'Divisa','717':'Divisa',
+                '812':'Fluviopolis','814':'Fluviopolis','816':'Fluviopolis','817':'Fluviopolis',
+                '912':'Uniao_da_Vitoria', '914':'Uniao_da_Vitoria', '916':'Uniao_da_Vitoria', '917':'Uniao_da_Vitoria',
+                '1010':'Madereira_Gavazzoni', '1012':'Madereira_Gavazzoni', '1014':'Madereira_Gavazzoni', '1015':'Madereira_Gavazzoni',
                 '1110':'Jangada', '1112':'Jangada', '1114':'Jangada', '1115':'Jangada',
                 '1310':'Solais_Novo', '1312':'Solais_Novo', '1314':'Solais_Novo', '1315':'Solais_Novo',
                 '1410':'Porto_Santo_Antonio', '1412':'Porto_Santo_Antonio', '1414':'Porto_Santo_Antonio', '1415':'Porto_Santo_Antonio',
@@ -104,7 +104,7 @@ for calibracao_cod, estacao_nome in calibracoes.items():
             previsao_7d = previsao_7d.loc[(previsao_7d["Codigo"] == int(calibracao_cod))].iloc[1:169,].reset_index(drop=True) #limita a análise para a calibracao desejada - 168 passos de tempo
             previsao_7d = previsao_7d.set_index('Data')
             os.chdir(dir_observado)
-            vazao_observado = pd.read_csv("vazao_" + estacao_nome + ".csv").set_index('tempo').rename(columns = {'valor':'vazao_obs'}) #importa vazao observada
+            vazao_observado = pd.read_csv("vazao_" + estacao_nome + ".csv",index_col = 0).rename(columns = {'q_m3s':'vazao_obs'}) #importa vazao observada
             previsao_7d = previsao_7d.merge(vazao_observado['vazao_obs'], how='left', left_index=True, right_index=True) #junta observado e previsao
             for horizonte in range(len(previsao_7d)): #armazena serie para cada horizonte horario
                 if i == 0:

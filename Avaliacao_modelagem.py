@@ -19,7 +19,7 @@ data_fim = dt.datetime(2020, 8, 20,  23,  59)
 
 
 #DEFINICAO MODELOS
-modelos = ["112", "114", "116", "117"]
+modelos = ["1010", "1012", "1014", "1015"]
 horas_resumo = [1, 6] + list(np.arange(12,169,12))
 horizontes = range(168)
 
