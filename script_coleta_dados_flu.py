@@ -66,8 +66,8 @@ postos_vazao = {
 
 for posto_nome, posto_codigo in postos_vazao.items():
     print('Coletando vazao',posto_nome)
-    t_ini = dt.datetime(2015, 1, 1,  0,  0) #AAAA, M, D, H, Min
-    t_fim = dt.datetime(2020, 8, 28, 23, 59)
+    t_ini = dt.datetime(1997, 1, 1,  0,  0) #AAAA, M, D, H, Min
+    t_fim = dt.datetime(2020, 8, 31, 23, 59)
     dados=coletar_dados(t_ini,t_fim,posto_codigo,'(33)') #07 p precip e 33 p vazao
 
     lista.append(posto_nome)
