@@ -27,11 +27,12 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
                   order by horestacao, horsensor, hordatahora; \
                   ".format(t_ini_string, t_fim_string, posto_codigo,sensores)
     # Execução da consulta no banco do Simepar
-    conn = psycopg2.connect(dbname='clim', user='hidro', password='hidrologia', host='tornado', port='5432')
+    conn = psycopg2.connect(dbname='clim', user='hidro', password='hidrologia',
+                            host='tornado', port='5432')
     consulta = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
     consulta.execute(texto_psql)
     consulta_lista = consulta.fetchall()
-    df_consulta = pd.DataFrame(consulta_lista, columns=['tempo','valor','sensor'])
+    df_consulta =pd.DataFrame(consulta_lista,columns=['tempo','valor','sensor'])
     df_consulta.set_index('tempo', inplace=True)
     return df_consulta
 
@@ -57,7 +58,6 @@ postos_vazao = {
                 ### 'Salto_Caxias':'SCX',
                 'Porto_Capanema':'25345435',
                 'Hotel_Cataratas':'25685442'
-
             }
 
 
@@ -68,7 +68,7 @@ for posto_nome, posto_codigo in postos_vazao.items():
     print('Coletando vazao',posto_nome)
     t_ini = dt.datetime(1997, 1, 1,  0,  0) #AAAA, M, D, H, Min
     t_fim = dt.datetime(2020, 8, 31, 23, 59)
-    dados=coletar_dados(t_ini,t_fim,posto_codigo,'(33)') #07 p precip e 33 p vazao
+    dados=coletar_dados(t_ini,t_fim,posto_codigo,'(33)') #07 precip e 33 vazao
 
     lista.append(posto_nome)
 
@@ -96,7 +96,8 @@ for posto_nome, posto_codigo in postos_vazao.items():
     # agrupa em dados horarios, com intervalo fechado à direita (acumulado/media da 0:01 a 1:00);
     # coluna count resulta a soma (contagem) dos "1", coluna valor resulta na media dos valores;
     # para os valores de cont < 2, substitui o dado em 'valor' por NaN:
-    df_horario = df.resample("H", closed='right').agg({'count' : np.sum, 'q_m3s' : np.mean})
+    df_horario = df.resample("H", closed='right').agg({'count' : np.sum,
+                                                       'q_m3s' : np.mean})
     #df_horario.loc[df_horario['count'] < 2, ['q_m3s']] = np.nan
 
     # cria coluna com valores 1;
@@ -104,7 +105,8 @@ for posto_nome, posto_codigo in postos_vazao.items():
     # coluna count resulta a soma (contagem) dos "1", coluna valor resulta na media dos valores;
     # para os valores de cont < 12, substitui o dado em 'valor' por NaN:
     df_horario['count'] = 1
-    df_diario = df_horario.resample("D", closed='left').agg({'count':np.sum, 'q_m3s' : np.mean})
+    df_diario = df_horario.resample("D", closed='left').agg({'count':np.sum,
+                                                             'q_m3s' : np.mean})
     df_diario.loc[df_diario['count'] < 12, ['q_m3s']] = np.nan
 
     # remove colunas 'count' dos dataframes
@@ -122,4 +124,13 @@ for posto_nome, posto_codigo in postos_vazao.items():
     table_hor.to_csv('vazao_'+posto_nome+'.csv')
     #table_dia.to_csv(posto_nome+'_telemetrica.csv')
 
-    print(posto_nome, 'acabou - ',list(postos_vazao).index(posto_nome)+1,"/",len(postos_vazao))
+    plt.figure()
+    plt.plot(table_hor['q_m3s'], label = "Observado", linewidth = 0.5)
+    plt.title('Serie ' + posto_nome)
+    plt.xlabel('Data')
+    plt.ylabel('Q [m3s-1]')
+    plt.savefig('vazao_'+posto_nome+'.png', dpi = 300)
+    plt.close()
+
+    print(posto_nome, 'acabou - ', list(postos_vazao).index(posto_nome)+1,"/",
+          len(postos_vazao))

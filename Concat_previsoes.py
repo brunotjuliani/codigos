@@ -27,33 +27,33 @@ calibracoes = {
                 '116':'Rio_Negro','117':'Rio_Negro',
                 '212':'Porto_Amazonas','214':'Porto_Amazonas',
                 '216':'Porto_Amazonas','217':'Porto_Amazonas',
-                #'312':'Sao_Bento','314':'Sao_Bento',
-                #'316':'Sao_Bento','317':'Sao_Bento',
-                #'412':'Pontilhao','414':'Pontilhao',
-                #'416':'Pontilhao', '417':'Pontilhao',
-                #'512':'Santa_Cruz_Timbo','514':'Santa_Cruz_Timbo',
-                #'516':'Santa_Cruz_Timbo','517':'Santa_Cruz_Timbo',
-                #'612':'Sao_Mateus_Sul','614':'Sao_Mateus_Sul',
-                #'616':'Sao_Mateus_Sul','617':'Sao_Mateus_Sul',
-                #'712':'Divisa','714':'Divisa',
-                #'716':'Divisa','717':'Divisa',
-                #'812':'Fluviopolis','814':'Fluviopolis',
-                #'816':'Fluviopolis','817':'Fluviopolis',
-                #'912':'Uniao_da_Vitoria', '914':'Uniao_da_Vitoria',
-                #'916':'Uniao_da_Vitoria', '917':'Uniao_da_Vitoria',
-                #'1010':'Madereira_Gavazzoni', '1012':'Madereira_Gavazzoni',
-                #'1014':'Madereira_Gavazzoni', '1015':'Madereira_Gavazzoni',
-                #'1110':'Jangada', '1112':'Jangada',
-                #'1114':'Jangada', '1115':'Jangada',
-                #'1310':'Solais_Novo', '1312':'Solais_Novo',
-                #'1314':'Solais_Novo', '1315':'Solais_Novo',
-                #'1410':'Porto_Santo_Antonio', '1412':'Porto_Santo_Antonio',
-                #'1414':'Porto_Santo_Antonio', '1415':'Porto_Santo_Antonio',
-                #'1510':'Aguas_do_Vere', '1512':'Aguas_do_Vere',
-                #'1514':'Aguas_do_Vere', '1515':'Aguas_do_Vere',
-                #'2010':'Porto_Capanema', '2012':'Porto_Capanema',
-                #'2110':'Hotel_Cataratas', '2112':'Hotel_Cataratas',
-                #'2114':'Hotel_Cataratas', '2115':'Hotel_Cataratas',
+                '312':'Sao_Bento','314':'Sao_Bento',
+                '316':'Sao_Bento','317':'Sao_Bento',
+                '412':'Pontilhao','414':'Pontilhao',
+                '416':'Pontilhao', '417':'Pontilhao',
+                '512':'Santa_Cruz_Timbo','514':'Santa_Cruz_Timbo',
+                '516':'Santa_Cruz_Timbo','517':'Santa_Cruz_Timbo',
+                '612':'Sao_Mateus_Sul','614':'Sao_Mateus_Sul',
+                '616':'Sao_Mateus_Sul','617':'Sao_Mateus_Sul',
+                '712':'Divisa','714':'Divisa',
+                '716':'Divisa','717':'Divisa',
+                '812':'Fluviopolis','814':'Fluviopolis',
+                '816':'Fluviopolis','817':'Fluviopolis',
+                '912':'Uniao_da_Vitoria', '914':'Uniao_da_Vitoria',
+                '916':'Uniao_da_Vitoria', '917':'Uniao_da_Vitoria',
+                '1010':'Madereira_Gavazzoni', '1012':'Madereira_Gavazzoni',
+                '1014':'Madereira_Gavazzoni', '1015':'Madereira_Gavazzoni',
+                '1110':'Jangada', '1112':'Jangada',
+                '1114':'Jangada', '1115':'Jangada',
+                '1310':'Solais_Novo', '1312':'Solais_Novo',
+                '1314':'Solais_Novo', '1315':'Solais_Novo',
+                '1410':'Porto_Santo_Antonio', '1412':'Porto_Santo_Antonio',
+                '1414':'Porto_Santo_Antonio', '1415':'Porto_Santo_Antonio',
+                '1510':'Aguas_do_Vere', '1512':'Aguas_do_Vere',
+                '1514':'Aguas_do_Vere', '1515':'Aguas_do_Vere',
+                '2010':'Porto_Capanema', '2012':'Porto_Capanema',
+                '2110':'Hotel_Cataratas', '2112':'Hotel_Cataratas',
+                '2114':'Hotel_Cataratas', '2115':'Hotel_Cataratas',
                 #'1212':'Foz_do_Areia',
                 #'1612':'Segredo',
                 #'1712':'Foz_do_Chopim',
@@ -186,17 +186,17 @@ for calibracao_cod, estacao_nome in calibracoes.items():
                     str(horizonte)]['Codigo']==int(calibracao_cod))].sort_index(
                     ).dropna())
         #le arquivo antigo
-        #gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)] = pd.read_csv(
-        #    "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)+".csv",
-        #    index_col = "Data")
+        gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)] = pd.read_csv(
+            "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)+".csv",
+            index_col = "Data")
         #juncao com novas datas
-        #gbl["Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)] =pd.concat(
-        #    [gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)],
-        #     gbl["Cod_" + str(calibracao_cod)+'_Horizonte_'+str(horizonte)]])
-        #gbl["Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)] = gbl[
-        #    "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)][~gbl[
-        #        "Cod_"+str(calibracao_cod)+'_Horizonte_'+
-        #        str(horizonte)].index.duplicated(keep='first')]
+        gbl["Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)] =pd.concat(
+            [gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)],
+             gbl["Cod_" + str(calibracao_cod)+'_Horizonte_'+str(horizonte)]])
+        gbl["Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)] = gbl[
+            "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)][~gbl[
+                "Cod_"+str(calibracao_cod)+'_Horizonte_'+
+                str(horizonte)].index.duplicated(keep='first')]
         #remove linhas sem valor Observado
         gbl["Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)] = gbl[
             "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)].dropna()
