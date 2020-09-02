@@ -67,7 +67,7 @@ postos_vazao = {
 for posto_nome, posto_codigo in postos_vazao.items():
     print('Coletando vazao',posto_nome)
     t_ini = dt.datetime(1997, 1, 1,  0,  0) #AAAA, M, D, H, Min
-    t_fim = dt.datetime(2020, 8, 31, 23, 59)
+    t_fim = dt.datetime(2020, 9, 2, 23, 59)
     dados=coletar_dados(t_ini,t_fim,posto_codigo,'(33)') #07 precip e 33 vazao
 
     lista.append(posto_nome)
@@ -125,7 +125,7 @@ for posto_nome, posto_codigo in postos_vazao.items():
     #table_dia.to_csv(posto_nome+'_telemetrica.csv')
 
     plt.figure()
-    plt.plot(table_hor['q_m3s'], label = "Observado", linewidth = 0.5)
+    plt.plot(table_hor['q_m3s'], label = "Observado", linewidth = 0.3)
     plt.title('Serie ' + posto_nome)
     plt.xlabel('Data')
     plt.ylabel('Q [m3s-1]')
