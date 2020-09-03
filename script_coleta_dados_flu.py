@@ -6,6 +6,8 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 import datetime as dt
+import pytz
+import json
 import psycopg2, psycopg2.extras
 
 dir_seca = '/home/bruno/Documentos/Seca_Iguacu/Dados_Estacoes'
@@ -90,6 +92,9 @@ for posto_nome, posto_codigo in postos_vazao.items():
     df.drop(df.tail(1).index, inplace=True)
     df['count'] = 1
     df.index = pd.to_datetime(df.index)
+    #converte para hora local - GMT-3 - timezone('America/Sao_Paulo')
+    df.index = df.index.tz_localize(pytz.utc).tz_convert(pytz.timezone('America/Sao_Paulo')).strftime("%Y-%m-%d %X")
+    df.index = pd.to_datetime(df.index)
     df["q_m3s"] = pd.to_numeric(df["q_m3s"], downcast="float")
 
 
@@ -121,6 +126,18 @@ for posto_nome, posto_codigo in postos_vazao.items():
     table_hor[table_hor['q_m3s'] < 0] = np.nan
     table_dia[table_dia['q_m3s'] < 0] = np.nan
 
+    #importa dicionario de erros grosseiros e escolhe estacao
+    dicionario_erros = json.load(open('erros_grosseiros.txt'))
+    erros_estacao = dicionario_erros[posto_nome]
+    #trata a matriz de erros
+    try:
+        erros_estacao = np.hstack(erros_estacao)
+    except ValueError:
+        pass
+    #remove erros grosseiros da serie observada
+    table_hor.loc[pd.to_datetime(erros_estacao), 'q_m3s'] = np.nan
+
+    #exporta observado para csv
     table_hor.to_csv('vazao_'+posto_nome+'.csv')
     #table_dia.to_csv(posto_nome+'_telemetrica.csv')
 
