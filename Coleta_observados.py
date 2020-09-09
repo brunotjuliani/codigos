@@ -165,10 +165,9 @@ postos_precip = {
 
 ## DEFINE DIRETORIOS
 
-dir_dados = "/home/bruno/Documentos/Coleta_Dados"
-dir_observado = "/home/bruno/Documentos/Observado"
-dir_home = "/home/bruno"
-dir_seca = '/home/bruno/Documentos/Seca_Iguacu/Dados_Estacoes'
+dir_dados = "/discolocal/bruno/Coleta_Dados"
+dir_observado = "/discolocal/bruno/Observado"
+dir_seca = '/discolocal/bruno/Seca_Iguacu/Dados_Estacoes'
 
 
 ## COLETA DADOS VAZAO

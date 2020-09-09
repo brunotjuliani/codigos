@@ -3,7 +3,7 @@ import numpy as np
 import os
 import datetime as dt
 
-dir_seca = '/home/bruno/Documentos/Seca_Iguacu/Dados_Estacoes'
+dir_seca = '/discolocal/bruno/Seca_Iguacu/Dados_Estacoes'
 os.chdir(dir_seca)
 
 estacoes = {

@@ -8,7 +8,7 @@ import os
 #DEFINE VARIAVEIS
 modelo = "NCEP_WRF5K" #COPEL / ECMWF / NCEP_WRF5K
 data = "2020-09-01"
-diretorio = "/home/bruno/Documentos/Mapas_Chuva/"+modelo+"/"+data
+diretorio = "/discolocal/bruno/Mapas_Chuva/"+modelo+"/"+data
 
 
 #CODIGO USUAL

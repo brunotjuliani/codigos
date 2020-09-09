@@ -9,9 +9,9 @@ gbl = globals()
 
 
 #DEFINICAO ENDERECOS
-dir_horizontes = "/home/bruno/Documentos/Historico_Horizontes"
-dir_desempenho = "/home/bruno/Documentos/Historico_Horizontes/Desempenho"
-dir_observado = "/home/bruno/Documentos/Observado"
+dir_horizontes = "/discolocal/bruno/Historico_Horizontes"
+dir_desempenho = "/discolocal/bruno/Historico_Horizontes/Desempenho"
+dir_observado = "/discolocal/bruno/Observado"
 
 #DEFINICAO PERIODO ANALISE
 data_ini = dt.datetime(2015, 9, 3,  0,  0) #YYYY, M, D, H, Min

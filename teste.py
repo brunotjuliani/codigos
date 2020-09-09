@@ -13,8 +13,7 @@ gbl = globals()
 data_ini = dt.datetime(2015, 1, 1,  0,  0) #YYYY, M, D, H, Min
 data_fim = dt.datetime(2020, 8, 31,  23,  59)
 
-dir_observado = "/home/bruno/Documentos/Observado"
-dir_home = "/home/bruno"
+dir_observado = "/discolocal/bruno/Observado"
 os.chdir(dir_observado)
 
 nome_bacia = 'Hotel_Cataratas'

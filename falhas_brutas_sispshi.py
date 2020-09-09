@@ -2,7 +2,7 @@ import json
 import pandas as pd
 import os
 
-dir_observado = "/home/bruno/Documentos/Observado"
+dir_observado = "/discolocal/bruno/Observado"
 os.chdir(dir_observado)
 
 #detalha horario de erros grosseiros a partir de 2015

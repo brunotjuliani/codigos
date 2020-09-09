@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-dir_seca = '/home/bruno/Documentos/Seca_Iguacu/Dados_Estacoes'
+dir_seca = '/discolocal/bruno/Seca_Iguacu/Dados_Estacoes'
 os.chdir(dir_seca)
 
 estacoes = {

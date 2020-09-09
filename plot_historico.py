@@ -6,7 +6,7 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
-dir_secas = "/home/bruno/Documentos/Seca_Iguacu"
+dir_secas = "/discolocal/bruno/Seca_Iguacu"
 os.chdir(dir_secas)
 serie_original = pd.read_csv('Pontilhao_vazao.csv', sep = ',', decimal='.')
 serie_tratada = pd.read_csv('dados_estacoes/pontilhao_tratada.csv', sep = ',', decimal='.')

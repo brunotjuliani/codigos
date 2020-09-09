@@ -12,11 +12,10 @@ gbl = globals()
 
 #DEFINICAO DOS ENDEREÇOS
 
-dir_dados = "/home/bruno/Documentos/Coleta_Dados"
-dir_home = "/home/bruno"
-dir_previsoes = "/home/bruno/Documentos/Coleta_Dados/Historico_Previsoes"
-dir_observado = "/home/bruno/Documentos/Observado"
-dir_horizontes = "/home/bruno/Documentos/Historico_Horizontes"
+dir_dados = "/discolocal/bruno/Coleta_Dados"
+dir_previsoes = "/discolocal/bruno/Coleta_Dados/Historico_Previsoes"
+dir_observado = "/discolocal/bruno/Observado"
+dir_horizontes = "/discolocal/bruno/Historico_Horizontes"
 
 
 
