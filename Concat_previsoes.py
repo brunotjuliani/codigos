@@ -130,16 +130,7 @@ for calibracao_cod, estacao_nome in calibracoes.items():
             previsao_7d = previsao_7d.loc[(previsao_7d["Codigo"] == int(
                 calibracao_cod))].iloc[1:169,].reset_index(drop=True)
             previsao_7d = previsao_7d.set_index('Data')
-            os.chdir(dir_observado)
-            #importa vazao observada
-            vazao_observado = pd.read_csv("vazao_"+estacao_nome+".csv",
-                                          index_col = 0).rename(
-                                              columns = {'q_m3s':'vazao_obs'})
-            #junta observado e previsao
-            previsao_7d = previsao_7d.merge(vazao_observado['vazao_obs'],
-                                            how='left', left_index=True,
-                                            right_index=True)
-            #armazena serie para cada horizonte horario
+            #armazena serie para cada horizonte horario junto com observado
             for horizonte in range(len(previsao_7d)):
                 if i == 0:
                     gbl['c'+str(calibracao_cod)+'_horizonte_'+str(horizonte)+
@@ -164,6 +155,17 @@ for calibracao_cod, estacao_nome in calibracoes.items():
                         str(horizonte)+'_'+str(rodada)] = pd.concat(
                             gbl['c'+str(calibracao_cod)+'_concatenar_'+
                                 str(horizonte)+'_'+str(rodada)])
+                #junta observado e previsao
+                os.chdir(dir_observado)
+                vazao_observado = pd.read_csv("vazao_"+estacao_nome+".csv",
+                                              index_col = 0).rename(columns = {
+                                                  'q_m3s':'vazao_obs'})
+                gbl['c'+str(calibracao_cod)+'_horizonte_'+str(horizonte)+'_'+
+                    str(rodada)] = gbl['c'+str(calibracao_cod)+'_horizonte_'+
+                                       str(horizonte)+'_'+str(rodada)].merge(
+                                           vazao_observado['vazao_obs'],
+                                           how='left', left_index=True,
+                                           right_index=True)
 
     os.chdir(dir_cod)
     #exporta series historicas para cada horizonte
