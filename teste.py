@@ -10,13 +10,13 @@ import pytz
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_ini = dt.datetime(2015, 1, 1,  0,  0) #YYYY, M, D, H, Min
-data_fim = dt.datetime(2020, 8, 31,  23,  59)
+data_ini = dt.datetime(2019, 6, 1,  0,  0) #YYYY, M, D, H, Min
+data_fim = dt.datetime(2019, 6, 15,  23,  59)
 
 dir_observado = "/discolocal/bruno/Observado"
 os.chdir(dir_observado)
 
-nome_bacia = 'Hotel_Cataratas'
+nome_bacia = 'Santa_Cruz_Timbo'
 
 erros = []
 try:
@@ -30,4 +30,14 @@ serie_observada.loc[pd.to_datetime(erros), 'q_m3s'] = np.nan
 serie_observada = serie_observada.loc[str(data_ini) : str(data_fim)]
 serie_observada
 
-serie_observada['q_m3s'].plot(linewidth=0.5)
+plt.figure()
+plt.plot(serie_observada['q_m3s'], label = "Observado", linewidth = 0.5)
+plt.title('Serie ' + nome_bacia, loc = 'left')
+plt.xlabel('Data')
+plt.ylabel('Q [m3s-1]')
+data_texto = ('Data inicial: ' + str(data_ini.strftime("%Y-%m-%d")) + '\n' +
+              'Data final: ' + str(data_fim.strftime("%Y-%m-%d")))
+plt.annotate(data_texto, xy=(1,1), xytext=(-4,26), fontsize=10,
+             xycoords='axes fraction', textcoords='offset points',
+             bbox=dict(facecolor='white', alpha=0.8),
+             horizontalalignment='right', verticalalignment='top')

@@ -15,9 +15,9 @@ dir_observado = "/discolocal/bruno/Observado"
 
 #DEFINICAO PERIODO ANALISE
 data_ini = dt.datetime(2015, 9, 3,  0,  0) #YYYY, M, D, H, Min
-data_fim = dt.datetime(2020, 8, 30,  23,  59)
-
-
+data_fim = dt.datetime(2020, 9, 3,  23,  59)
+data_texto = ('Data inicial: ' + str(data_ini.strftime("%Y-%m-%d")) + '\n' +
+              'Data final: ' + str(data_fim.strftime("%Y-%m-%d")))
 
 #DEFINICAO MODELOS
 calibracoes = {
@@ -27,16 +27,16 @@ calibracoes = {
                 'Pontilhao' : ['412', '414', '416', '417'],
                 'Santa_Cruz_Timbo' : ['512', '514', '516', '517'],
                 'Sao_Mateus_Sul' : ['612', '614', '616', '617'],
-                'Divisa' : ['712', '714', '716', '717'],
-                'Fluviopolis' : ['812', '814', '816', '817'],
-                'Uniao_da_Vitoria' : ['912', '914', '916', '917'],
-                'Madereira_Gavazzoni' : ['1010', '1012', '1014', '1015'],
-                'Jangada' : ['1110', '1112', '1114', '1115'],
-                'Solais_Novo' : ['1310', '1312', '1314', '1315'],
-                'Porto_Santo_Antonio' : ['1410', '1412', '1414', '1415'],
-                'Aguas_do_Vere' : ['1510', '1512', '1514', '1515'],
-                'Porto_Capanema' : ['2010', '2012'],
-                'Hotel_Cataratas' : ['2110', '2112', '2114', '2115'],
+#                'Divisa' : ['712', '714', '716', '717'],
+#                'Fluviopolis' : ['812', '814', '816', '817'],
+#                'Uniao_da_Vitoria' : ['912', '914', '916', '917'],
+#                'Madereira_Gavazzoni' : ['1010', '1012', '1014', '1015'],
+#                'Jangada' : ['1110', '1112', '1114', '1115'],
+#                'Solais_Novo' : ['1310', '1312', '1314', '1315'],
+#                'Porto_Santo_Antonio' : ['1410', '1412', '1414', '1415'],
+#                'Aguas_do_Vere' : ['1510', '1512', '1514', '1515'],
+#                'Porto_Capanema' : ['2010', '2012'],
+#                'Hotel_Cataratas' : ['2110', '2112', '2114', '2115'],
             }
 
 
@@ -47,6 +47,10 @@ horizontes = range(168)
 for nome_bacia, modelos in calibracoes.items():
     #codigo da bacia
     bacia = modelos[0][:-2]
+
+    #imprime horario de início
+    print("Inicia Bacia ",bacia)
+    print(dt.datetime.now())
 
     #cria pasta para bacia e periodo analisado
     dir_aval = (dir_desempenho + '/aval_' + bacia + '_' +
@@ -113,9 +117,13 @@ for nome_bacia, modelos in calibracoes.items():
     plt.xticks(np.arange(0, max(gbl["evolucao_horizontes_"+modelo].Hora)+1, 24))
     plt.grid()
     plt.legend(loc='best')
-    plt.title('Ajuste Nash - Modelo '+bacia)
+    plt.title('Ajuste Nash - Modelo '+bacia, loc = 'left')
     plt.xlabel('Horizonte (h)')
     plt.ylabel('Coeficiente Nash')
+    plt.annotate(data_texto, xy=(1,1), xytext=(-4,26), fontsize=10,
+                 xycoords='axes fraction', textcoords='offset points',
+                 bbox=dict(facecolor='white', alpha=0.8),
+                 horizontalalignment='right', verticalalignment='top')
     plt.savefig(bacia+"_Nash_"+data_ini.strftime("%Y%m%d")+"_"+
                 data_fim.strftime("%Y%m%d")+".png", dpi = 300)
     plt.close()
@@ -129,9 +137,13 @@ for nome_bacia, modelos in calibracoes.items():
     #exporta figura com serie historica observada para periodo analisado
     plt.figure()
     plt.plot(serie_observada['q_m3s'], label = "Observado", linewidth = 0.5)
-    plt.title('Serie ' + nome_bacia)
+    plt.title('Serie ' + nome_bacia, loc = 'left')
     plt.xlabel('Data')
     plt.ylabel('Q [m3s-1]')
+    plt.annotate(data_texto, xy=(1,1), xytext=(-4,26), fontsize=10,
+                 xycoords='axes fraction', textcoords='offset points',
+                 bbox=dict(facecolor='white', alpha=0.8),
+                 horizontalalignment='right', verticalalignment='top')
     plt.savefig(bacia+'_observado_'+data_ini.strftime("%Y%m%d")+"_"+
                           data_fim.strftime("%Y%m%d")+'.png', dpi = 300)
     plt.close()

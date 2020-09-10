@@ -6,6 +6,7 @@ dir_observado = "/discolocal/bruno/Observado"
 os.chdir(dir_observado)
 
 #detalha horario de erros grosseiros a partir de 2015
+#ultima atualizacao 31/08/2020
 
 erros = {'Rio_Negro' : ['2017-05-14 00:00:00', '2017-06-01 12:00:00',
                         '2017-06-02 08:00:00', '2017-06-02 11:00:00',
