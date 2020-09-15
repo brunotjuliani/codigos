@@ -15,19 +15,19 @@ dir_observado = "/discolocal/bruno/Observado"
 
 #DEFINICAO PERIODO ANALISE
 data_ini = dt.datetime(2015, 9, 3,  0,  0) #YYYY, M, D, H, Min
-data_fim = dt.datetime(2020, 9, 3,  23,  59)
+data_fim = dt.datetime(2020, 9, 10,  23,  59)
 data_texto = ('Data inicial: ' + str(data_ini.strftime("%Y-%m-%d")) + '\n' +
               'Data final: ' + str(data_fim.strftime("%Y-%m-%d")))
 
 #DEFINICAO MODELOS
 calibracoes = {
-                'Rio_Negro' : ['112', '114', '116', '117'],
-                'Porto_Amazonas' : ['212', '214', '216', '217'],
-                'Sao_Bento' : ['312', '314', '316', '317'],
-                'Pontilhao' : ['412', '414', '416', '417'],
-                'Santa_Cruz_Timbo' : ['512', '514', '516', '517'],
-                'Sao_Mateus_Sul' : ['612', '614', '616', '617'],
-#                'Divisa' : ['712', '714', '716', '717'],
+#                'Rio_Negro' : ['112', '114', '116', '117'],
+#                'Porto_Amazonas' : ['212', '214', '216', '217'],
+#                'Sao_Bento' : ['312', '314', '316', '317'],
+#                'Pontilhao' : ['412', '414', '416', '417'],
+#                'Santa_Cruz_Timbo' : ['512', '514', '516', '517'],
+#                'Sao_Mateus_Sul' : ['612', '614', '616', '617'],
+                'Divisa' : ['712', '714', '716', '717'],
 #                'Fluviopolis' : ['812', '814', '816', '817'],
 #                'Uniao_da_Vitoria' : ['912', '914', '916', '917'],
 #                'Madereira_Gavazzoni' : ['1010', '1012', '1014', '1015'],
@@ -38,7 +38,6 @@ calibracoes = {
 #                'Porto_Capanema' : ['2010', '2012'],
 #                'Hotel_Cataratas' : ['2110', '2112', '2114', '2115'],
             }
-
 
 horas_resumo = [1, 6] + list(np.arange(12,169,12))
 horizontes = range(168)

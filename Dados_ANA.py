@@ -2,7 +2,7 @@ import hydrobr
 import pandas as pd
 import os
 
-dir_seca = '/discolocal/bruno/Seca_Iguacu/Dados_Estacoes'
+dir_seca = '/discolocal/bruno/Dados_Cota'
 os.chdir(dir_seca)
 
 estacoes = {#'Rio_Negro':'65100000',
@@ -11,7 +11,8 @@ estacoes = {#'Rio_Negro':'65100000',
             #'Pontilhao':'65200000',
             #'Santa_Cruz_Timbo':'65295000',
             #'Sao_Mateus_Sul':'65060000',
-            'Uniao_da_Vitoria':'65310000',
+            #'Uniao_da_Vitoria':'65310000',
+            'Balsa_Nova':'65028000',
             }
 
 for estacao_nome,estacao_cod in estacoes.items():

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 import numpy as np
 import pandas as pd
 import os
@@ -13,7 +10,8 @@ import psycopg2, psycopg2.extras
 dir_seca = '/discolocal/bruno/Seca_Iguacu/Dados_Estacoes'
 dir_dados = "/discolocal/bruno/Coleta_Dados"
 dir_observado = "/discolocal/bruno/Observado"
-os.chdir(dir_observado)
+dir_cota = "/discolocal/bruno/Dados_Cota"
+os.chdir(dir_cota)
 lista = []
 
 def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
@@ -37,39 +35,19 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
     df_consulta.set_index('tempo', inplace=True)
     return df_consulta
 
-postos_vazao = {
-#                'Rio_Negro':'26064948',
-#                'Porto_Amazonas':'25334953',
-#                'Sao_Bento':'25564947',
-#                'Pontilhao':'25555031',
-#                'Santa_Cruz_Timbo':'26125049',
-#                'Sao_Mateus_Sul':'25525023',
-                'Divisa':'26055019',
-#                'Fluviopolis':'26025035',
-#                'Uniao_da_Vitoria':'26145104',
-#                'Madereira_Gavazzoni':'25485116',
-#                'Jangada':'26225115',
-                ### Foz_do_Areia':'GBM',
-#                'Solais_Novo':'26055155',
-#                'Porto_Santo_Antonio':'25235306',
-#                'Aguas_do_Vere':'25465256',
-                ### 'Segredo':'SGD',
-                ### 'Foz_do_Chopim':'FCH',
-                ### 'Santa_Clara':'SCL',
-                ### 'Salto_Caxias':'SCX',
-#                'Porto_Capanema':'25345435',
-#                'Hotel_Cataratas':'25685442'
+postos_cota = {
+                'Balsa_Nova':'25584963'
             }
 
 
 ## COLETA DADOS VAZAO
 
 
-for posto_nome, posto_codigo in postos_vazao.items():
-    print('Coletando vazao',posto_nome)
-    t_ini = dt.datetime(1997, 1, 1,  0,  0) #AAAA, M, D, H, Min
+for posto_nome, posto_codigo in postos_cota.items():
+    print('Coletando cota',posto_nome)
+    t_ini = dt.datetime(1990, 1, 1,  0,  0) #AAAA, M, D, H, Min
     t_fim = dt.datetime(2020, 9, 11, 23, 59)
-    dados=coletar_dados(t_ini,t_fim,posto_codigo,'(33)') #07 precip e 33 vazao
+    dados=coletar_dados(t_ini,t_fim,posto_codigo,'(18)') #07 precip e 33 vazao
 
     lista.append(posto_nome)
 
@@ -125,28 +103,9 @@ for posto_nome, posto_codigo in postos_vazao.items():
     table_hor[table_hor['q_m3s'] < 0] = np.nan
     table_dia[table_dia['q_m3s'] < 0] = np.nan
 
-    #importa dicionario de erros grosseiros e escolhe estacao
-    dicionario_erros = json.load(open('erros_grosseiros.txt'))
-    erros_estacao = dicionario_erros[posto_nome]
-    #trata a matriz de erros
-    try:
-        erros_estacao = np.hstack(erros_estacao)
-    except ValueError:
-        pass
-    #remove erros grosseiros da serie observada
-    table_hor.loc[pd.to_datetime(erros_estacao), 'q_m3s'] = np.nan
-
     #exporta observado para csv
-    table_hor.to_csv('vazao_'+posto_nome+'.csv')
-    #table_dia.to_csv(posto_nome+'_telemetrica.csv')
+    #table_hor.to_csv('cota_'+posto_nome+'.csv')
+    table_dia.to_csv(posto_nome+'_cota.csv')
 
-    plt.figure()
-    plt.plot(table_hor['q_m3s'], label = "Observado", linewidth = 0.3)
-    plt.title('Serie ' + posto_nome)
-    plt.xlabel('Data')
-    plt.ylabel('Q [m3s-1]')
-    plt.savefig('vazao_'+posto_nome+'.png', dpi = 300)
-    plt.close()
-
-    print(posto_nome, 'acabou - ', list(postos_vazao).index(posto_nome)+1,"/",
+    print(posto_nome, 'acabou - ', list(postos_cota).index(posto_nome)+1,"/",
           len(postos_vazao))

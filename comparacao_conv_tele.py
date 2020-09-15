@@ -4,17 +4,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-dir_seca = '/discolocal/bruno/Seca_Iguacu/Dados_Estacoes'
+dir_seca = '/discolocal/bruno/Dados_Cota'
 os.chdir(dir_seca)
 
 estacoes = {
-            'Pontilhao',
-            'Porto_Amazonas',
-            'Rio_Negro',
-            'Santa_Cruz_Timbo',
-            'Sao_Bento',
-            'Sao_Mateus_Sul',
-            'Uniao_da_Vitoria'
+#            'Pontilhao',
+#            'Porto_Amazonas',
+#            'Rio_Negro',
+#            'Santa_Cruz_Timbo',
+#            'Sao_Bento',
+#            'Sao_Mateus_Sul',
+#            'Uniao_da_Vitoria'
+            'Balsa_Nova'
              }
 
 
@@ -28,7 +29,7 @@ for estacao in estacoes:
     convencional = pd.read_csv(estacao+'_convencional.csv', sep = ',', index_col = 0)
     convencional[convencional['convencional'] < 0] = np.nan
     telemetrica = pd.read_csv(estacao+'_telemetrica.csv', sep = ',', index_col = 0)
-    telemetrica.columns = ['telemetrica']
+#    telemetrica.columns = ['telemetrica']
     telemetrica[telemetrica['telemetrica'] < 0] = np.nan
 
     comparacao = table_dia.merge(convencional, how='left', left_index=True, right_index=True)

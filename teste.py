@@ -11,15 +11,17 @@ import pytz
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_ini = dt.datetime(2019, 6, 1,  0,  0) #YYYY, M, D, H, Min
-data_fim = dt.datetime(2019, 6, 15,  23,  59)
+data_ini = dt.datetime(2016, 11, 1,  0,  0) #YYYY, M, D, H, Min
+data_fim = dt.datetime(2016, 12, 15,  23,  59)
 
 dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 dir_observado = "/discolocal/bruno/Observado"
+dir_bacias = "/discolocal/bruno/Coleta_Dados/Dados_Bacias"
+dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 os.chdir(dir_observado)
 
 
-nome_bacia = 'Santa_Cruz_Timbo'
+nome_bacia = 'Divisa'
 
 erros = []
 try:
@@ -72,3 +74,9 @@ vazao_observado = vazao_observado.drop([0, 'Year', 'Month', 'Day', 'Hora'], 1)
 
 vazao_observado
 vazao_observado
+
+teste = pd.DataFrame(np.array([[1,2,3], [-2,-8,6], [5, -1, 0]]), columns = ['a', 'b', 'c'])
+teste
+
+teste['b'] = teste['b'].clip(lower = 0)
+teste

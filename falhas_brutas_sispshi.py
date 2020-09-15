@@ -61,7 +61,7 @@ erros = {'Rio_Negro' : ['2017-05-14 00:00:00', '2017-06-01 12:00:00',
                              ],
 
          'Divisa' : [pd.date_range(start="2016-11-04 23:00:00",
-                                   end="2016-11-07 13:00:00",freq='H').format(
+                                   end="2016-11-07 14:00:00",freq='H').format(
                                        formatter=lambda x: x.strftime(
                                            '%Y-%m-%d %H:%M:%S')),
                     pd.date_range(start="2017-03-24 15:00:00",
