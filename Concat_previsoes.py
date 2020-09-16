@@ -22,7 +22,7 @@ dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 #DEFINICAO DOS MODELOS / ESTACOES A SEREM AVALIADOS
 
 calibracoes = {
-#                '112':'Rio_Negro','114':'Rio_Negro',
+                '112':'Rio_Negro','114':'Rio_Negro',
 #                '116':'Rio_Negro','117':'Rio_Negro',
 #                '212':'Porto_Amazonas','214':'Porto_Amazonas',
 #                '216':'Porto_Amazonas','217':'Porto_Amazonas',
@@ -34,8 +34,8 @@ calibracoes = {
 #                '516':'Santa_Cruz_Timbo','517':'Santa_Cruz_Timbo',
 #                '612':'Sao_Mateus_Sul','614':'Sao_Mateus_Sul',
 #                '616':'Sao_Mateus_Sul','617':'Sao_Mateus_Sul',
-                '712':'Divisa','714':'Divisa',
-                '716':'Divisa','717':'Divisa',
+#                '712':'Divisa','714':'Divisa',
+#                '716':'Divisa','717':'Divisa',
 #                '812':'Fluviopolis','814':'Fluviopolis',
 #                '816':'Fluviopolis','817':'Fluviopolis',
 #                '912':'Uniao_da_Vitoria', '914':'Uniao_da_Vitoria',

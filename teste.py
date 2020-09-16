@@ -11,8 +11,8 @@ import pytz
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_ini = dt.datetime(2016, 11, 1,  0,  0) #YYYY, M, D, H, Min
-data_fim = dt.datetime(2016, 12, 15,  23,  59)
+data_ini = dt.datetime(2020, 7, 1,  0,  0) #YYYY, M, D, H, Min
+data_fim = dt.datetime(2020, 7, 31,  23,  59)
 
 dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 dir_observado = "/discolocal/bruno/Observado"
@@ -21,7 +21,7 @@ dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 os.chdir(dir_observado)
 
 
-nome_bacia = 'Divisa'
+nome_bacia = 'Madereira_Gavazzoni'
 
 erros = []
 try:

@@ -16,19 +16,19 @@ dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 
 #DEFINICAO PERIODO ANALISE
 data_ini = dt.datetime(2015, 9, 3,  0,  0) #YYYY, M, D, H, Min
-data_fim = dt.datetime(2020, 9, 10,  23,  59)
+data_fim = dt.datetime(2020, 8, 10,  23,  59)
 data_texto = ('Data inicial: ' + str(data_ini.strftime("%Y-%m-%d")) + '\n' +
               'Data final: ' + str(data_fim.strftime("%Y-%m-%d")))
 
 #DEFINICAO MODELOS ESTACOES
 calibracoes = {
-#                'Rio_Negro' : ['112', '114', '116', '117'],
+                'Rio_Negro' : ['112', '114', '116', '117'],
 #                'Porto_Amazonas' : ['212', '214', '216', '217'],
 #                'Sao_Bento' : ['312', '314', '316', '317'],
 #                'Pontilhao' : ['412', '414', '416', '417'],
 #                'Santa_Cruz_Timbo' : ['512', '514', '516', '517'],
 #                'Sao_Mateus_Sul' : ['612', '614', '616', '617'],
-                'Divisa' : ['712', '714', '716', '717'],
+#                'Divisa' : ['712', '714', '716', '717'],
 #                'Fluviopolis' : ['812', '814', '816', '817'],
 #                'Uniao_da_Vitoria' : ['912', '914', '916', '917'],
 #                'Madereira_Gavazzoni' : ['1010', '1012', '1014', '1015'],
@@ -40,12 +40,12 @@ calibracoes = {
 #                'Hotel_Cataratas' : ['2110', '2112', '2114', '2115'],
             }
 calibracoes_usinas ={
-                'GBM' : ['1210', '1212', '1214', '1215', '1218', '1219'],
-                'SGD' : ['1610', '1612', '1614', '1615'],
-                'FCH' : ['1710', '1712', '1714', '1715'],
-                'SCL' : ['1810', '1812'],
-                'SCX' : ['1910', '1912'],
-}
+#                'GBM' : ['1210', '1212', '1214', '1215', '1218', '1219'],
+#                'SGD' : ['1610', '1612', '1614', '1615'],
+#                'FCH' : ['1710', '1712', '1714', '1715'],
+#                'SCL' : ['1810', '1812'],
+#                'SCX' : ['1910', '1912'],
+                    }
 
 horas_resumo = [1, 6] + list(np.arange(12,169,12))
 horizontes = range(168)
@@ -92,8 +92,8 @@ for nome_bacia, modelos in calibracoes.items():
                 pd.read_csv("Cod_"+modelo+"_Horizonte_"+str(horizonte)+".csv",
                             header = 0, index_col = 0))
             #junta com vazao observada
-            gbl["avaliacao_"+modelo+str(horizonte)] = gbl[
-                "avaliacao_"+modelo+str(horizonte)].merge(serie_observada[
+            gbl["avaliacao_"+modelo+"_"+str(horizonte)] = gbl[
+                "avaliacao_"+modelo+"_"+str(horizonte)].merge(serie_observada[
                     'q_m3s'],how='left',left_index=True,right_index=True)
             #remove linhas sem Valor observado
             gbl["avaliacao_"+modelo+"_"+str(horizonte)] = gbl[
@@ -215,8 +215,8 @@ for nome_bacia, modelos in calibracoes_usinas.items():
                 pd.read_csv("Cod_"+modelo+"_Horizonte_"+str(horizonte)+".csv",
                             header = 0, index_col = 0))
             #junta com vazao observada
-            gbl["avaliacao_"+modelo+str(horizonte)] = gbl[
-                "avaliacao_"+modelo+str(horizonte)].merge(serie_observada[
+            gbl["avaliacao_"+modelo+"_"+str(horizonte)] = gbl[
+                "avaliacao_"+modelo+"_"+str(horizonte)].merge(serie_observada[
                     'q_m3s'],how='left',left_index=True,right_index=True)
             #remove linhas sem Valor observado
             gbl["avaliacao_"+modelo+"_"+str(horizonte)] = gbl[
