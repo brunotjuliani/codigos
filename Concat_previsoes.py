@@ -60,7 +60,7 @@ calibracoes_usinas ={
 #                '1610':'SGD', '1612':'SGD', '1614':'SGD', '1615':'SGD',
 #                '1710':'FCH', '1712':'FCH', '1714':'FCH', '1715':'FCH',
 #                '1810':'SCL', '1812':'SCL',
-#                '1910':'SCX', '1910':'SCX',
+#                '1910':'SCX', '1912':'SCX',
 }
 
 
@@ -180,15 +180,6 @@ for calibracao_cod, estacao_nome in calibracoes.items():
                 gbl["Cod_" + str(calibracao_cod)+'_Horizonte_'+
                     str(horizonte)]['Codigo']==int(calibracao_cod))].sort_index(
                     ).dropna())
-        #importa e junta observado e previsao
-        os.chdir(dir_observado)
-        vazao_observado = pd.read_csv("vazao_"+estacao_nome+".csv",
-                                      index_col = 0).rename(columns = {
-                                          'q_m3s':'vazao_obs'})
-        gbl["Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)] = gbl[
-            "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)].merge(
-                vazao_observado['vazao_obs'],how='left', left_index=True,
-                right_index=True)
         #le arquivo antigo
 #        gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)] = pd.read_csv(
 #            "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)+".csv",
@@ -311,22 +302,6 @@ for calibracao_cod, estacao_nome in calibracoes_usinas.items():
                 gbl["Cod_" + str(calibracao_cod)+'_Horizonte_'+
                     str(horizonte)]['Codigo']==int(calibracao_cod))].sort_index(
                     ).dropna())
-        #importa e junta observado e previsao
-        os.chdir(dir_usinas)
-        vazao_observado = pd.read_csv(estacao_nome+".txt", header = None, skiprows = 1)
-        vazao_observado['Year'] = vazao_observado[0].str.slice(0,4)
-        vazao_observado['Month'] = vazao_observado[0].str.slice(5,7)
-        vazao_observado['Day'] = vazao_observado[0].str.slice(8,10)
-        vazao_observado['Hora'] = vazao_observado[0].str.slice(11,13).astype(str).astype(int)
-        vazao_observado['vazao_obs'] = pd.to_numeric(vazao_observado[0].str.slice(14,22), errors = 'coerce')
-        vazao_observado['Data'] = pd.to_datetime(vazao_observado[['Year', 'Month', 'Day']]) + pd.to_timedelta(vazao_observado['Hora'], unit = 'h')
-        vazao_observado = vazao_observado.set_index('Data')
-        vazao_observado = vazao_observado.drop([0, 'Year', 'Month', 'Day', 'Hora'], 1)
-        vazao_observado = vazao_observado[vazao_observado['vazao_obs'] >= 0]
-        gbl["Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)] = gbl[
-            "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)].merge(
-                vazao_observado['vazao_obs'],how='left', left_index=True,
-                right_index=True)
         #le arquivo antigo
 #        gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)] = pd.read_csv(
 #            "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)+".csv",
