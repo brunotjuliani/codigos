@@ -145,16 +145,16 @@ for posto_nome, posto_codigo in postos_vazao.items():
     table_dia[table_dia['q_m3s'] < 0] = np.nan
     table_dia[table_dia['m'] < 0] = np.nan
 
-#    #importa dicionario de erros grosseiros e escolhe estacao
-#    dicionario_erros = json.load(open('erros_grosseiros.txt'))
-#    erros_estacao = dicionario_erros[posto_nome]
-#    #trata a matriz de erros
-#    try:
-#        erros_estacao = np.hstack(erros_estacao)
-#    except ValueError:
-#        pass
-#    #remove erros grosseiros da serie observada
-#    table_hor.loc[pd.to_datetime(erros_estacao), 'q_m3s'] = np.nan
+    #importa dicionario de erros grosseiros e escolhe estacao
+    dicionario_erros = json.load(open('erros_grosseiros.txt'))
+    erros_estacao = dicionario_erros[posto_nome]
+    #trata a matriz de erros
+    try:
+        erros_estacao = np.hstack(erros_estacao)
+    except ValueError:
+        pass
+    #remove erros grosseiros da serie observada
+    table_hor.loc[pd.to_datetime(erros_estacao), 'q_m3s'] = np.nan
 
     #exporta observado para csv
     table_hor.to_csv('vazao_'+posto_nome+'.csv')
