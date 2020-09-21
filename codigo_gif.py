@@ -6,8 +6,8 @@ import os
 
 
 #DEFINE VARIAVEIS
-modelo = "NCEP_WRF5K" #COPEL / ECMWF / NCEP_WRF5K
-data = "2020-09-18"
+modelo = "ECMWF" #COPEL / ECMWF / NCEP_WRF5K
+data = "2020-09-21"
 diretorio = "/discolocal/bruno/Mapas_Chuva/"+modelo+"/"+data
 
 
@@ -21,7 +21,7 @@ for filename in sorted(glob.glob(diretorio+"/*.png")):
     img_array.append(img)
 
 
-out = cv2.VideoWriter(modelo+"_"+data+'.mp4',cv2.VideoWriter_fourcc(*'MP4V'), 1.1, size)
+out = cv2.VideoWriter(modelo+"_"+data+'.avi',cv2.VideoWriter_fourcc(*'MJPG'), 1.1, size)
 
 for i in range(len(img_array)):
     out.write(img_array[i])

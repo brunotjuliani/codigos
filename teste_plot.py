@@ -12,7 +12,7 @@ from dateutil.relativedelta import relativedelta
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_ini = dt.datetime(2015, 1, 1,  0,  0) #YYYY, M, D, H, Min
+data_ini = dt.datetime(1997, 1, 1,  0,  0) #YYYY, M, D, H, Min
 data_fim = dt.datetime(2020, 8, 31,  23,  59)
 
 dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
@@ -22,7 +22,7 @@ dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 os.chdir(dir_observado)
 
 
-nome_bacia = 'Uniao_da_Vitoria'
+nome_bacia = 'Rio_Negro'
 
 erros = []
 try:
