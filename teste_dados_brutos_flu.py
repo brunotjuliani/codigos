@@ -42,12 +42,12 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
     return df_consulta
 
 postos_vazao = {
-                'Rio_Negro':'26064948',
+#                'Rio_Negro':'26064948',
 #                'Porto_Amazonas':'25334953',
 #                'Sao_Bento':'25564947',
 #                'Pontilhao':'25555031',
 #                'Santa_Cruz_Timbo':'26125049',
-#                'Sao_Mateus_Sul':'25525023',
+                'Sao_Mateus_Sul':'25525023',
 #                'Divisa':'26055019',
 #                'Fluviopolis':'26025035',
 #                'Uniao_da_Vitoria':'26145104',
@@ -180,3 +180,5 @@ df
 df2 = df.groupby((df['m'].shift()!=df['m']).cumsum()).filter(lambda x: len(x) >= 96)
 df['m'] = np.where(df.index.isin(df2.index),np.nan,df['m'])
 df.dropna()
+
+df
