@@ -72,7 +72,7 @@ for calibracao_cod, estacao_nome in calibracoes.items():
 #DEFINE PERIODO DE AVALIACAO
 
 data_inicio = "2015-09-03" #YYYY-MM-DD
-data_fim = "2020-09-17" #YYYY-MM-DD
+data_fim = "2020-09-23" #YYYY-MM-DD
 periodo = pd.date_range(data_inicio, data_fim)
 periodo = pd.DataFrame(periodo)
 periodo.columns = ["Data"]
@@ -180,10 +180,13 @@ for calibracao_cod, estacao_nome in calibracoes.items():
                 gbl["Cod_" + str(calibracao_cod)+'_Horizonte_'+
                     str(horizonte)]['Codigo']==int(calibracao_cod))].sort_index(
                     ).dropna())
-        #le arquivo antigo
+#        #le arquivo antigo
 #        gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)] = pd.read_csv(
 #            "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)+".csv",
 #            index_col = "Data")
+#        gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)
+#            ].index = pd.to_datetime(gbl["Antigo_"+str(calibracao_cod)+"_h_"+
+#                                         str(horizonte)].index)
 #        #juncao com novas datas
 #        gbl["Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)] =pd.concat(
 #            [gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)],
@@ -302,10 +305,13 @@ for calibracao_cod, estacao_nome in calibracoes_usinas.items():
                 gbl["Cod_" + str(calibracao_cod)+'_Horizonte_'+
                     str(horizonte)]['Codigo']==int(calibracao_cod))].sort_index(
                     ).dropna())
-        #le arquivo antigo
+#        #le arquivo antigo
 #        gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)] = pd.read_csv(
 #            "Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)+".csv",
 #            index_col = "Data")
+#        gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)
+#            ].index = pd.to_datetime(gbl["Antigo_"+str(calibracao_cod)+"_h_"+
+#                                         str(horizonte)].index)
 #        #juncao com novas datas
 #        gbl["Cod_"+str(calibracao_cod)+'_Horizonte_'+str(horizonte)] =pd.concat(
 #            [gbl["Antigo_"+str(calibracao_cod)+"_h_"+str(horizonte)],

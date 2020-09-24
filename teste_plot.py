@@ -12,8 +12,8 @@ from dateutil.relativedelta import relativedelta
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_ini = dt.datetime(1997, 1, 1,  0,  0) #YYYY, M, D, H, Min
-data_fim = dt.datetime(2020, 8, 31,  23,  59)
+data_ini = dt.datetime(2019, 5, 1,  0,  0) #YYYY, M, D, H, Min
+data_fim = dt.datetime(2019, 6, 30,  23,  59)
 
 dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 dir_observado = "/discolocal/bruno/Observado"
@@ -22,14 +22,14 @@ dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 os.chdir(dir_observado)
 
 
-nome_bacia = 'Rio_Negro'
+nome_bacia = 'Uniao_da_Vitoria'
 
 erros = []
 try:
     erros = np.hstack(erros)
 except ValueError:
     pass
-for i in range(68):
+for i in range((pd.to_datetime(data_fim).to_period('M') - pd.to_datetime(data_ini).to_period('M')).n +1):
     serie_observada = pd.read_csv('vazao_'+nome_bacia+'.csv', index_col=0)
     serie_observada.index = pd.to_datetime(serie_observada.index)
     serie_observada.loc[pd.to_datetime(erros), 'q_m3s'] = np.nan
