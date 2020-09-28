@@ -73,20 +73,23 @@ lista_ottos = {
 #    'B05_Santa_Cruz_do_Timbo' : '86261713',
 #    'B06_Sao_Mateus_do_Sul' : '8628139',
 #    'B07_Divisa' : '86293533',
-    'B08_Fluviopolis' : '8627739',
-    'B09_Uniao_da_Vitoria' : '8625971',
-    'B10_Madeireira_Gavazoni' : '86256571',
-    'B11_Jangada' : '8625837331',
-    'B12_Foz_do_Areia' : '86255935',
-    'B13_Solais_Novo' : '862543393',
-    'B14_Porto_Santo_Antonio' : '862181913',
-    'B15_Aguas_do_Vere' : '8622173513',
-    'B16_Segredo' : '8625119',
-    'B17_Foz_do_Chopim' : '862211193',
-    'B18_Santa_Clara' : '86243353',
-    'B19_Salto_Caxias' : '862173153',
-    'B20_Porto_Capanema' : '86213193',
-    'B21_Hotel_Cataratas' : '8621115193'
+#    'B08_Fluviopolis' : '8627739',
+#    'B09_Uniao_da_Vitoria' : '8625971',
+#    'B10_Madeireira_Gavazoni' : '86256571',
+#    'B11_Jangada' : '8625837331',
+#    'B12_Foz_do_Areia' : '86255935',
+#    'B13_Solais_Novo' : '862543393',
+#    'B14_Porto_Santo_Antonio' : '862181913',
+#    'B15_Aguas_do_Vere' : '8622173513',
+#    'B16_Segredo' : '8625119',
+#    'B17_Foz_do_Chopim' : '862211193',
+#    'B18_Santa_Clara' : '86243353',
+#    'B19_Salto_Caxias' : '862173153',
+#    'B20_Porto_Capanema' : '86213193',
+#    'B21_Hotel_Cataratas' : '8621115193'
+#    'Piraquara_II' : '8628981991',
+#    'Irai' : '8628993151',
+    'Passauna' : '862858355'
 }
 for noexutorio, coexutorio in lista_ottos.items():
     print("Iniciando Bacia ",noexutorio)

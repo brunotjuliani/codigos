@@ -44,14 +44,134 @@ lista_4_montantes = {
                               'B17_Foz_do_Chopim', 'B14_Porto_Santo_Antonio']
 }
 
-baciaprincipal = 'B06_Sao_Mateus_do_Sul'
-baciamontante1 = 'B02_Porto_Amazonas'
+'''
+for baciaprincipal, codigo in lista_cabeceiras.items():
+    areabaciaprincipal = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciaprincipal+'.shp' , layer=0)
+    areabaciaprincipal.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Otto/'+
+        baciaprincipal+'_otto.shp')
+    areabaciaprincipal['Dissolve'] = 0
+    areabaciaprincipal = areabaciaprincipal.dissolve(by = 'Dissolve')
+    areabaciaprincipal.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Limite/'+
+        baciaprincipal+'_limites.shp')
+'''
 
-areabaciaprincipal = gpd.read_file(
-    '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
-    baciaprincipal+'.shp' , layer=0)
-areabaciamontante1 = gpd.read_file(
-    '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
-    baciamontante1+'.shp' , layer=0)
-areadiferenca = gpd.overlay(areabaciaprincipal, areabaciamontante1, how = 'difference')
-areadiferenca.to_file('/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/'+baciaprincipal+'.shp')
+'''
+for baciaprincipal, montantes in lista_1_montante.items():
+    baciamontante1 = montantes[0]
+    areabaciaprincipal = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciaprincipal+'.shp' , layer=0)
+    areabaciamontante1 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante1+'.shp' , layer=0)
+    areamontante = areabaciamontante1
+    areadiferenca = gpd.overlay(areabaciaprincipal, areamontante,
+                                how = 'difference')
+    areadiferenca.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Otto/'+
+        baciaprincipal+'_otto.shp')
+    areadiferenca['Dissolve'] = 0
+    areadiferenca = areadiferenca.dissolve(by = 'Dissolve')
+    areadiferenca.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Limite/'+
+        baciaprincipal+'_limites.shp')
+'''
+
+'''
+for baciaprincipal, montantes in lista_2_montantes.items():
+    baciamontante1 = montantes[0]
+    baciamontante2 = montantes[1]
+    areabaciaprincipal = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciaprincipal+'.shp' , layer=0)
+    areabaciamontante1 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante1+'.shp' , layer=0)
+    areabaciamontante2 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante2+'.shp' , layer=0)
+    areamontante = gpd.overlay(areabaciamontante1, areabaciamontante2,
+                                how = 'union')
+    areadiferenca = gpd.overlay(areabaciaprincipal, areamontante,
+                                how = 'difference')
+    areadiferenca.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Otto/'+
+        baciaprincipal+'_otto.shp')
+    areadiferenca['Dissolve'] = 0
+    areadiferenca = areadiferenca.dissolve(by = 'Dissolve')
+    areadiferenca.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Limite/'+
+        baciaprincipal+'_limites.shp')
+'''
+
+'''
+for baciaprincipal, montantes in lista_3_montantes.items():
+    baciamontante1 = montantes[0]
+    baciamontante2 = montantes[1]
+    baciamontante3 = montantes[2]
+    areabaciaprincipal = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciaprincipal+'.shp' , layer=0)
+    areabaciamontante1 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante1+'.shp' , layer=0)
+    areabaciamontante2 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante2+'.shp' , layer=0)
+    areabaciamontante3 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante3+'.shp' , layer=0)
+    areamontante = gpd.overlay(areabaciamontante1, areabaciamontante2,
+                                how = 'union')
+    areamontante = gpd.overlay(areamontante, areabaciamontante3, how = 'union')
+    areadiferenca = gpd.overlay(areabaciaprincipal, areamontante,
+                                how = 'difference')
+    areadiferenca.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Otto/'+
+        baciaprincipal+'_otto.shp')
+    areadiferenca['Dissolve'] = 0
+    areadiferenca = areadiferenca.dissolve(by = 'Dissolve')
+    areadiferenca.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Limite/'+
+        baciaprincipal+'_limites.shp')
+'''
+
+for baciaprincipal, montantes in lista_4_montantes.items():
+    baciamontante1 = montantes[0]
+    baciamontante2 = montantes[1]
+    baciamontante3 = montantes[2]
+    baciamontante4 = montantes[3]
+    areabaciaprincipal = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciaprincipal+'.shp' , layer=0)
+    areabaciamontante1 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante1+'.shp' , layer=0)
+    areabaciamontante2 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante2+'.shp' , layer=0)
+    areabaciamontante3 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante3+'.shp' , layer=0)
+    areabaciamontante4 = gpd.read_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+
+        baciamontante4+'.shp' , layer=0)
+    areamontante1 = gpd.overlay(areabaciamontante1, areabaciamontante2,
+                                how = 'union')
+    areamontante2 = gpd.overlay(areabaciamontante3, areabaciamontante4,
+                                how = 'union')
+    areamontante = gpd.overlay(areamontante1, areamontante2, how = 'union')
+    areadiferenca = gpd.overlay(areabaciaprincipal, areamontante,
+                                how = 'difference')
+    areadiferenca.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Otto/'+
+        baciaprincipal+'_otto.shp')
+    areadiferenca['Dissolve'] = 0
+    areadiferenca = areadiferenca.dissolve(by = 'Dissolve')
+    areadiferenca.to_file(
+        '/discolocal/bruno/Shapefiles/Otto_Sispshi2/Areas_Isoladas/Limite/'+
+        baciaprincipal+'_limites.shp')
