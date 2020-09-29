@@ -12,8 +12,8 @@ from dateutil.relativedelta import relativedelta
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_ini = dt.datetime(2019, 5, 1,  0,  0) #YYYY, M, D, H, Min
-data_fim = dt.datetime(2019, 6, 30,  23,  59)
+data_inicial = dt.datetime(2003, 1, 1,  0,  0) #YYYY, M, D, H, Min
+data_final = dt.datetime(2003, 12, 31,  23,  59)
 
 dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 dir_observado = "/discolocal/bruno/Observado"
@@ -22,15 +22,20 @@ dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 os.chdir(dir_observado)
 
 
-nome_bacia = 'Uniao_da_Vitoria'
+nome_bacia = 'Rio_Negro'
 
-erros = []
+erros = [
+
+
+         ]
 try:
     erros = np.hstack(erros)
 except ValueError:
     pass
-for i in range((pd.to_datetime(data_fim).to_period('M') - pd.to_datetime(data_ini).to_period('M')).n +1):
-    serie_observada = pd.read_csv('vazao_'+nome_bacia+'.csv', index_col=0)
+data_ini = data_inicial
+data_fim = data_ini + relativedelta(days=+10)
+while data_ini <= data_final:
+    serie_observada = pd.read_csv('vazao_'+nome_bacia+'_15min.csv', index_col=0)
     serie_observada.index = pd.to_datetime(serie_observada.index)
     serie_observada.loc[pd.to_datetime(erros), 'q_m3s'] = np.nan
     serie_observada = serie_observada.loc[str(data_ini) : str(data_fim)]
@@ -48,5 +53,5 @@ for i in range((pd.to_datetime(data_fim).to_period('M') - pd.to_datetime(data_in
                  bbox=dict(facecolor='white', alpha=0.8),
                  horizontalalignment='right', verticalalignment='top')
     plt.show()
-    data_ini = data_ini + relativedelta(months=+1)
-    data_fim = data_ini + relativedelta(months=+1)
+    data_ini = data_fim
+    data_fim = data_ini + relativedelta(days=+10)

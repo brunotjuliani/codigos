@@ -85,94 +85,33 @@ for posto_nome, posto_codigo in postos_vazao.items():
     #REMOVE COTAS CONSTANTES ------ AQUI APLICADO PARA 96 OBSERVACOES DE 15 MIN - 24 HORAS
     dados2 = dados.groupby((dados['cota'].shift()!=dados['cota']).cumsum()
                            ).filter(lambda x: len(x) >= 96)
-    dados['cota'] = np.where(dados.index.isin(dados2.index),
-                             np.nan,dados['cota'])
+    dados['cota'] = np.where(dados.index.isin(dados2.index),np.nan,dados['cota'])
     dados = dados.dropna()
-
-
-    lista.append(posto_nome)
+    dados.columns = ['m', 'q_m3s']
+    #REMOVE DADOS NEGATIVOS
+    dados[dados['q_m3s'] < 0] = np.nan
+    dados[dados['m'] < 0] = np.nan
+    #converte para hora local - GMT-3 - timezone('America/Sao_Paulo')
+    dados.index = pd.to_datetime(dados.index)
+    dados.index = (dados.index.tz_localize(pytz.utc).
+                   tz_convert(pytz.timezone('America/Sao_Paulo')).
+                   strftime("%Y-%m-%d %X"))
+    dados.index = pd.to_datetime(dados.index)
+    dados["q_m3s"] = pd.to_numeric(dados["q_m3s"], downcast="float")
+    dados["m"] = pd.to_numeric(dados["m"], downcast = "float")
 
     # cria DFs padrão de data, para serem preenchidas com os dados baixados
-    date_rng_horario = pd.date_range(start=t_ini, end=t_fim, freq='H')
-    table_hor = pd.DataFrame(date_rng_horario, columns=['date'])
-    table_hor['Datetime']= pd.to_datetime(table_hor['date'])
-    table_hor = table_hor.set_index('Datetime')
-    table_hor.drop(['date'], axis=1, inplace = True)
+    date_rng_15min = pd.date_range(start=t_ini, end=t_fim, freq='15min')
+    table_15min = pd.DataFrame(date_rng_15min, columns=['date'])
+    table_15min['Datetime']= pd.to_datetime(table_15min['date'])
+    table_15min = table_15min.set_index('Datetime')
+    table_15min.drop(['date'], axis=1, inplace = True)
 
-    date_rng_diario = pd.date_range(start=t_ini, end=t_fim, freq='D')
-    table_dia = pd.DataFrame(date_rng_diario, columns=['date'])
-    table_dia['Datetime']= pd.to_datetime(table_dia['date'])
-    table_dia = table_dia.set_index('Datetime')
-    table_dia.drop(['date'], axis=1, inplace = True)
-
-    df = dados
-    df.columns = ['m', 'q_m3s']
-    df.drop(df.tail(1).index, inplace=True)
-    df['count'] = 1
-    df.index = pd.to_datetime(df.index)
-    #converte para hora local - GMT-3 - timezone('America/Sao_Paulo')
-    df.index = (df.index.tz_localize(pytz.utc).
-                tz_convert(pytz.timezone('America/Sao_Paulo')).
-                strftime("%Y-%m-%d %X"))
-    df.index = pd.to_datetime(df.index)
-    df["q_m3s"] = pd.to_numeric(df["q_m3s"], downcast="float")
-    df["m"] = pd.to_numeric(df["m"], downcast = "float")
-
-
-    # agrupa em dados horarios, com intervalo fechado à direita (acumulado/media da 0:01 a 1:00);
-    # coluna count resulta a soma (contagem) dos "1", coluna valor resulta na media dos valores;
-    # para os valores de cont < 2, substitui o dado em 'valor' por NaN:
-    df_horario = (df.resample("H", closed='right', label='right').
-                  agg({'count' : np.sum, 'q_m3s' : np.mean, 'm' : np.mean}))
-    df_horario.loc[df_horario['count'] < 2, ['q_m3s']] = np.nan
-    df_horario.loc[df_horario['count'] < 2, ['m']] = np.nan
-
-    # cria coluna com valores 1;
-    # agrupa em dados diarios, com intervalo fechado à direita (acumulado/media da 1:00 a 0:00);
-    # coluna count resulta a soma (contagem) dos "1", coluna valor resulta na media dos valores;
-    # para os valores de cont < 12, substitui o dado em 'valor' por NaN:
-    df_horario['count'] = 1
-    df_diario = (df_horario.resample("D", closed='left').
-                 agg({'count':np.sum, 'q_m3s' : np.mean, 'm' : np.mean}))
-    df_diario.loc[df_diario['count'] < 12, ['q_m3s']] = np.nan
-    df_diario.loc[df_diario['count'] < 12, ['m']] = np.nan
-
-    # remove colunas 'count' dos dataframes
-    df.drop(df_horario.columns[0], axis=1, inplace=True)
-    df_horario.drop(df_horario.columns[0], axis=1, inplace=True)
-    df_diario.drop(df_diario.columns[0], axis=1, inplace=True)
-
-    table_hor = pd.concat([table_hor, df_horario], axis=1)
-    table_dia = pd.concat([table_dia, df_diario], axis=1)
-
-    #remove dados negativos
-    table_hor[table_hor['q_m3s'] < 0] = np.nan
-    table_hor[table_hor['m'] < 0] = np.nan
-    table_dia[table_dia['q_m3s'] < 0] = np.nan
-    table_dia[table_dia['m'] < 0] = np.nan
-
-    #importa dicionario de erros grosseiros e escolhe estacao
-    dicionario_erros = json.load(open('erros_grosseiros.txt'))
-    erros_estacao = dicionario_erros[posto_nome]
-    #trata a matriz de erros
-    try:
-        erros_estacao = np.hstack(erros_estacao)
-    except ValueError:
-        pass
-    #remove erros grosseiros da serie observada
-    table_hor.loc[pd.to_datetime(erros_estacao), 'q_m3s'] = np.nan
+    df_15min = pd.merge(table_15min, dados, how='left',
+                        left_index=True, right_index=True)
 
     #exporta observado para csv
-    table_hor.to_csv('vazao_'+posto_nome+'.csv')
-    #table_dia.to_csv(posto_nome+'_telemetrica.csv')
-
-    plt.figure()
-    plt.plot(table_hor['q_m3s'], label = "Observado", linewidth = 0.3)
-    plt.title('Serie ' + posto_nome)
-    plt.xlabel('Data')
-    plt.ylabel('Q [m3s-1]')
-    plt.savefig('vazao_'+posto_nome+'.png', dpi = 300)
-    plt.close()
+    df_15min.to_csv('vazao_'+posto_nome+'_15min.csv')
 
     print(posto_nome, 'acabou - ', list(postos_vazao).index(posto_nome)+1,"/",
           len(postos_vazao))

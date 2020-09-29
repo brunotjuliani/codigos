@@ -8,7 +8,18 @@ os.chdir(dir_observado)
 #detalha horario de erros grosseiros a partir de 2015
 #ultima atualizacao 31/08/2020
 #pd.date_range(start="2019-01-11 08:00:00",end="2019-01-15 11:00:00",freq='H').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
-erros = {'Rio_Negro' : [
+erros = {'Rio_Negro' : [pd.date_range(start="2000-05-09 08:00:00",
+                                      end="2000-06-17 22:00:00",
+                                      freq='H').format(
+                                          formatter=lambda x: x.strftime(
+                                              '%Y-%m-%d %H:%M:%S')),
+                        pd.date_range(start="2000-08-14 13:00:00",end="2000-08-16 01:00:00",freq='H').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+                        pd.date_range(start="2000-11-10 18:00:00",end="2000-11-11 14:00:00",freq='H').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+                        pd.date_range(start="2000-12-27 17:00:00",end="2000-12-29 12:00:00",freq='H').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+                        pd.date_range(start="2001-05-03 19:00:00",end="2001-05-04 15:00:00",freq='H').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+                        '2001-05-14 15:00:00', '2001-05-14 16:00:00', '2002-04-01 17:00:00', '2002-04-01 18:00:00'
+
+
                         ],
 
          'Porto_Amazonas' : ['2017-11-17 00:00:00', '2017-11-17 01:00:00',
