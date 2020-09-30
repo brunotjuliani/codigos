@@ -110,6 +110,18 @@ for posto_nome, posto_codigo in postos_vazao.items():
     df_15min = pd.merge(table_15min, dados, how='left',
                         left_index=True, right_index=True)
 
+    #importa dicionario de erros grosseiros e escolhe estacao
+    dicionario_erros = json.load(open('erros_grosseiros_15min.txt'))
+    erros_estacao = dicionario_erros[posto_nome]
+    #trata a matriz de erros
+    try:
+        erros_estacao = np.hstack(erros_estacao)
+    except ValueError:
+        pass
+    #remove erros grosseiros da serie observada
+    df_15min.loc[pd.to_datetime(erros_estacao), 'q_m3s'] = np.nan
+    df_15min.loc[pd.to_datetime(erros_estacao), 'm'] = np.nan
+
     #exporta observado para csv
     df_15min.to_csv('vazao_'+posto_nome+'_15min.csv')
 
