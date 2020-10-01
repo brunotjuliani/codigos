@@ -65,7 +65,7 @@ postos_vazao = {
 
 ## COLETA DADOS VAZAO
 
-
+########## SERIES 15 MIN ##########
 for posto_nome, posto_codigo in postos_vazao.items():
     print('Coletando vazao',posto_nome)
     t_ini = dt.datetime(1997, 1, 1,  0,  0) #AAAA, M, D, H, Min

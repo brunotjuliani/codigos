@@ -39,6 +39,7 @@ erros = {'Rio_Negro' : [
                         ],
 
          'Porto_Amazonas' : [
+                             ],
 
          'Sao_Bento' : [
                         ],
