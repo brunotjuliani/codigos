@@ -14,8 +14,8 @@ os.chdir(dir_observado)
 lista = []
 
 postos_vazao = {
-                'Rio_Negro':'26064948',
-#                'Porto_Amazonas':'25334953',
+#                'Rio_Negro':'26064948',
+                'Porto_Amazonas':'25334953',
 #                'Sao_Bento':'25564947',
 #                'Pontilhao':'25555031',
 #                'Santa_Cruz_Timbo':'26125049',
@@ -44,7 +44,7 @@ for posto_nome, posto_codigo in postos_vazao.items():
     bruto_15min.index = pd.to_datetime(bruto_15min.index)
 
     #cria DFs padrao horario para ser preenchido com os dados de 15 min
-    t_ini = bruto_15min.index[0]
+    t_ini = dt.datetime(2000, 1, 1,  0,  0)
     t_fim = bruto_15min.index[-1]
     date_rng_horario = pd.date_range(start=t_ini, end=t_fim, freq='H')
     table_hor = pd.DataFrame(date_rng_horario, columns=['date'])
@@ -63,7 +63,9 @@ for posto_nome, posto_codigo in postos_vazao.items():
 
     # remove colunas 'count' dos dataframes e agrupa com data padrao
     df_horario.drop('count', axis=1, inplace=True)
-    table_hor = pd.concat([table_hor, df_horario], axis=1)
+    table_hor = pd.merge(table_hor, df_horario, left_index = True,
+                         right_index = True, how = 'left')
+    table_hor = table_hor[~table_hor.index.duplicated(keep='first')]
 
     #exporta observado para csv
     table_hor.to_csv('vazao_'+posto_nome+'_1h.csv')

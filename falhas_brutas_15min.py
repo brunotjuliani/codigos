@@ -39,6 +39,37 @@ erros = {'Rio_Negro' : [
                         ],
 
          'Porto_Amazonas' : [
+             '2000-01-22 00:15:00',
+             '2000-11-18 14:45:00',
+             pd.date_range(start="2001-02-18 00:00:00",end="2001-02-19 20:45:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             pd.date_range(start="2001-02-27 23:45:00",end="2001-03-09 23:45:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             pd.date_range(start="2001-03-27 11:30:00",end="2001-03-28 11:45:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             pd.date_range(start="2001-08-09 10:15:00",end="2001-08-09 16:15:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             '2001-11-05 23:30:00',
+             pd.date_range(start="2002-06-12 14:30:00",end="2002-06-12 19:00:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             '2002-10-29 10:15:00',
+             '2004-08-31 06:45:00',
+             '2005-04-15 18:45:00',
+             '2005-06-22 06:45:00',
+             '2005-07-18 03:00:00',
+             '2005-07-25 19:45:00',
+             '2005-12-04 15:30:00',
+             '2009-03-27 17:15:00',
+             pd.date_range(start="2010-02-18 15:15:00",end="2010-02-25 14:00:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             pd.date_range(start="2010-07-15 08:00:00",end="2010-07-15 11:15:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             pd.date_range(start="2010-09-03 11:45:00",end="2010-09-09 15:45:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             pd.date_range(start="2012-01-05 15:45:00",end="2012-01-05 23:30:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             pd.date_range(start="2012-01-11 11:45:00",end="2012-01-11 12:45:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             '2012-10-23 18:15:00',
+             pd.date_range(start="2014-11-01 17:30:00",end="2014-11-04 15:00:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             '2015-02-18 18:30:00',
+             '2016-04-18 14:45:00',
+             pd.date_range(start="2017-11-16 23:15:00",end="2017-11-17 00:15:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             pd.date_range(start="2017-12-27 00:30:00",end="2017-12-27 01:45:00",freq='15min').format(formatter=lambda x: x.strftime('%Y-%m-%d %H:%M:%S')),
+             '2019-03-22 10:15:00',
+             '2019-09-10 14:45:00',
+             '2020-05-06 11:15:00',
+             '2020-05-06 11:30:00',
                              ],
 
          'Sao_Bento' : [
@@ -83,4 +114,4 @@ erros = {'Rio_Negro' : [
 
                   }
 
-json.dump(erros, open('erros_grosseiros_15min.txt', 'w'))
+json.dump(erros, open('erros_grosseiros_15min.txt', 'w'),indent = 2)

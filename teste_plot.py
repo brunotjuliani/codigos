@@ -23,7 +23,7 @@ dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 os.chdir(dir_observado)
 
 
-nome_bacia = 'Rio_Negro'
+nome_bacia = 'Porto_Amazonas'
 
 data_ini = data_inicial
 data_fim = data_ini + relativedelta(days=+10)
@@ -34,12 +34,12 @@ while data_ini <= data_final:
     serie_observada
 
     plt.figure()
-    plt.plot(serie_observada['q_m3s'], label = "Observado", linewidth = 0.5)
+    plt.plot(serie_observada['m'], label = "Observado", linewidth = 0.5)
     plt.title('Serie ' + nome_bacia, loc = 'left')
     plt.xlabel('Data')
-    plt.ylabel('Q [m3s-1]')
+    plt.ylabel('Nivel [m]')
     # Format the date into months & days
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d-%Y'))
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     # Change the tick interval
     plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=1))
     # Puts x-axis labels on an angle

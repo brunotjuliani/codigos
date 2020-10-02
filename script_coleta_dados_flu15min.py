@@ -39,8 +39,8 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
     return df_consulta
 
 postos_vazao = {
-                'Rio_Negro':'26064948',
-#                'Porto_Amazonas':'25334953',
+#                'Rio_Negro':'26064948',
+                'Porto_Amazonas':'25334953',
 #                'Sao_Bento':'25564947',
 #                'Pontilhao':'25555031',
 #                'Santa_Cruz_Timbo':'26125049',
@@ -109,6 +109,7 @@ for posto_nome, posto_codigo in postos_vazao.items():
 
     df_15min = pd.merge(table_15min, dados, how='left',
                         left_index=True, right_index=True)
+    df_15min = df_15min[~df_15min.index.duplicated(keep='first')]
 
     #importa dicionario de erros grosseiros e escolhe estacao
     dicionario_erros = json.load(open('erros_grosseiros_15min.txt'))
