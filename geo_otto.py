@@ -66,7 +66,7 @@ def ottobacias_montante(coexutorio, achs):
 achs = gpd.read_file('/discolocal/bruno/Shapefiles/IAT2020_862_Iguacu_Shapefile/IAT2020_862_Iguacu_Areas_Drenagem.shp', layer=0)
 # tdrs = gpd.read_file('/Users/arlan/Projetos/hidrografia-pr/REDE_Hidrografica_OTTOCODIFICADA_PR.gdb', layer=1)
 lista_ottos = {
-#    'B01_Rio_Negro' : '8629755',
+    'B01_Rio_Negro' : '8629755',
 #    'B02_Porto_Amazonas' : '86285193',
 #    'B03_Sao_Bento' : '86296319',
 #    'B04_Pontilhao' : '86278191',
@@ -76,6 +76,8 @@ lista_ottos = {
 #    'B08_Fluviopolis' : '8627739',
 #    'B09_Uniao_da_Vitoria' : '8625971',
 #    'B10_Madeireira_Gavazoni' : '86256571',
+#    'B10_Madeireira_Gavazoni_2' : '86256573',
+#    'B10_Madeireira_Gavazoni_3' : '86256572',
 #    'B11_Jangada' : '8625837331',
 #    'B12_Foz_do_Areia' : '86255935',
 #    'B13_Solais_Novo' : '862543393',
@@ -87,9 +89,11 @@ lista_ottos = {
 #    'B19_Salto_Caxias' : '862173153',
 #    'B20_Porto_Capanema' : '86213193',
 #    'B21_Hotel_Cataratas' : '8621115193'
+#    'B21_Hotel_CAtaratas_2' : '862111531',
+#    'B21_Hotel_CAtaratas_3' : '862111521',
 #    'Piraquara_II' : '8628981991',
 #    'Irai' : '8628993151',
-    'Passauna' : '862858355'
+#    'Passauna' : '862858355'
 }
 for noexutorio, coexutorio in lista_ottos.items():
     print("Iniciando Bacia ",noexutorio)
