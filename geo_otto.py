@@ -98,7 +98,15 @@ lista_ottos = {
 for noexutorio, coexutorio in lista_ottos.items():
     print("Iniciando Bacia ",noexutorio)
     print(datetime.datetime.now())
+    k = str(input('Incluir ottobacia de exutoria para ponto ' + noexutorio +
+                  '? (S ou N)'))
+    while k not in ('S', 'N'):
+        k = str(input('Falha. Incluir ottobacia de exutoria para ponto ' +
+                      noexutorio + '? (S ou N)'))
     gdf = ottobacias_montante(coexutorio, achs)
+    if k == 'N':
+        gdf = gpd.overlay(gdf, gdf.loc[gdf['cobacia'] == coexutorio],
+                          how = 'difference')
     gdf.to_file('/discolocal/bruno/Shapefiles/Otto_Sispshi2/Ottos_Completo/ottos_'+noexutorio+'.shp')
     gdf['Dissolve'] = 0
     gdf = gdf.dissolve(by = 'Dissolve')
