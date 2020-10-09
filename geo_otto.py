@@ -27,6 +27,7 @@
 import pandas as pd
 import geopandas as gpd
 import datetime
+from tqdm import tqdm
 
 
 def ottobacias_montante(coexutorio, achs):
@@ -51,9 +52,10 @@ def ottobacias_montante(coexutorio, achs):
     # 3
     total = len(gdf)
     count = 0
-    for index, cobacia in gdf['cobacia'].items():
+    for index, cobacia in tqdm(gdf['cobacia'].items(),
+                               total = len(gdf['cobacia'])):
         count += 1
-        print('Processamento {:.2f} %'.format(count/total*100))
+        #print('Processamento {:.2f} %'.format(count/total*100))
         for i in range(pos, len(cobacia)):
             dig_bac = int(cobacia[i])
             dig_ext = int(coexutorio[i])
