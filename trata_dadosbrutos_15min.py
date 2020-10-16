@@ -6,7 +6,7 @@ posto_codigo = '26064948'
 
 ########## SERIES 15 MIN ##########
 print('Tratando ',posto_nome)
-dados = pd.read_csv('/discolocal/bruno/Observado/Cota_Bruto/' +
+dados = pd.read_csv('/discolocal/bruno/Observado/Pre_Consistencia/' +
                           posto_codigo + 'FB.csv', index_col = 0, sep = ';')
 dados.index = pd.to_datetime(dados.index)
 
@@ -55,8 +55,8 @@ df_15min['q_m3s'] = np.where(df_15min['h_m'].isnull(),
 df_15min['flag'] = df_15min['flag'].astype(int)
 
 #exporta observado para csv
-df_15min.to_csv('/discolocal/bruno/Observado/Cota_Bruto/'+posto_codigo+'FC.csv',
+df_15min.to_csv('/discolocal/bruno/Observado/Pre_Consistencia/'+posto_codigo+'FC.csv',
                 date_format='%Y-%m-%dT%H:%M:%SZ', sep = ";",
                 float_format = '%.3f')
 
-print(posto_nome, 'acabou)
+print(posto_nome, ' acabou')

@@ -53,7 +53,7 @@ dados["q_m3s"] = pd.to_numeric(dados["q_m3s"], downcast="float")
 dados["h_m"] = pd.to_numeric(dados["h_m"], downcast = "float")
 
 #exporta observado para csv
-dados.to_csv('/discolocal/bruno/Observado/Cota_Bruto/'+posto_codigo+'FB.csv',
+dados.to_csv('/discolocal/bruno/Observado/Pre_Consistencia/'+posto_codigo+'FB.csv',
                 date_format='%Y-%m-%dT%H:%M:%SZ', sep = ";",
                 float_format = '%.3f')
 

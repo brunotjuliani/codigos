@@ -20,7 +20,8 @@ dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 dir_observado = "/discolocal/bruno/Observado"
 dir_bacias = "/discolocal/bruno/Coleta_Dados/Dados_Bacias"
 dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
-os.chdir(dir_observado)
+dir_consistencia = "/discolocal/bruno/Observado/Pre_Consistencia"
+os.chdir(dir_consistencia)
 
 
 nome_bacia = 'Porto_Amazonas'

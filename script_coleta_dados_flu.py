@@ -21,7 +21,7 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
     t_ini_string = t_ini.strftime('%Y-%m-%d %H:%M')
     t_fim_string = t_fim.strftime('%Y-%m-%d %H:%M')
     texto_psql = "select hordatahora at time zone 'UTC' as hordatahora, \
-                  horleitura, horsensor, horqualidade \
+                  horleitura, horsensor \
                   from horaria where hordatahora >= '{}' and hordatahora <= '{}' \
                   and horestacao in ({}) \
                   and horsensor in {} \
@@ -33,13 +33,12 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
     consulta = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
     consulta.execute(texto_psql)
     consulta_lista = consulta.fetchall()
-    df_consulta =pd.DataFrame(consulta_lista,columns=['tempo','valor','sensor',
-                                                      'qualidade'])
+    df_consulta =pd.DataFrame(consulta_lista,columns=['tempo','valor','sensor'])
     df_consulta.set_index('tempo', inplace=True)
     return df_consulta
 
 postos_vazao = {
-                'Rio_Negro':'26064948',
+#                'Rio_Negro':'26064948',
 #                'Porto_Amazonas':'25334953',
 #                'Sao_Bento':'25564947',
 #                'Pontilhao':'25555031',
@@ -47,7 +46,7 @@ postos_vazao = {
 #                'Sao_Mateus_Sul':'25525023',
 #                'Divisa':'26055019',
 #                'Fluviopolis':'26025035',
-#                'Uniao_da_Vitoria':'26145104',
+                'Uniao_da_Vitoria':'26145104',
 #                'Madereira_Gavazzoni':'25485116',
 #                'Jangada':'26225115',
                 ### Foz_do_Areia':'GBM',
@@ -68,26 +67,12 @@ postos_vazao = {
 
 for posto_nome, posto_codigo in postos_vazao.items():
     print('Coletando vazao',posto_nome)
-    t_ini = dt.datetime(1997, 1, 1,  0,  0) #AAAA, M, D, H, Min
-    t_fim = dt.datetime(2020, 9, 28, 23, 59)
+    t_ini = dt.datetime(2019, 1, 1,  0,  0) #AAAA, M, D, H, Min
+    t_fim = dt.datetime(2020, 10, 14, 23, 59)
 
-    #coleta dados de cota para verificacao qualidade
-    dados_cota = coletar_dados(t_ini,t_fim, posto_codigo, '(18)')
-    dados_cota.columns = ['cota', 'sensor_cota', 'quali_cota']
     #coleta dados de vazao
     dados_vazao = coletar_dados(t_ini,t_fim, posto_codigo, '(33)')
-    dados_vazao.columns = ['vazao', 'sensor_vazao', 'quali_vazao']
-    #concatena vazao e cota, filtrando apenas cotas aprovadas no banco de dados
-    dados = pd.merge(dados_cota,dados_vazao['vazao'],how='inner',
-                     left_index=True,right_index=True)
-    dados = dados[dados['quali_cota'] == 0].drop(['sensor_cota', 'quali_cota'],
-                                                 axis = 1)
-    #REMOVE COTAS CONSTANTES ------ AQUI APLICADO PARA 96 OBSERVACOES DE 15 MIN - 24 HORAS
-    dados2 = dados.groupby((dados['cota'].shift()!=dados['cota']).cumsum()
-                           ).filter(lambda x: len(x) >= 96)
-    dados['cota'] = np.where(dados.index.isin(dados2.index),
-                             np.nan,dados['cota'])
-    dados = dados.dropna()
+    dados_vazao.columns = ['vazao', 'sensor_vazao']
 
 
     lista.append(posto_nome)
@@ -105,27 +90,26 @@ for posto_nome, posto_codigo in postos_vazao.items():
     table_dia = table_dia.set_index('Datetime')
     table_dia.drop(['date'], axis=1, inplace = True)
 
-    df = dados
-    df.columns = ['m', 'q_m3s']
+    df = dados_vazao
+    df.columns = ['q_m3s', 'sensor']
     df.drop(df.tail(1).index, inplace=True)
     df['count'] = 1
     df.index = pd.to_datetime(df.index)
     #converte para hora local - GMT-3 - timezone('America/Sao_Paulo')
-    df.index = (df.index.tz_localize(pytz.utc).
-                tz_convert(pytz.timezone('America/Sao_Paulo')).
-                strftime("%Y-%m-%d %X"))
-    df.index = pd.to_datetime(df.index)
+#    df.index = (df.index.tz_localize(pytz.utc).
+#                tz_convert(pytz.timezone('America/Sao_Paulo')).
+#                strftime("%Y-%m-%d %X"))
+#    df.index = pd.to_datetime(df.index)
     df["q_m3s"] = pd.to_numeric(df["q_m3s"], downcast="float")
-    df["m"] = pd.to_numeric(df["m"], downcast = "float")
+    df.drop('sensor', axis = 1, inplace = True)
 
 
     # agrupa em dados horarios, com intervalo fechado à direita (acumulado/media da 0:01 a 1:00);
     # coluna count resulta a soma (contagem) dos "1", coluna valor resulta na media dos valores;
     # para os valores de cont < 2, substitui o dado em 'valor' por NaN:
     df_horario = (df.resample("H", closed='right', label='right').
-                  agg({'count' : np.sum, 'q_m3s' : np.mean, 'm' : np.mean}))
+                  agg({'count' : np.sum, 'q_m3s' : np.mean}))
     df_horario.loc[df_horario['count'] < 2, ['q_m3s']] = np.nan
-    df_horario.loc[df_horario['count'] < 2, ['m']] = np.nan
 
     # cria coluna com valores 1;
     # agrupa em dados diarios, com intervalo fechado à direita (acumulado/media da 1:00 a 0:00);
@@ -133,9 +117,8 @@ for posto_nome, posto_codigo in postos_vazao.items():
     # para os valores de cont < 12, substitui o dado em 'valor' por NaN:
     df_horario['count'] = 1
     df_diario = (df_horario.resample("D", closed='left').
-                 agg({'count':np.sum, 'q_m3s' : np.mean, 'm' : np.mean}))
+                 agg({'count':np.sum, 'q_m3s' : np.mean}))
     df_diario.loc[df_diario['count'] < 12, ['q_m3s']] = np.nan
-    df_diario.loc[df_diario['count'] < 12, ['m']] = np.nan
 
     # remove colunas 'count' dos dataframes
     df.drop(df_horario.columns[0], axis=1, inplace=True)
@@ -147,32 +130,21 @@ for posto_nome, posto_codigo in postos_vazao.items():
 
     #remove dados negativos
     table_hor[table_hor['q_m3s'] < 0] = np.nan
-    table_hor[table_hor['m'] < 0] = np.nan
     table_dia[table_dia['q_m3s'] < 0] = np.nan
-    table_dia[table_dia['m'] < 0] = np.nan
 
-    #importa dicionario de erros grosseiros e escolhe estacao
-    dicionario_erros = json.load(open('erros_grosseiros.txt'))
-    erros_estacao = dicionario_erros[posto_nome]
-    #trata a matriz de erros
-    try:
-        erros_estacao = np.hstack(erros_estacao)
-    except ValueError:
-        pass
-    #remove erros grosseiros da serie observada
-    table_hor.loc[pd.to_datetime(erros_estacao), 'q_m3s'] = np.nan
 
     #exporta observado para csv
-    table_hor.to_csv('vazao_'+posto_nome+'.csv')
-    #table_dia.to_csv(posto_nome+'_telemetrica.csv')
+#    table_hor.to_csv('vazao_'+posto_nome+'.csv')
+    table_dia.to_csv(posto_nome+'_diario.csv')
 
-    plt.figure()
-    plt.plot(table_hor['q_m3s'], label = "Observado", linewidth = 0.3)
-    plt.title('Serie ' + posto_nome)
-    plt.xlabel('Data')
-    plt.ylabel('Q [m3s-1]')
-    plt.savefig('vazao_'+posto_nome+'.png', dpi = 300)
-    plt.close()
+#    plt.figure()
+#    plt.plot(table_hor['q_m3s'], label = "Observado", linewidth = 0.3)
+#    plt.title('Serie ' + posto_nome)
+#    plt.xlabel('Data')
+#    plt.ylabel('Q [m3s-1]')
+#    plt.savefig('vazao_'+posto_nome+'.png', dpi = 300)
+#    plt.close()
 
     print(posto_nome, 'acabou - ', list(postos_vazao).index(posto_nome)+1,"/",
           len(postos_vazao))
+df
