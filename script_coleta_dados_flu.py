@@ -147,4 +147,3 @@ for posto_nome, posto_codigo in postos_vazao.items():
 
     print(posto_nome, 'acabou - ', list(postos_vazao).index(posto_nome)+1,"/",
           len(postos_vazao))
-df
