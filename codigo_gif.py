@@ -4,7 +4,6 @@ import numpy as np
 import glob
 import os
 
-
 #DEFINE VARIAVEIS
 modelo = "ECMWF" #COPEL / ECMWF / NCEP_WRF5K
 data = "2020-10-22"

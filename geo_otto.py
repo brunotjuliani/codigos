@@ -65,10 +65,10 @@ def ottobacias_montante(coexutorio, achs):
                 break
     return gdf
 
-achs = gpd.read_file('/discolocal/bruno/Shapefiles/IAT2020_862_Iguacu_Shapefile/IAT2020_862_Iguacu_Areas_Drenagem.shp', layer=0)
+achs = gpd.read_file('/discolocal/bruno/Shapefiles/REDE_Hidrografica_OTTOCODIFICADA_PR.gdb', layer=0)
 # tdrs = gpd.read_file('/Users/arlan/Projetos/hidrografia-pr/REDE_Hidrografica_OTTOCODIFICADA_PR.gdb', layer=1)
 lista_ottos = {
-    'B01_Rio_Negro' : '8629755',
+#    'B01_Rio_Negro' : '8629755',
 #    'B02_Porto_Amazonas' : '86285193',
 #    'B03_Sao_Bento' : '86296319',
 #    'B04_Pontilhao' : '86278191',
@@ -95,7 +95,8 @@ lista_ottos = {
 #    'B21_Hotel_CAtaratas_3' : '862111521',
 #    'Piraquara_II' : '8628981991',
 #    'Irai' : '8628993151',
-#    'Passauna' : '862858355'
+#    'Passauna' : '862858355',
+    'Reservatorio_Fiu' : '8642354135',
 }
 for noexutorio, coexutorio in lista_ottos.items():
     print("Iniciando Bacia ",noexutorio)
