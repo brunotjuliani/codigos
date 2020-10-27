@@ -28,8 +28,8 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
 #posto_nome = 'Apucaraninha_Montante'
 #posto_codigo = '23735103'
 
-posto_nome = 'Apucaraninha_Montante'
-posto_codigo = '23735103'
+posto_nome = 'Reservatorio_Fiu'
+posto_codigo = '23745094'
 
 ## COLETA DADOS PRECIP
 
