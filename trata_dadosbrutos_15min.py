@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import json
 
 posto_nome = 'Rio_Negro'
 posto_codigo = '26064948'
@@ -47,28 +48,43 @@ df_15min['flag'] = np.where(df_15min.index.isin(dados2.index),
 df_15min['h_m'] = np.where(df_15min.index.isin(dados2.index),
                            np.nan, df_15min['h_m'])
 
-#SINALIZA SPIKES -> FLAG 5
-#REMOVE SPIKES
-#SPIKES COMO OUTLIER CENTRAL DE JANELA MOVEL DE 96 OBSERVACOES - 24 HORAS
-#CONSIDERADO OUTLIER MEDIA +- 3 VEZES DESVIO PADRAO DA JANELA MOVEL
-df_15min['media_movel'] = df_15min['h_m'].rolling(window = 24, center = True,
-                                                  min_periods = 1).mean()
-df_15min['sd_movel'] = df_15min['h_m'].rolling(window = 24, center = True,
-                                               min_periods = 1).std()
-df_15min['flag'] = np.where((df_15min['h_m'] < (df_15min['media_movel'] -
-                                                3*(df_15min['sd_movel']))),
-                            5, df_15min['flag'])
-df_15min['h_m'] = np.where((df_15min['h_m'] < (df_15min['media_movel'] -
-                                               3*(df_15min['sd_movel']))),
-                           np.nan, df_15min['h_m'])
-df_15min['flag'] = np.where((df_15min['h_m'] > (df_15min['media_movel'] +
-                                                3*(df_15min['sd_movel']))),
-                            5, df_15min['flag'])
-df_15min['h_m'] = np.where((df_15min['h_m'] > (df_15min['media_movel'] +
-                                               3*(df_15min['sd_movel']))),
-                           np.nan, df_15min['h_m'])
-df_15min.drop(['media_movel', 'sd_movel'], axis=1, inplace = True)
+## SINALIZA SPIKES -> FLAG 5
+## REMOVE SPIKES
+# #SPIKES COMO OUTLIER CENTRAL DE JANELA MOVEL DE 96 OBSERVACOES - 24 HORAS
+# #CONSIDERADO OUTLIER MEDIA +- 3 VEZES DESVIO PADRAO DA JANELA MOVEL
+# df_15min['media_movel'] = df_15min['h_m'].rolling(window = 24, center = True,
+#                                                   min_periods = 1).mean()
+# df_15min['sd_movel'] = df_15min['h_m'].rolling(window = 24, center = True,
+#                                                min_periods = 1).std()
+# df_15min['flag'] = np.where((df_15min['h_m'] < (df_15min['media_movel'] -
+#                                                 3*(df_15min['sd_movel']))),
+#                             5, df_15min['flag'])
+# df_15min['h_m'] = np.where((df_15min['h_m'] < (df_15min['media_movel'] -
+#                                                3*(df_15min['sd_movel']))),
+#                            np.nan, df_15min['h_m'])
+# df_15min['flag'] = np.where((df_15min['h_m'] > (df_15min['media_movel'] +
+#                                                 3*(df_15min['sd_movel']))),
+#                             5, df_15min['flag'])
+# df_15min['h_m'] = np.where((df_15min['h_m'] > (df_15min['media_movel'] +
+#                                                3*(df_15min['sd_movel']))),
+#                            np.nan, df_15min['h_m'])
+# df_15min.drop(['media_movel', 'sd_movel'], axis=1, inplace = True)
 
+# SINALIZA ERROS VISUAIS -> FLAG 5
+# REMOVE SPIKES COM BASE EM DICIONARIO DE ERROS GROSSEIROS
+#importa dicionario de erros grosseiros e escolhe estacao
+dicionario_erros = json.load(open('/discolocal/bruno/Observado/Pre_Consistencia/erros_grosseiros_bruto.txt'))
+erros_estacao = dicionario_erros[posto_nome]
+#trata a matriz de erros
+try:
+    erros_estacao = np.hstack(erros_estacao)
+except ValueError:
+    pass
+#remove spikes da serie observada
+df_15min.loc[pd.to_datetime(erros_estacao), 'h_m'] = np.nan
+df_15min['flag'] = np.where(df_15min.index.isin(pd.to_datetime(erros_estacao)),
+                            np.where((df_15min['flag'] != 0), df_15min['flag'],
+                                     5), df_15min['flag'])
 
 #REMOVE VALORES DE VAZAO DO PONTO EM QUE COTA TENHA SIDO RETIRADA
 df_15min['q_m3s'] = np.where(df_15min['h_m'].isnull(),

@@ -2,12 +2,19 @@ import pandas as pd
 import numpy as np
 import csv
 
+data_inicial = '2015-09-23'
+data_final = '2020-09-30'
 
-posto_nome = 'Reservatorio_Fiu'
-posto_codigo = '23745094'
+posto_nome = 'reservatorio_fiu'
+
+#posto_plu = 'apucaraninha_montante'
+#posto_codigo = '23735103'
+
+posto_plu = 'reservatorio_fiu'
+# posto_codigo = '23745094'
 posto_area = 588.003
 
-plu_diario = pd.read_csv('/discolocal/bruno/Observado/Teste/' + posto_nome +
+plu_diario = pd.read_csv('/discolocal/bruno/Observado/Teste/' + posto_plu +
                          '_plu_diario.csv', index_col = 0, sep = ';')
 plu_diario.index = pd.to_datetime(plu_diario.index).tz_localize(None)
 plu_diario.columns = ['pme']
@@ -33,9 +40,11 @@ dados['pme'] = dados['pme'].apply('{:,.2f}'.format)
 dados['etp'] = dados['etp'].apply('{:,.2f}'.format)
 dados['qjus'] = dados['qjus'].apply('{:,.3f}'.format)
 
-with open('/discolocal/bruno/Observado/Teste/' + posto_nome + '.peq',
+dados = dados.loc[data_inicial:data_final]
+
+with open('/discolocal/bruno/Observado/Teste/' + posto_plu + '.peq',
           'w', newline = '') as file:
     writer = csv.writer(file)
     writer.writerow([posto_area])
-dados.to_csv('/discolocal/bruno/Observado/Teste/' + posto_nome + '.peq',
+dados.to_csv('/discolocal/bruno/Observado/Teste/' + posto_plu + '.peq',
              mode = 'a')

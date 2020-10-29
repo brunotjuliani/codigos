@@ -13,8 +13,8 @@ from dateutil.relativedelta import relativedelta
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_inicial = dt.datetime(2001, 1, 1,  0,  0) #YYYY, M, D, H, Min
-data_final = dt.datetime(2001, 12, 31,  23,  59)
+data_inicial = dt.datetime(1999, 1, 1,  0,  0) #YYYY, M, D, H, Min
+data_final = dt.datetime(1999, 12, 31,  23,  59)
 
 dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 dir_observado = "/discolocal/bruno/Observado"
@@ -24,23 +24,22 @@ dir_consistencia = "/discolocal/bruno/Observado/Pre_Consistencia"
 os.chdir(dir_consistencia)
 
 
-#nome_bacia = 'Porto_Amazonas'
-nome_bacia = 'Rio_Negro'
-codigo_bacia = '26064948'
+posto_nome = 'Rio_Negro'
+posto_codigo = '26064948'
 
 
 data_ini = data_inicial
 data_fim = data_ini + relativedelta(days=+10)
 while data_ini <= data_final:
 #    serie_observada = pd.read_csv('vazao_'+nome_bacia+'_1h.csv', index_col=0)
-    serie_observada = pd.read_csv(codigo_bacia+'FC.csv', sep =';', index_col = 0)
+    serie_observada = pd.read_csv(posto_codigo+'FC.csv', sep =';', index_col = 0)
     serie_observada.index = pd.to_datetime(serie_observada.index)
     serie_observada = serie_observada.loc[str(data_ini) : str(data_fim)]
     serie_observada
 
     plt.figure()
     plt.plot(serie_observada['h_m'], label = "Observado", linewidth = 0.5)
-    plt.title('Serie ' + nome_bacia, loc = 'left')
+    plt.title('Serie ' + posto_nome, loc = 'left')
     plt.xlabel('Data')
     plt.ylabel('Nivel [m]')
     # Format the date into months & days
