@@ -7,11 +7,11 @@ data_final = '2020-09-30'
 
 posto_nome = 'reservatorio_fiu'
 
-#posto_plu = 'apucaraninha_montante'
-#posto_codigo = '23735103'
+# posto_plu = 'apucaraninha_montante'
+# posto_codigo = '23735103'
 
 posto_plu = 'reservatorio_fiu'
-# posto_codigo = '23745094'
+posto_codigo = '23745094'
 posto_area = 588.003
 
 plu_diario = pd.read_csv('/discolocal/bruno/Observado/Teste/' + posto_plu +
@@ -48,3 +48,13 @@ with open('/discolocal/bruno/Observado/Teste/' + posto_plu + '.peq',
     writer.writerow([posto_area])
 dados.to_csv('/discolocal/bruno/Observado/Teste/' + posto_plu + '.peq',
              mode = 'a')
+
+
+plu_diario = pd.read_csv('/discolocal/bruno/Observado/Teste/reservatorio_fiu_plu_diario.csv', index_col = 0, sep = ';')
+plu_diario.index = pd.to_datetime(plu_diario.index).tz_localize(None)
+plu_diario.columns = ['fiu']
+plu_diario2 = pd.read_csv('/discolocal/bruno/Observado/Teste/apucaraninha_montante_plu_diario.csv', index_col = 0, sep = ';')
+plu_diario2.index = pd.to_datetime(plu_diario2.index).tz_localize(None)
+plu_diario2.columns = ['apucaraninha']
+dados = pd.merge(plu_diario, plu_diario2, how = 'outer', left_index = True, right_index = True)
+dados.to_csv('/discolocal/bruno/Observado/Teste/comparacao.csv')

@@ -25,11 +25,11 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
     df_consulta.set_index('tempo', inplace=True)
     return df_consulta
 
-#posto_nome = 'Apucaraninha_Montante'
-#posto_codigo = '23735103'
+posto_nome = 'apucaraninha_montante'
+posto_codigo = '23735103'
 
-posto_nome = 'Reservatorio_Fiu'
-posto_codigo = '23745094'
+# posto_nome = 'reservatorio_fiu'
+# posto_codigo = '23745094'
 
 ## COLETA DADOS PRECIP
 
@@ -74,6 +74,7 @@ df_horario.drop(df_horario.columns[0], axis=1, inplace=True)
 df_diario.drop(df_diario.columns[0], axis=1, inplace=True)
 
 table_dia = pd.concat([table_dia, df_diario], axis=1)
+table_dia['pme'] = np.where((table_dia['pme'] > 250), 0, table_dia['pme'])
 
 #exporta observado para csv
 table_dia.to_csv('/discolocal/bruno/Observado/Teste/'+posto_nome+'_plu_diario.csv',
