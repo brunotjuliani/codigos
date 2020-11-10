@@ -25,6 +25,42 @@ erros = {'Rio_Negro' : [
     pd.date_range(start="1999-10-09T12:15:00Z",end="1999-10-13T17:15:00Z",
                   freq='15min').format(formatter=lambda x: x.strftime(
                       '%Y-%m-%dT%H:%M:%SZ')),
+    '1999-12-06T17:15:00Z',
+    '1999-12-06T17:30:00Z',
+    pd.date_range(start="2000-06-05T17:15:00Z",end="2000-06-05T18:30:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    pd.date_range(start="2001-05-03T23:45:00Z",end="2001-05-04T19:45:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2001-05-09T14:45:00Z',
+    pd.date_range(start="2001-05-14T17:30:00Z",end="2001-05-14T18:45:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2002-10-31T17:45:00Z',
+    pd.date_range(start="2003-04-30T17:00:00Z",end="2003-04-30T18:45:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2003-05-10T01:30:00Z',
+    '2003-07-03T08:00:00Z',
+    '2003-07-24T03:30:00Z',
+    '2003-08-05T04:30:00Z',
+    '2003-09-13T22:45:00Z',
+    '2003-10-07T14:00:00Z',
+    '2004-07-31T10:30:00Z',
+    '2004-08-24T19:15:00Z',
+    '2004-10-01T14:30:00Z',
+    '2005-01-10T10:45:00Z',
+    '2005-03-24T06:30:00Z',
+    '2005-06-17T18:15:00Z',
+    '2005-06-29T14:45:00Z',
+    '2005-07-01T14:00:00Z',
+    '2005-07-14T06:30:00Z',
+    '2005-08-07T22:15:00Z',
+    '2005-08-29T17:45:00Z',
+    pd.date_range(start="2005-11-28T17:15:00Z",end="2005-11-28T18:45:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
                         ],
 
          'Porto_Amazonas' : [

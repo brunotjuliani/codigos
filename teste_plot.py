@@ -13,8 +13,8 @@ from dateutil.relativedelta import relativedelta
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_inicial = dt.datetime(1999, 1, 1,  0,  0) #YYYY, M, D, H, Min
-data_final = dt.datetime(1999, 12, 31,  23,  59)
+data_inicial = dt.datetime(2005, 1, 1,  0,  0) #YYYY, M, D, H, Min
+data_final = dt.datetime(2005, 12, 31,  23,  59)
 
 dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 dir_observado = "/discolocal/bruno/Observado"

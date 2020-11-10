@@ -5,14 +5,15 @@ import csv
 data_inicial = '2015-09-23'
 data_final = '2020-09-30'
 
-posto_nome = 'reservatorio_fiu'
+posto_nome = 'apucaraninha_montante'
 
-# posto_plu = 'apucaraninha_montante'
-# posto_codigo = '23735103'
+posto_plu = 'apucaraninha_montante'
+posto_codigo = '23735103'
+posto_area = 456.767
 
-posto_plu = 'reservatorio_fiu'
-posto_codigo = '23745094'
-posto_area = 588.003
+# posto_plu = 'reservatorio_fiu'
+# posto_codigo = '23745094'
+#posto_area = 588.003
 
 plu_diario = pd.read_csv('/discolocal/bruno/Observado/Teste/' + posto_plu +
                          '_plu_diario.csv', index_col = 0, sep = ';')
@@ -26,9 +27,13 @@ evp_diario.index = pd.to_datetime(evp_diario.index)
 evp_diario.columns = ['etp']
 
 
-vazao_diario = pd.read_excel('/discolocal/bruno/Observado/Teste/' + posto_nome +
-                             '_flu_diario.xlsx', index_col = 0, skiprows = 2)
-vazao_diario.index = pd.to_datetime(vazao_diario.index)
+# vazao_diario = pd.read_excel('/discolocal/bruno/Observado/Teste/' + posto_nome +
+#                              '_flu_diario.xlsx', index_col = 0, skiprows = 2)
+# vazao_diario.index = pd.to_datetime(vazao_diario.index)
+# vazao_diario.columns = ['qjus']
+vazao_diario = pd.read_csv('/discolocal/bruno/Observado/Teste/' + posto_nome +
+                             '_flu_diario.csv', index_col = 0, sep = ';')
+vazao_diario.index = pd.to_datetime(vazao_diario.index).tz_localize(None)
 vazao_diario.columns = ['qjus']
 
 dados = pd.merge(plu_diario, evp_diario, how = 'outer',
