@@ -1,31 +1,23 @@
 #BIBLIOTECAS
 import os
-import HydroErr as he
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import seaborn as sns
 import datetime as dt
-import requests
-import pytz
 from dateutil.relativedelta import relativedelta
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_inicial = dt.datetime(2005, 1, 1,  0,  0) #YYYY, M, D, H, Min
-data_final = dt.datetime(2005, 12, 31,  23,  59)
+data_inicial = dt.datetime(2015, 1, 1,  0,  0) #YYYY, M, D, H, Min
+data_final = dt.datetime(201, 12, 31,  23,  59)
 
-dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
-dir_observado = "/discolocal/bruno/Observado"
-dir_bacias = "/discolocal/bruno/Coleta_Dados/Dados_Bacias"
-dir_usinas = "/discolocal/bruno/Coleta_Dados/Dados_Usinas"
 dir_consistencia = "/discolocal/bruno/Observado/Pre_Consistencia"
 os.chdir(dir_consistencia)
 
 
-posto_nome = 'Rio_Negro'
-posto_codigo = '26064948'
+posto_nome = 'Porto_Amazonas'
+posto_codigo = '25334953'
 
 
 data_ini = data_inicial

@@ -93,43 +93,66 @@ ETP = df['etp'].to_numpy()
 Qjus = df['qjus'].to_numpy()
 idx = df.index.to_numpy()
 
-##CALIBRACAO GERAL
-tipo_calib = 'CALIBRACAO AUTOMATICA'
-tipo_modelo = 'GR4J CABECEIRA'
-#calibracao nash
-x1=1497
-x2=1.71
-x3=107
-x4=1.62
+##CALIBRACAO GR AUTOMATICA
+# tipo_calib = 'CALIBRACAO AUTOMATICA'
+# tipo_modelo = 'GR4J CABECEIRA'
+# #calibracao nash
+# x1=1497
+# x2=1.71
+# x3=107
+# x4=1.62
 
+#CALIBRACAO GR MANUAL
+tipo_calib = 'CALIBRACAO MANUAL - PICOS'
+tipo_modelo = 'GR4J CABECEIRA'
 # #picos cheias
-# x1=1363
-# x2=1.20
-# x3=52
-# x4=1.21
+x1=1363
+x2=1.20
+x3=52
+x4=1.21
 Qsimulado = gr4j.gr4j(area=area, PME = PME, ETP = ETP, x1 = x1, x2 = x2,
                            x3 = x3, x4 = x4)
 df['qsim_auto'] = Qsimulado
 
-##CALIBRACAO SACRAMENTO
-tipo_calib = 'CALIBRACAO AUTOMATICA'
-tipo_modelo = 'SACRAMENTO'
+# ##CALIBRACAO SACRAMENTO
+# tipo_calib2 = 'CALIBRACAO AUTOMATICA'
+# tipo_modelo2 = 'SACRAMENTO'
+# #calibracao nash
+# UZTWM = 67.35561585313553
+# UZFWM = 46.49076023113198
+# LZTWM = 108.52822928348942
+# LZFSM = 131.7976977056543
+# LZFPM = 935.7724280949543
+# UZK = 0.28475381808434785
+# LZSK = 0.1739609266459105
+# LZPK = 0.008091203322176218
+# PFREE = 0.43073101444253814
+# ZPERC = 27.914896239755194
+# REXP = 2.455054545586011
+# PCTIM = 0.07966861009792477
+# ADIMP = 0.05599504554449504
+# k = 0.9025977944095924
+# n = 1.69397002081278
+
+##CALIBRACAO SACRAMENTO MANUAL
+tipo_calib2 = 'CALIBRACAO MANUAL'
+tipo_modelo2 = 'SACRAMENTO'
 #calibracao nash
-UZTWM = 67.35561585313553
-UZFWM = 46.49076023113198
-LZTWM = 108.52822928348942
-LZFSM = 131.7976977056543
-LZFPM = 935.7724280949543
-UZK = 0.28475381808434785
-LZSK = 0.1739609266459105
-LZPK = 0.008091203322176218
-PFREE = 0.43073101444253814
-ZPERC = 27.914896239755194
-REXP = 2.455054545586011
-PCTIM = 0.07966861009792477
-ADIMP = 0.05599504554449504
-k = 0.9025977944095924
-n = 1.69397002081278
+UZTWM=32.496313384479365
+UZFWM=33.75650084208516
+LZTWM=118.14876592791606
+LZFSM=37.07446042127618
+LZFPM=941.526246986471
+UZK=0.26010702761760773
+LZSK=0.23265250576359764
+LZPK=0.00951492307831019
+PFREE=0.3586677583632592
+ZPERC=236.43878081332315
+REXP=2.8680883773291184
+PCTIM=0.03529309788158186
+ADIMP=0.18701345689813623
+k=0.6921226103309257
+n=2.4187268870185195
 
 
 Qsimulado2 = sacramento.sacramento_nash(area = area, PME = PME, ETP = ETP,
@@ -163,14 +186,14 @@ df['qsim_auto2'] = Qsimulado2
 # df['qsim_auto2'] = Qsimulado2
 
 
-df = df.loc['2020']
+#df = df.loc['2016']
 
 nash_auto = he.nse(df['qsim_auto'],df['qjus'])
 nash_auto2 = he.nse(df['qsim_auto2'],df['qjus'])
 
 print('SIMULACAO FIU' +
-      '\nNash GR4J - Automatico = ' + str(nash_auto) +
-      '\nNash Sacramento - Automatico = ' + str(nash_auto2))
+      '\n' + tipo_modelo + ' ' + tipo_calib + ' = ' + str(nash_auto) +
+      '\n' + tipo_modelo2 + ' ' + tipo_calib2 + ' = ' + str(nash_auto2))
 fig = plotar_hidro(idx=df.index, PME=df['pme'], ETP=df['etp'], Qobs=df['qjus'],
                    Qmon=None, Qsim=df['qsim_auto'], Qsim2=df['qsim_auto2'])
 fig.savefig('/discolocal/bruno/Observado/Teste/2020_completo.png')

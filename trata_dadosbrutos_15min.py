@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 import json
 
-posto_nome = 'Rio_Negro'
-posto_codigo = '26064948'
+posto_nome = 'Porto_Amazonas'
+posto_codigo = '25334953'
 
 ########## SERIES 15 MIN ##########
 print('Tratando ',posto_nome)
@@ -39,10 +39,10 @@ df_15min['flag'] = np.where(df_15min['flag'].isnull(), 2, df_15min['flag'])
 df_15min['flag'] = np.where((df_15min['h_m'] < 0), 3, df_15min['flag'])
 df_15min['h_m'] = np.where((df_15min['h_m'] < 0), np.nan, df_15min['h_m'])
 
-#SINALIZA COTAS CONSTANTES DE 6 HORAS -> FLAG 4
-#REMOVE COTAS CONSTANTES - AQUI APLICADO PARA 24 OBS DE 15 MIN - 6 HORAS
+#SINALIZA COTAS CONSTANTES DE 12 HORAS -> FLAG 4
+#REMOVE COTAS CONSTANTES - AQUI APLICADO PARA 48 OBS DE 15 MIN - 12 HORAS
 dados2 = df_15min.groupby((df_15min['h_m'].shift()!=df_15min['h_m']).cumsum()
-                       ).filter(lambda x: len(x) >= 24)
+                       ).filter(lambda x: len(x) >= 48)
 df_15min['flag'] = np.where(df_15min.index.isin(dados2.index),
                             4, df_15min['flag'])
 df_15min['h_m'] = np.where(df_15min.index.isin(dados2.index),

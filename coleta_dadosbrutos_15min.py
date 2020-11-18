@@ -25,8 +25,27 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
     df_consulta.set_index('tempo', inplace=True)
     return df_consulta
 
-posto_nome = 'Rio_Negro'
-posto_codigo = '26064948'
+#postos_vazao = {
+#                'Rio_Negro':'26064948',
+#                'Porto_Amazonas':'25334953',
+#                'Sao_Bento':'25564947',
+#                'Pontilhao':'25555031',
+#                'Santa_Cruz_Timbo':'26125049',
+#                'Sao_Mateus_Sul':'25525023',
+#                'Divisa':'26055019',
+#                'Fluviopolis':'26025035',
+#                'Uniao_da_Vitoria':'26145104',
+#                'Madereira_Gavazzoni':'25485116',
+#                'Jangada':'26225115',
+#                'Solais_Novo':'26055155',
+#                'Porto_Santo_Antonio':'25235306',
+#                'Aguas_do_Vere':'25465256',
+#                'Porto_Capanema':'25345435',
+#                'Hotel_Cataratas':'25685442'
+#            }
+
+posto_nome = 'Porto_Amazonas'
+posto_codigo = '25334953'
 
 ## COLETA DADOS VAZAO
 
