@@ -2,13 +2,32 @@ import numpy as np
 import pandas as pd
 import json
 
-posto_nome = 'Porto_Amazonas'
-posto_codigo = '25334953'
+#postos_vazao = {
+#                'Rio_Negro':'26064948',
+#                'Porto_Amazonas':'25334953',
+#                'Sao_Bento':'25564947',
+#                'Pontilhao':'25555031',
+#                'Santa_Cruz_Timbo':'26125049',
+#                'Sao_Mateus_Sul':'25525023',
+#                'Divisa':'26055019',
+#                'Fluviopolis':'26025035',
+#                'Uniao_da_Vitoria':'26145104',
+#                'Madereira_Gavazzoni':'25485116',
+#                'Jangada':'26225115',
+#                'Solais_Novo':'26055155',
+#                'Porto_Santo_Antonio':'25235306',
+#                'Aguas_do_Vere':'25465256',
+#                'Porto_Capanema':'25345435',
+#                'Hotel_Cataratas':'25685442'
+#            }
+
+posto_nome = 'Sao_Mateus_Sul'
+posto_codigo = '25525023'
 
 ########## SERIES 15 MIN ##########
 print('Tratando ',posto_nome)
 dados = pd.read_csv('/discolocal/bruno/Observado/Pre_Consistencia/' +
-                          posto_codigo + 'FB.csv', index_col = 0, sep = ';')
+                          posto_nome + 'FB.csv', index_col = 0, sep = ';')
 dados.index = pd.to_datetime(dados.index)
 
 #DADOS BRUTOS -> FLAG 0
@@ -94,7 +113,7 @@ df_15min['q_m3s'] = np.where(df_15min['h_m'].isnull(),
 df_15min['flag'] = df_15min['flag'].astype(int)
 
 #exporta observado para csv
-df_15min.to_csv('/discolocal/bruno/Observado/Pre_Consistencia/'+posto_codigo+'FC.csv',
+df_15min.to_csv('/discolocal/bruno/Observado/Pre_Consistencia/'+posto_nome+'FC.csv',
                 date_format='%Y-%m-%dT%H:%M:%SZ', sep = ";",
                 float_format = '%.3f')
 

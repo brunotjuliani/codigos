@@ -44,8 +44,8 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
 #                'Hotel_Cataratas':'25685442'
 #            }
 
-posto_nome = 'Porto_Amazonas'
-posto_codigo = '25334953'
+posto_nome = 'Sao_Mateus_Sul'
+posto_codigo = '25525023'
 
 ## COLETA DADOS VAZAO
 
@@ -72,7 +72,7 @@ dados["q_m3s"] = pd.to_numeric(dados["q_m3s"], downcast="float")
 dados["h_m"] = pd.to_numeric(dados["h_m"], downcast = "float")
 
 #exporta observado para csv
-dados.to_csv('/discolocal/bruno/Observado/Pre_Consistencia/'+posto_codigo+'FB.csv',
+dados.to_csv('/discolocal/bruno/Observado/Pre_Consistencia/'+posto_nome+'FB.csv',
                 date_format='%Y-%m-%dT%H:%M:%SZ', sep = ";",
                 float_format = '%.3f')
 
