@@ -9,15 +9,17 @@ from dateutil.relativedelta import relativedelta
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_inicial = dt.datetime(2020, 1, 1,  0,  0) #YYYY, M, D, H, Min
-data_final = dt.datetime(2020, 12, 31,  23,  59)
+data_inicial = dt.datetime(2008, 1, 1,  0,  0) #YYYY, M, D, H, Min
+data_final = dt.datetime(2010, 12, 31,  23,  59)
 
-dir_consistencia = "/discolocal/bruno/Observado/Pre_Consistencia"
-os.chdir(dir_consistencia)
+# dir_consistencia = "/discolocal/bruno/Observado/Pre_Consistencia"
+# os.chdir(dir_consistencia)
 
+dir_dados = '../dados'
+os.chdir(dir_dados)
 
-posto_nome = 'Sao_Mateus_Sul'
-posto_codigo = '25525023'
+posto_nome = 'Santa_Cruz_Timbo'
+posto_codigo = '26125049'
 
 serie_completa = pd.read_csv(posto_nome+'FC.csv', sep =';', index_col = 0)
 serie_completa.index = pd.to_datetime(serie_completa.index)
@@ -29,10 +31,10 @@ while data_ini <= data_final:
     serie_observada = serie_completa.loc[str(data_ini) : str(data_fim)]
 
     plt.figure()
-    plt.plot(serie_observada['h_m'], label = "Observado", linewidth = 0.6)
+    plt.plot(serie_observada['q_m3s'], label = "Observado", linewidth = 0.6)
     plt.title('Serie ' + posto_nome, loc = 'left')
     plt.xlabel('Data')
-    plt.ylabel('Nivel [m]')
+    plt.ylabel('Vazao [m3s]')
     # Format the date into months & days
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     # Change the tick interval

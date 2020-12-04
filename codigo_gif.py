@@ -6,13 +6,14 @@ import os
 
 #DEFINE VARIAVEIS
 modelo = "NCEP_WRF5K" #COPEL / ECMWF / NCEP_WRF5K
-data = "2020-11-16"
-diretorio = "/discolocal/bruno/Mapas_Chuva/"+modelo+"/"+data
-
+data = "2020-11-30"
+#diretorio = "/discolocal/bruno/Mapas_Chuva/"+modelo+"/"+data
+diretorio = "/Users/brunojuliani/github/dados/"+modelo+"/"+data
 
 #CODIGO USUAL
 os.chdir(diretorio)
 img_array = []
+
 for filename in sorted(glob.glob(diretorio+"/*.png")):
     img = cv2.imread(filename)
     height, width, layers = img.shape

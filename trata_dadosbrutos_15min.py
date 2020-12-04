@@ -21,13 +21,15 @@ import json
 #                'Hotel_Cataratas':'25685442'
 #            }
 
-posto_nome = 'Sao_Mateus_Sul'
-posto_codigo = '25525023'
+posto_nome = 'Fluviopolis'
+posto_codigo = '26025035'
 
 ########## SERIES 15 MIN ##########
 print('Tratando ',posto_nome)
-dados = pd.read_csv('/discolocal/bruno/Observado/Pre_Consistencia/' +
-                          posto_nome + 'FB.csv', index_col = 0, sep = ';')
+# dados = pd.read_csv('/discolocal/bruno/Observado/Pre_Consistencia/' +
+#                           posto_nome + 'FB.csv', index_col = 0, sep = ';')
+dados = pd.read_csv('../dados/' + posto_nome + 'FB.csv',
+                    index_col = 0, sep = ';')
 dados.index = pd.to_datetime(dados.index)
 
 #DADOS BRUTOS -> FLAG 0
@@ -55,8 +57,10 @@ df_15min['flag'] = np.where(df_15min['flag'].isnull(), 2, df_15min['flag'])
 
 #SINALIZA A OCORRENCIA DE VALORES NEGATIVOS -> FLAG 3
 #REMOVE VALORES DE COTA NEGATIVOS
-df_15min['flag'] = np.where((df_15min['h_m'] < 0), 3, df_15min['flag'])
-df_15min['h_m'] = np.where((df_15min['h_m'] < 0), np.nan, df_15min['h_m'])
+df_15min['flag'] = np.where((df_15min['h_m'] <= 0), 3, df_15min['flag'])
+df_15min['flag'] = np.where((df_15min['q_m3s'] <= 0), 3, df_15min['flag'])
+df_15min['h_m'] = np.where((df_15min['h_m'] <= 0), np.nan, df_15min['h_m'])
+df_15min['h_m'] = np.where((df_15min['q_m3s'] <= 0), np.nan, df_15min['h_m'])
 
 #SINALIZA COTAS CONSTANTES DE 12 HORAS -> FLAG 4
 #REMOVE COTAS CONSTANTES - AQUI APLICADO PARA 48 OBS DE 15 MIN - 12 HORAS
@@ -92,7 +96,8 @@ df_15min['h_m'] = np.where(df_15min.index.isin(dados2.index),
 # SINALIZA ERROS VISUAIS -> FLAG 5
 # REMOVE SPIKES COM BASE EM DICIONARIO DE ERROS GROSSEIROS
 #importa dicionario de erros grosseiros e escolhe estacao
-dicionario_erros = json.load(open('/discolocal/bruno/Observado/Pre_Consistencia/erros_grosseiros_bruto.txt'))
+#dicionario_erros = json.load(open('/discolocal/bruno/Observado/Pre_Consistencia/erros_grosseiros_bruto.txt'))
+dicionario_erros = json.load(open('../dados/erros_grosseiros_bruto.txt'))
 erros_estacao = dicionario_erros[posto_nome]
 #trata a matriz de erros
 try:
@@ -113,7 +118,10 @@ df_15min['q_m3s'] = np.where(df_15min['h_m'].isnull(),
 df_15min['flag'] = df_15min['flag'].astype(int)
 
 #exporta observado para csv
-df_15min.to_csv('/discolocal/bruno/Observado/Pre_Consistencia/'+posto_nome+'FC.csv',
+# df_15min.to_csv('/discolocal/bruno/Observado/Pre_Consistencia/'+posto_nome+'FC.csv',
+#                 date_format='%Y-%m-%dT%H:%M:%SZ', sep = ";",
+#                 float_format = '%.3f')
+df_15min.to_csv('../dados/'+posto_nome+'FC.csv',
                 date_format='%Y-%m-%dT%H:%M:%SZ', sep = ";",
                 float_format = '%.3f')
 
