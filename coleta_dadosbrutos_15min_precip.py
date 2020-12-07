@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import datetime as dt
+import csv
 import psycopg2, psycopg2.extras
 
 
@@ -98,7 +99,7 @@ for posto_nome, posto_informacoes in postos_precip.items():
     dados = dados.drop('sensor_cota', 1)
 
     #converte indice para formato DATETIME ISO UTC
-    dados.index = pd.to_datetime(dados.index).rename('datahora_UTC')
+    dados.index = pd.to_datetime(dados.index, utc=True).rename('datahora_UTC')
     dados["h_mm"] = pd.to_numeric(dados["h_mm"], downcast = "float")
 
     ########## TRATA SERIES 15 MIN ##########
@@ -111,7 +112,7 @@ for posto_nome, posto_informacoes in postos_precip.items():
     t_ini = dados.index[0]
     t_fim = dados.index[-1]
 
-    date_rng_15min = pd.date_range(start=t_ini, end=t_fim, freq='15min')
+    date_rng_15min = pd.date_range(start=t_ini, end=t_fim,freq='15min',tz="UTC")
     table_15min = pd.DataFrame(date_rng_15min, columns=['datahora'])
     table_15min['datahora_UTC']= pd.to_datetime(table_15min['datahora'])
     table_15min = table_15min.set_index('datahora_UTC')
@@ -163,7 +164,7 @@ for posto_nome, posto_informacoes in postos_precip.items():
     #     writer.writerow([posto_nome])
     #     writer.writerow([posto_lat, posto_long])
     # df_15min.to_csv('../dados/'+posto_nome+'.pds', mode = 'a', sep = ";",
-    #                 date_format='%Y-%m-%dT%H:%M:%SZ', float_format = '%.2f')
+    #                 date_format='%Y-%m-%dT%H:%M:%S+00:00', float_format='%.2f')
 
 
     ########## TRANSFORMA SERIE HORARIA ##########
@@ -173,7 +174,7 @@ for posto_nome, posto_informacoes in postos_precip.items():
     #cria DFs padrao horario para ser preenchido com os dados de 15 min
     t_ini = df_15min.index[0].round('1h')
     t_fim = df_15min.index[-1]
-    date_rng_horario = pd.date_range(start=t_ini, end=t_fim, freq='H', tz = "UTC")
+    date_rng_horario = pd.date_range(start=t_ini, end=t_fim, freq='H', tz="UTC")
     table_hor = pd.DataFrame(date_rng_horario, columns=['date'])
     table_hor['datahora_UTC']= pd.to_datetime(table_hor['date'])
     table_hor = table_hor.set_index('datahora_UTC')
@@ -200,7 +201,7 @@ for posto_nome, posto_informacoes in postos_precip.items():
         writer.writerow([posto_nome])
         writer.writerow([posto_lat, posto_long])
     table_hor.to_csv('../dados/'+posto_nome+'.pd', mode = 'a', sep = ";",
-                     date_format='%Y-%m-%dT%H:%M:%SZ', float_format = '%.2f')
+                     date_format='%Y-%m-%dT%H:%M:%S+00:00', float_format='%.2f')
 
     print(posto_nome, ' acabou - ', list(postos_precip).index(posto_nome)+1,"/",
           len(postos_precip))
