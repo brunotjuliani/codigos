@@ -7,7 +7,7 @@ import geopandas as gpd
 
 # 2 - Adicionar o path do repositorio "modelos"
 import sys
-sys.path.append('/home/bruno/github/modelos/')
+#sys.path.append('../modelos/')
 
 # 3 - Importar a funcao de interpolacao desejada do modulo de espacializacao
 from espacializacao import idw
@@ -18,7 +18,7 @@ from espacializacao import idw
 # path_pd = '/home/bruno/github/modelos/exemplos/espacializacao/dados/'
 # EPSG = 31983
 
-grade = gpd.read_file('../dados/grade/g_01.pgkg')
+grade = gpd.read_file('../dados/grade/g_01.gpkg')
 grade
 path_pd = '../dados/p_diario/'
 EPSG = 31982
