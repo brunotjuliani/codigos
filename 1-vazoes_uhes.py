@@ -5,89 +5,79 @@ import pytz
 import numpy as np
 
 
-listaUHES = [
-	    ]
-sigla = 'DRJ'
-nome = 'Derivacao Rio Jordao'
-ponto = '30'
-datahorai = dt.datetime(2020, 1, 1,  0,  0) #AAAA, M, D, H, Min
+# listaUHES = [
+# 	      ['DRJ', 'Derivação Rio Jordão', '30'],
+# 	      ['FCH', 'Foz do Chopim', '6'],
+# 	      ['GBM', 'Gov. Bento Munhoz (Foz do Areia)', '1'],
+# 	      ['SCL', 'Santa Clara', '31'],
+# 	      ['SCX', 'Gov. José Richa (Salto Caxias)', '20'],
+# 	      ['SGD', 'Gov. Ney Braga (Segredo)', '24'],
+# 	      ['SOS', 'Salto Osório', '53']
+# 	    ]
+
+UHE = ['DRJ', 'Derivação Rio Jordão', '30']
+
+# for UHE in listaUHES:
+sigla = UHE[0]
+nome  = UHE[1]
+ponto = UHE[2]
+
+# 1 - Leitura da "serie longa" (DF)
+DF = pd.read_csv('{}.txt'.format(sigla), delimiter='\s+')
+DF.columns = ['year', 'month', 'day', 'hour', 'Qaflu', 'Qdeflu']
+DF = DF.set_index(pd.to_datetime(DF[['year', 'month', 'day', 'hour']]))
+DF = DF.set_index(DF.index.tz_localize('UTC'))
+DF = DF.drop(['year', 'month', 'day', 'hour'], axis=1)
+
+DF
+
+# 2 - Aquisicao dos dados atuais, com folga para preenchimento de nans
 datahoraf = dt.datetime.now(pytz.utc) - dt.timedelta(hours=1)
-url = "http://www.simepar.br/telemetry-copel/monhid?datahorai={:%Y-%m-%dT%H:%M:%S}&datahoraf={:%Y-%m-%dT%H:%M:%S}&ids={}&tipos=R".format(datahorai, datahoraf, ponto)
+datahorai = datahoraf - dt.timedelta(days=365)
+url = "http://produtos.simepar.br/telemetry-copel/monhid?datahorai={:%Y-%m-%dT%H:%M:%S}&datahoraf={:%Y-%m-%dT%H:%M:%S}&ids={}&tipos=R".format(datahorai, datahoraf, ponto)
 response = requests.get(url=url)
 data = response.json()
 df = pd.DataFrame.from_dict(data)
 df = df.set_index(pd.to_datetime(df.datahora))
 
+df
+
 df2 = pd.DataFrame()
 for row in df.itertuples():
     try:
-        df2.loc[row[0],'qmon'] = row[3]['vazaoAfluente']
+        df2.loc[row[0],'Qaflu'] = row[3]['vazaoAfluente']
     except:
-        df2.loc[row[0],'qmon'] = -99999.9
+        df2.loc[row[0],'Qaflu'] = np.nan
 
     try:
-        df2.loc[row[0],'qjus'] = row[3]['vazaoDefluente']
+        df2.loc[row[0],'Qdeflu'] = row[3]['vazaoDefluente']
     except:
-        df2.loc[row[0],'qjus'] = -99999.9
+        df2.loc[row[0],'Qdeflu'] = np.nan
 
-    try:
-        df2.loc[row[0],'pme'] = row[3]['precipitacao']
-    except:
-        df2.loc[row[0],'pme'] = -99999.9
+df2[df2['Qaflu']<0] = np.nan
+df2['Qaflu'] = df2['Qaflu'].rolling(window=6, min_periods=1).mean()
 
-df2
 
-for UHE in listaUHES:
-    sigla = UHE[0]
-    nome  = UHE[1]
-    ponto = UHE[2]
+df2 = df2.fillna(-99999.9)
 
-    # 1 - Leitura da "serie longa" (DF)
-    DF = pd.read_csv('{}.txt'.format(sigla), delimiter='\s+')
-    DF.columns = ['year', 'month', 'day', 'hour', 'Qaflu', 'Qdeflu']
-    DF = DF.set_index(pd.to_datetime(DF[['year', 'month', 'day', 'hour']]))
-    DF = DF.set_index(DF.index.tz_localize('UTC'))
-    DF = DF.drop(['year', 'month', 'day', 'hour'], axis=1)
+# 3 - expande o indice da serie longa ate o tempo atual e preenche com df2
+df2 = df2.set_index(df2.index.tz_localize('UTC'))
+idx = pd.date_range(DF.index.min(), df2.index.max(), freq='H')
+DF2 = DF.reindex(idx)
+DF2.update(df2)
 
-    # 2 - Aquisicao dos dados atuais, com folga para preenchimento de nans
-    datahoraf = dt.datetime.now(pytz.utc) - dt.timedelta(hours=1)
-    datahorai = datahoraf - dt.timedelta(days=365)
-    url = "http://www.simepar.br/telemetry-copel/monhid?datahorai={:%Y-%m-%dT%H:%M:%S}&datahoraf={:%Y-%m-%dT%H:%M:%S}&ids={}&tipos=R".format(datahorai, datahoraf, ponto)
-    response = requests.get(url=url)
-    data = response.json()
-    df = pd.DataFrame.from_dict(data)
-    df = df.set_index(pd.to_datetime(df.datahora))
-
-    df2 = pd.DataFrame()
-    for row in df.itertuples():
-        try:
-            df2.loc[row[0],'Qaflu'] = row[3]['vazaoAfluente']
-        except:
-            df2.loc[row[0],'Qaflu'] = -99999.9
-
-        try:
-            df2.loc[row[0],'Qdeflu'] = row[3]['vazaoDefluente']
-        except:
-            df2.loc[row[0],'Qdeflu'] = -99999.9
-
-    # 3 - expande o indice da serie longa ate o tempo atual e preenche com df2
-    df2 = df2.set_index(df2.index.tz_localize('UTC'))
-    idx = pd.date_range(DF.index.min(), df2.index.max(), freq='H')
-    DF2 = DF.reindex(idx)
-    DF2.update(df2)
-
-    # 4 - exporta no padrao Angelo em BRT
-    DF2 = DF2.loc[~DF2.index.duplicated(keep='last')]
-    DF2 = DF2.set_index(DF2.index - dt.timedelta(hours=3))
-    arq = open('{}.txt'.format(sigla), 'w')
-    arq.write('#AAA MM DD HH    Qaflu   Qdeflu\n')
-    for row in DF2.itertuples():
-        string1 = '{:{dfmt} {tfmt}}'.format(row[0], dfmt='%Y %m %d', tfmt='%H')
-        arq.write(string1)
-        string2 = ' {:8.2f} {:8.2f}\n'.format(row[1], row[2])
-        arq.write(string2)
-    print('Salvou o arquivo da UHE - {}!'.format(nome))
-    arq.close()
+# 4 - exporta no padrao Angelo em BRT
+DF2 = DF2.loc[~DF2.index.duplicated(keep='last')]
+DF2 = DF2.set_index(DF2.index - dt.timedelta(hours=3))
+arq = open('{}.txt'.format(sigla), 'w')
+arq.write('#AAA MM DD HH    Qaflu   Qdeflu\n')
+for row in DF2.itertuples():
+    string1 = '{:{dfmt} {tfmt}}'.format(row[0], dfmt='%Y %m %d', tfmt='%H')
+    arq.write(string1)
+    string2 = ' {:8.2f} {:8.2f}\n'.format(row[1], row[2])
+    arq.write(string2)
+print('Salvou o arquivo da UHE - {}!'.format(nome))
+arq.close()
 
 
 ### ======= SCRIPT ARLAN ANTERIOR ======= ###

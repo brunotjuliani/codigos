@@ -56,7 +56,8 @@ def idw(grade, path_pd, EPSG):
 
         # 4 - Capturar as coordenadas do posto no arquivo .pd
         nome_posto = arquivo_pd.split('/')[-1].split('.pd')[0]
-        lat_long = pd.read_csv(arquivo_pd, nrows=1, header=None).iloc[0]
+        lat_long = pd.read_csv(arquivo_pd, skiprows=1, nrows=1, header=None,
+                               sep = ';').iloc[0]
         lat  = lat_long[0]
         long = lat_long[1]
 
@@ -79,7 +80,8 @@ def idw(grade, path_pd, EPSG):
             DF_dists.loc[pi,nome_posto] = dist/1000
 
         # 7 - Coletar a serie de dados do posto e conceatenar em DF_postos
-        sr_posto = pd.read_csv(arquivo_pd, skiprows=1, parse_dates=True, index_col='datahora_UTC')['h_mm']
+        sr_posto = pd.read_csv(arquivo_pd, skiprows=2, parse_dates=True,
+                               index_col='datahora_UTC', sep=';')['h_mm']
         sr_posto = sr_posto.rename(nome_posto)
         DF_postos = DF_postos.join(sr_posto, how='outer')
 
