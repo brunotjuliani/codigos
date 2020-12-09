@@ -12,7 +12,7 @@ import numpy as np
 
 grade = gpd.read_file('../dados/grade/g_01.gpkg')
 grade
-path_pd = '../dados/p_diario/'
+path_pd = '../dados/precip/'
 EPSG = 31982
 
 # 5 - Executar IDWx
@@ -79,5 +79,5 @@ PME = DF_grade.mean(axis=1, skipna=True)
 #return DF_grade, PME
 
 # 6 - Exportar a PME no padrao preconizado nas diretrizes da Hidrologia - Simepar
-PME.rename('h_mm').round(2).to_csv('../dados/pme_bacia_01.pd', index_label='data')
+PME.rename('h_mm').round(2).to_csv('../dados/pme_bacia_01.pd', index_label='datahora_UTC')
 # Obs: falta salvar o lat,long no arquivo .pd, o ideal seria o centroide da grade

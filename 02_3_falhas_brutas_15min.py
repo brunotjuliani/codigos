@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 #detalha horario de erros grosseiros
-#revisao ate 31/10/2020
+#revisao ate 30/11/2020
 #pd.date_range(start="2019-01-11 08:00:00",end="2019-01-15 11:00:00",
 #              freq='15min').format(formatter=lambda x: x.strftime(
 #                   '%Y-%m-%d %H:%M:%S'))
@@ -131,7 +131,9 @@ erros = {'Rio_Negro' : [
     pd.date_range(start="2017-06-02T00:15:00Z",end="2017-06-02T15:15:00Z",
                   freq='15min').format(formatter=lambda x: x.strftime(
                       '%Y-%m-%dT%H:%M:%SZ')),
-    '2020-09-22T18:30:00Z',
+    pd.date_range(start="2020-09-22T14:15:00Z",end="2020-09-22T18:30:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
                         ],
 
          'Porto_Amazonas' : [

@@ -28,8 +28,8 @@ import psycopg2, psycopg2.extras
 #                'Hotel_Cataratas':'25685442'
 #            }
 
-posto_nome = 'Fluviopolis'
-posto_codigo = '26025035'
+posto_nome = 'Rio_Negro'
+posto_codigo = '26064948'
 
 ########## SERIES HORARIAS ##########
 
@@ -64,7 +64,7 @@ table_hor = pd.merge(table_hor, df_horario, left_index = True,
 table_hor = table_hor[~table_hor.index.duplicated(keep='first')]
 
 #exporta observado para csv
-table_hor.to_csv('../dados/'+posto_nome+'_HR.csv',
+table_hor.to_csv('../dados/f_consist/'+posto_nome+'_HR.csv',
                  date_format='%Y-%m-%dT%H:%M:%SZ', sep = ";",
                  float_format = '%.3f')
 
@@ -82,5 +82,6 @@ plt.gca().xaxis.set_major_locator(mdates.YearLocator(5))
 plt.gca().xaxis.set_tick_params(rotation = 30)
 # Changes x-axis range
 #plt.gca().set_xbound(data_ini, data_fim)
-plt.savefig('../dados/'+posto_nome+'_HR.png', dpi = 300, bbox_inches = 'tight')
+plt.savefig('../dados/f_consist/'+posto_nome+'_HR.png', dpi = 300,
+            bbox_inches = 'tight')
 plt.close()

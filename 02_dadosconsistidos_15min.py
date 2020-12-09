@@ -21,8 +21,8 @@ import json
 #                'Hotel_Cataratas':'25685442'
 #            }
 
-posto_nome = 'Fluviopolis'
-posto_codigo = '26025035'
+posto_nome = 'Rio_Negro'
+posto_codigo = '26064948'
 
 ########## SERIES 15 MIN ##########
 print('Tratando ',posto_nome)
