@@ -24,7 +24,7 @@ idx = df.index.to_numpy()
 
 ### CALIBRAR
 spot_setup = sac.spotpy(area = area, PME = PME, ETP = ETP, Qjus = Qjus,
-                              h_aq=180, fobj='NSE')
+                              h_aq=4520, fobj='NSE')
 sampler = sceua(spot_setup)
 sampler.sample(5000, ngs=10, kstop=3, peps=0.1, pcento=0.1)
 results = sampler.getdata()
@@ -40,3 +40,21 @@ fig = plotar_hidro(idx=df.index, PME=PME, ETP=ETP, Qobs=Qjus, Qmon=None,
                    Qsims=Qsim)
 fig.savefig('../dados/peq/bacia_01.png', dpi = 300,
             bbox_inches = 'tight')
+
+#Minimal objective value: 1.88585
+#Best parameter set:
+#UTZWM=56.58360674864332
+#UZFWM=35.580001986855876
+#LZTWM=78.85340743089148
+#LZFPM=781.403493307761
+#LZFSM=72.88056072756544
+#ADIMP=0.12820809527236016
+#PCTIM=0.0959405860061334
+#PFREE=0.14750748723645518
+#UZK=0.3024198894185668
+#LZPK=0.012493614293406204
+#LZSK=0.044529097826248656
+#ZPERC=90.96501735957224
+#REXP=2.2843797425788566
+#k=8.994715632019345
+#n=8.505781879112629

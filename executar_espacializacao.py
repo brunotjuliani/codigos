@@ -9,8 +9,15 @@ import glob
 import numpy as np
 
 # 4 - Coletar as entradas
+bacia = input('Entre com o código da bacia (2 digitos): ')
+lista_bacias = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10',
+                '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+                '21']
+while bacia not in lista_bacias:
+    bacia = input('Bacia nao reconhecida.\n'
+                  'Entre com o código da bacia (2 digitos): ')
 
-grade = gpd.read_file('../dados/grade/g_01.gpkg')
+grade = gpd.read_file('../dados/grade/g_'+bacia+'.gpkg')
 grade
 path_pd = '../dados/precip/'
 EPSG = 31982
@@ -23,19 +30,21 @@ grade = grade.to_crs('EPSG:{}'.format(EPSG))
 # 2 - Inicializar os DataFrames
 DF_postos = pd.DataFrame()
 DF_grade = pd.DataFrame()
-DF_grade.index.name = 'datahora_UTC'
+DF_grade.index.name = 'datahora'
 DF_dists = pd.DataFrame()
 
 # 3 - Abrir os arquivos .pd individualmente
-arquivos_pd = glob.glob(path_pd+'*.pd')
+arquivos_pd = glob.glob(path_pd+'*.csv')
 for arquivo_pd in arquivos_pd:
 
     # 4 - Capturar as coordenadas do posto no arquivo .pd
-    nome_posto = arquivo_pd.split('/')[-1].split('.pd')[0]
-    lat_long = pd.read_csv(arquivo_pd, skiprows=1, nrows=1, header=None,
-                           sep = ';').iloc[0]
-    lat  = lat_long[0]
-    long = lat_long[1]
+    nome_posto = arquivo_pd.split('/')[-1].split('.csv')[0]
+    lat_long = pd.read_csv(arquivo_pd, skiprows=2, nrows=1, header=None,
+                           sep = ',').iloc[0]
+    long = lat_long[0]
+    lat  = lat_long[1]
+    alt = lat_long[2]
+
 
     # 5 - Converter a coordenada de WGS84 (padrao) para o SRC projetado
     df_temp = pd.DataFrame({'posto':[nome_posto],
@@ -56,8 +65,8 @@ for arquivo_pd in arquivos_pd:
         DF_dists.loc[pi,nome_posto] = dist/1000
 
     # 7 - Coletar a serie de dados do posto e conceatenar em DF_postos
-    sr_posto = pd.read_csv(arquivo_pd, skiprows=2, parse_dates=True,
-                           index_col='datahora_UTC', sep=';')['h_mm']
+    sr_posto = pd.read_csv(arquivo_pd, skiprows=3, parse_dates=True,
+                           index_col='datahora', sep=',')['chuva_mm']
     sr_posto = sr_posto.rename(nome_posto)
     DF_postos = DF_postos.join(sr_posto, how='outer')
 
@@ -79,5 +88,5 @@ PME = DF_grade.mean(axis=1, skipna=True)
 #return DF_grade, PME
 
 # 6 - Exportar a PME no padrao preconizado nas diretrizes da Hidrologia - Simepar
-PME.rename('h_mm').round(2).to_csv('../dados/pme_bacia_01.pd', index_label='datahora_UTC')
-# Obs: falta salvar o lat,long no arquivo .pd, o ideal seria o centroide da grade
+PME.rename('chuva_mm').round(2).to_csv('../dados/pme/pme_bacia_'+bacia+'.csv',
+                                       index_label='datahora')
