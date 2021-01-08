@@ -3,6 +3,7 @@ import pandas as pd
 import sys
 sys.path.append('../modelos/')
 from plotar_hidro import plotar_hidro
+import HydroErr as he
 
 
 def Fracionamento(datas, Qobs, Qalta, Qmedia, Qbaixa):
@@ -339,7 +340,7 @@ arq = open('../dados/peq/bacia_01.peq')
 areainc = float(arq.readline())
 df = pd.read_csv('../dados/peq/bacia_01.peq', skiprows=[0],
                  index_col = 'datahora_UTC', parse_dates = True)
-df = df.loc['2010':'2020']
+df = df.loc['2014']
 df['qmon'] = 0
 cmb = df['pme']
 etp = df['etp']
@@ -382,13 +383,20 @@ Qbaixa = ExecutaSACSIMPLES(parametros[2], datas, etp, cmb, qmont, areainc,
 
 # Vazão modelada com ponderação pela classe da vazão
 Qmod = Fracionamento(datas, qobs, Qalta, Qmedia, Qbaixa)
-Qmod
 del Qalta, Qmedia, Qbaixa, estados
 df['qsim'] = pd.DataFrame.from_dict(Qmod, orient = 'index')
 Qsimulado = df[['qsim']]
 
+
+df2 = df.loc['2014-06':'2014-07']
+Qsimulado2 = df2[['qsim']]
+
+nash = he.nse(df2['qsim'],df2['qjus'])
+print('nash = ' + str(nash))
+
+
 # Plotagem
-fig = plotar_hidro(idx=df.index, PME=df['pme'], ETP=df['etp'], Qobs=df['qjus'],
-                   Qmon=None, Qsims=Qsimulado)
-fig.savefig('../dados/peq/bacia_01_antigo.png', dpi = 300,
-            bbox_inches = 'tight')
+fig = plotar_hidro(idx=df2.index, PME=df2['pme'], ETP=df2['etp'],
+                   Qobs=df2['qjus'], Qmon=None, Qsims=Qsimulado2)
+#fig.savefig('../dados/peq/bacia_01_antigo.png', dpi = 300,
+#            bbox_inches = 'tight')

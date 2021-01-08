@@ -3,9 +3,10 @@ sys.path.append('../modelos/')
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
-import sacramento2020 as sac
+import gr4h
 import sacramento_antigo as sac0
 from plotar_hidro import plotar_hidro
+import matplotlib.pyplot as plt
 import HydroErr as he
 
 #Leitura das forçantes do modelo
@@ -14,7 +15,7 @@ areainc = float(arq.readline())
 area = areainc
 df = pd.read_csv('../dados/peq/bacia_01.peq', skiprows=[0],
                  index_col = 'datahora_UTC', parse_dates = True)
-df = df.loc['2019':'2020']
+df = df.loc['2010':'2020']
 df['qmon'] = 0
 cmb = df['pme']
 etp = df['etp']
@@ -25,6 +26,7 @@ Q0 = qobs[0]
 PME = df['pme'].to_numpy()
 ETP = df['etp'].to_numpy()
 Qjus = df['qjus'].to_numpy()
+Qmon = df['qmon'].to_numpy()
 
 ##MODELO ANTIGO##
 
@@ -122,87 +124,116 @@ Qsimulado = df[['sim_ant']]
 
 
 ##MODELO CALIBRACAO##
+# x1 = 908
+# #x2 = 2.3
+# x2 = 1.5
+# x3 = 310
+# x4 = 4.0
+# k = 9.9
+# n = 7
 
-# TZWM = 16.748
-# UZFWM = 59.2835
-# LZTWM = 135.795
-# LZFPM = 916.621
-# LZFSM = 42.7809
-# ADIMP = 0.023229
-# PCTIM = 0.0566524
-# PFREE = 0.441261
-# UZK = 0.283859
-# LZPK = 0.00270224
-# LZSK = 0.0475308
-# ZPERC = 131.84
-# REXP = 2.35218
-# k = 9.83349
-# n = 9.09199
-TZWM= 14.4217
-UZFWM= 47.6533
-LZTWM= 189.411
-LZFPM= 787.69
-LZFSM= 16.8398
-ADIMP= 0.0891221
-PCTIM= 0.0610251
-PFREE= 0.402377
-UZK= 0.263238
-LZPK= 0.00214846
-LZSK= 0.0492473
-ZPERC= 146.337
-REXP= 2.25878
-k= 8.20777
-n= 9.60026
+x1=570
+x2=1.26
+x3=304
+x4=3.63
+k=9.87
+n=6
 
 
-resultado = sac.simulacao(area=area, PME=PME, ETP=ETP, UZTWM=TZWM, UZFWM=UZFWM,
-                          LZTWM=LZTWM, LZFPM=LZFPM, LZFSM=LZFSM, ADIMP=ADIMP,
-                          PCTIM=PCTIM, PFREE=PFREE, UZK=UZK, LZPK=LZPK,
-                          LZSK=LZSK, ZPERC=ZPERC, REXP=REXP, k=k, n=n)
+resultado = gr4h.gr4h_nash(area=area, PME=PME, ETP=ETP, Qmon=Qmon,
+                      x1=x1, x2=x2, x3=x3, x4=x4, k=k, n=n)
+df['q_sim'] = pd.DataFrame(resultado, index=df.index)
 
-df['q_sim'] = pd.DataFrame(resultado[2], index=df.index)
-
-
-#CALIBRACAO MANUAL#
-
-TZWM= 36.2586
-UZFWM= 44.9155
-LZTWM= 50
-LZFPM= 600
-LZFSM= 50
-ADIMP= 0.00322059
-PCTIM= 0.05
-PFREE= 0.371737
-UZK= 0.527345
-LZPK= 0.000372
-LZSK= 0.022755
-ZPERC= 153.023
-REXP= 1.39687
-k= 4.38886
-n= 7.39993
-
-resultado2014 = sac.simulacao(area=area, PME=PME, ETP=ETP, UZTWM=TZWM, UZFWM=UZFWM,
-                          LZTWM=LZTWM, LZFPM=LZFPM, LZFSM=LZFSM, ADIMP=ADIMP,
-                          PCTIM=PCTIM, PFREE=PFREE, UZK=UZK, LZPK=LZPK,
-                          LZSK=LZSK, ZPERC=ZPERC, REXP=REXP, k=k, n=n)
-
-df['sim_manual'] = pd.DataFrame(resultado2014[2], index=df.index)
 
 ##CORTE DE TEMPO PARA NASH E PLOTAGEM##
-df2 = df.loc['2019']
-#Qsimulado2 = df2[['sim_ant', 'q_sim', 'sim_manual']]
-Qsimulado2 = df2[['sim_ant', 'sim_manual']]
+df2 = df.loc['2020']
 
+Qsimulado2 = df2[['q_sim', 'sim_ant']]
+
+
+nash = he.nse(df2['q_sim'],df2['qjus'])
+print('Nash = ' + str(nash))
 
 nash_ant = he.nse(df2['sim_ant'],df2['qjus'])
-print('Nash antigo = ' + str(nash_ant))
-
-nash_novo = he.nse(df2['q_sim'],df2['qjus'])
-print('nash calibracao = ' + str(nash_novo))
+print('Nash Antigo = ' + str(nash_ant))
 
 
 # Plotagem
 fig = plotar_hidro(idx=df2.index, PME=df2['pme'], ETP=df2['etp'],
                    Qobs=df2['qjus'], Qmon=None, Qsims=Qsimulado2)
-#fig.savefig('../dados/peq/teste_calib_bacia_01.png', dpi = 300,
-#            bbox_inches = 'tight')
+fig.savefig('../dados/peq/teste_calib_bacia_01_full.png', dpi = 300,
+            bbox_inches = 'tight')
+
+
+##CORTE DE TEMPO PARA NASH E PLOTAGEM##
+df2015 = df.loc['2015']
+Qsimulado2015 = df2015[['q_sim', 'sim_ant']]
+nash2015 = he.nse(df2015['q_sim'],df2015['qjus'])
+print('Nash 2015 = ' + str(nash2015))
+nash_ant2015 = he.nse(df2015['sim_ant'],df2015['qjus'])
+print('Nash Antigo 2015 = ' + str(nash_ant2015))
+# Plotagem
+fig2015 = plotar_hidro(idx=df2015.index, PME=df2015['pme'], ETP=df2015['etp'],
+                   Qobs=df2015['qjus'], Qmon=None, Qsims=Qsimulado2015)
+fig2015.savefig('../dados/peq/teste_calib_bacia_01_2015.png', dpi = 300,
+            bbox_inches = 'tight')
+
+df2016 = df.loc['2016']
+Qsimulado2016 = df2016[['q_sim', 'sim_ant']]
+nash2016 = he.nse(df2016['q_sim'],df2016['qjus'])
+print('Nash 2016 = ' + str(nash2016))
+nash_ant2016 = he.nse(df2016['sim_ant'],df2016['qjus'])
+print('Nash Antigo 2016 = ' + str(nash_ant2016))
+# Plotagem
+fig2016 = plotar_hidro(idx=df2016.index, PME=df2016['pme'], ETP=df2016['etp'],
+                   Qobs=df2016['qjus'], Qmon=None, Qsims=Qsimulado2016)
+fig2016.savefig('../dados/peq/teste_calib_bacia_01_2016.png', dpi = 300,
+            bbox_inches = 'tight')
+
+df2017 = df.loc['2017']
+Qsimulado2017 = df2017[['q_sim', 'sim_ant']]
+nash2017 = he.nse(df2017['q_sim'],df2017['qjus'])
+print('Nash 2017 = ' + str(nash2017))
+nash_ant2017 = he.nse(df2017['sim_ant'],df2017['qjus'])
+print('Nash Antigo 2017 = ' + str(nash_ant2017))
+# Plotagem
+fig2017 = plotar_hidro(idx=df2017.index, PME=df2017['pme'], ETP=df2017['etp'],
+                   Qobs=df2017['qjus'], Qmon=None, Qsims=Qsimulado2017)
+fig2017.savefig('../dados/peq/teste_calib_bacia_01_2017.png', dpi = 300,
+            bbox_inches = 'tight')
+
+df2018 = df.loc['2018']
+Qsimulado2018 = df2018[['q_sim', 'sim_ant']]
+nash2018 = he.nse(df2018['q_sim'],df2018['qjus'])
+print('Nash 2018 = ' + str(nash2018))
+nash_ant2018 = he.nse(df2018['sim_ant'],df2018['qjus'])
+print('Nash Antigo 2018 = ' + str(nash_ant2018))
+# Plotagem
+fig2018 = plotar_hidro(idx=df2018.index, PME=df2018['pme'], ETP=df2018['etp'],
+                   Qobs=df2018['qjus'], Qmon=None, Qsims=Qsimulado2018)
+fig2018.savefig('../dados/peq/teste_calib_bacia_01_2018.png', dpi = 300,
+            bbox_inches = 'tight')
+
+df2019 = df.loc['2019']
+Qsimulado2019 = df2019[['q_sim', 'sim_ant']]
+nash2019 = he.nse(df2019['q_sim'],df2019['qjus'])
+print('Nash 2019 = ' + str(nash2019))
+nash_ant2019 = he.nse(df2019['sim_ant'],df2019['qjus'])
+print('Nash Antigo 2019 = ' + str(nash_ant2019))
+# Plotagem
+fig2019 = plotar_hidro(idx=df2019.index, PME=df2019['pme'], ETP=df2019['etp'],
+                   Qobs=df2019['qjus'], Qmon=None, Qsims=Qsimulado2019)
+fig2019.savefig('../dados/peq/teste_calib_bacia_01_2019.png', dpi = 300,
+            bbox_inches = 'tight')
+
+df2020 = df.loc['2020']
+Qsimulado2020 = df2020[['q_sim', 'sim_ant']]
+nash2020 = he.nse(df2020['q_sim'],df2020['qjus'])
+print('Nash 2020 = ' + str(nash2020))
+nash_ant2020 = he.nse(df2020['sim_ant'],df2020['qjus'])
+print('Nash Antigo 2020 = ' + str(nash_ant2020))
+# Plotagem
+fig2020 = plotar_hidro(idx=df2020.index, PME=df2020['pme'], ETP=df2020['etp'],
+                   Qobs=df2020['qjus'], Qmon=None, Qsims=Qsimulado2020)
+fig2020.savefig('../dados/peq/teste_calib_bacia_01_2020.png', dpi = 300,
+            bbox_inches = 'tight')
