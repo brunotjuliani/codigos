@@ -44,15 +44,15 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
 #                'Hotel_Cataratas':'25685442'
 #            }
 
-posto_nome = 'Rio_Negro'
-posto_codigo = '26064948'
+posto_nome = 'Jangada'
+posto_codigo = '26225115'
 
 ## COLETA DADOS VAZAO
 
 ########## SERIES 15 MIN ##########
 print('Coletando dados brutos',posto_nome)
 t_ini = dt.datetime(1997, 1, 1,  0,  0) #AAAA, M, D, H, Min
-t_fim = dt.datetime.now()
+t_fim = dt.datetime(2021, 1, 1, 0, 0)
 
 #coleta dados de cota
 dados_cota = coletar_dados(t_ini,t_fim, posto_codigo, '(18)')

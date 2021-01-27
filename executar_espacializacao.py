@@ -74,14 +74,16 @@ for arquivo_pd in arquivos_pd:
 L = len(grade)
 no_postos = len(DF_postos.columns)
 for i,pi in enumerate(grade.index):
+    print('Iniciando ponto {}/{} da grade da bacia {}'.format(i+1,L,bacia))
     D = np.array([DF_dists.loc[pi,i] for i in DF_postos.columns]) # vetor de distancias
     W = np.array([1/(di**2) for di in D]) # vetor de pesos
     for t in DF_postos.index:
-        print('Calculando precipitacao no ponto {}/{} da grade - {}'.format(i+1,L, t))
+        #print('Calculando precipitacao no ponto {}/{} da grade - {}'.format(i+1,L, t))
         P_t = DF_postos.loc[t].values # vetor precipitacoes
         W_t = np.array([0 if np.isnan(P_t[i]) else W[i] for i in range(no_postos)])
         prec = np.sum(W_t * np.nan_to_num(P_t))/np.sum(W_t)
         DF_grade.loc[t, pi] = np.around(prec, decimals=2)
+    print('Finalizado ponto {}/{} da grade'.format(i+1,L))
 
 # 9 - Calcular a PME na grade
 PME = DF_grade.mean(axis=1, skipna=True)

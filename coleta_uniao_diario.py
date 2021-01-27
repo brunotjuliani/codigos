@@ -65,7 +65,7 @@ postos_vazao = {
 
 for posto_nome, posto_codigo in postos_vazao.items():
     print('Coletando vazao',posto_nome)
-    t_ini = dt.datetime(2019, 1, 1,  0,  0) #AAAA, M, D, H, Min
+    t_ini = dt.datetime(2020, 1, 1,  0,  0) #AAAA, M, D, H, Min
     t_fim = dt.datetime.now()
 
     #coleta dados de vazao

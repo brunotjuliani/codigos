@@ -187,6 +187,10 @@ for posto_nome, posto_informacoes in postos_precip.items():
     #df_horario.loc[df_horario['count'] < 4, ['q_m3s']] = np.nan
     #df_horario.loc[df_horario['count'] < 4, ['m']] = np.nan
 
+    #REMOVE A OCORRENCIA DE VALORES HORARIOS SUPERIORES A 90 MM
+    df_horario['chuva_mm'] = np.where((df_horario['chuva_mm'] > 90
+                                         ), np.nan, df_horario['chuva_mm'])
+
     # remove colunas 'count' dos dataframes e agrupa com data padrao
     df_horario.drop('count', axis=1, inplace=True)
     table_hor = pd.merge(table_hor, df_horario, left_index = True,

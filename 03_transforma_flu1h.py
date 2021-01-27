@@ -28,8 +28,8 @@ import psycopg2, psycopg2.extras
 #                'Hotel_Cataratas':'25685442'
 #            }
 
-posto_nome = 'Rio_Negro'
-posto_codigo = '26064948'
+posto_nome = 'Madereira_Gavazzoni'
+posto_codigo = '25485116'
 
 ########## SERIES HORARIAS ##########
 

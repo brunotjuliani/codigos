@@ -15,13 +15,10 @@ data_final = dt.datetime(2017, 12, 31,  23,  59)
 # dir_consistencia = "/discolocal/bruno/Observado/Pre_Consistencia"
 # os.chdir(dir_consistencia)
 
-dir_dados = '../dados'
+dir_dados = '../Teste'
 os.chdir(dir_dados)
 
-posto_nome = 'Apucaraninha_montante'
-posto_codigo = '23735103'
-
-serie_completa = pd.read_csv(posto_nome+'FC.csv', sep =';', index_col = 0)
+serie_completa = pd.read_csv('vazao_fiu_HR.csv', sep =',', index_col = 0)
 serie_completa.index = pd.to_datetime(serie_completa.index)
 
 serie_completa
@@ -33,10 +30,10 @@ while data_ini <= data_final:
     serie_observada = serie_completa.loc[str(data_ini) : str(data_fim)]
 
     plt.figure()
-    plt.plot(serie_observada['h_m'], label = "Observado", linewidth = 0.6)
-    plt.title('Serie ' + posto_nome, loc = 'left')
+    plt.plot(serie_observada['qjus'], label = "Observado", linewidth = 0.6)
+    plt.title('Serie Fiu', loc = 'left')
     plt.xlabel('Data')
-    plt.ylabel('Cota [m]')
+    plt.ylabel('Vazao [m3s-1]')
     # Format the date into months & days
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     # Change the tick interval
