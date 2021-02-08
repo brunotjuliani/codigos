@@ -7,13 +7,43 @@ import seaborn as sns
 import sys
 sys.path.append('../modelos/')
 from plotar_hidro import plotar_hidro
+from json import loads
 
-arq = open('../dados/peq/bacia_01.peq')
-areainc = float(arq.readline())
-area = areainc
-df = pd.read_csv('../dados/peq/bacia_01.peq', skiprows=[0],
-                 index_col = 'datahora_UTC', parse_dates = True)
-df2 = df.loc['2019':'2020']
+bac = 12
+dirSite = 'abc/'
 
-fig = plotar_hidro(idx=df2.index, PME=df2['pme'], ETP=df2['etp'],
-                   Qobs=df2['qjus'], Qmon=None, Qsims=None)
+pc = (dirSite + str('vaz%2.2i.json' % bac))
+pc
+
+arq = '../vaz12.json'
+with open(arq) as f:
+    file_data = f.read()
+file_data
+file_data = file_data.replace('nan', 'null')
+xy = loads(file_data)
+del file_data
+file_data
+
+json_file = 'my_file.json'
+
+
+with open(json_file) as f:
+    file_data = f.read()
+
+file_data = file_data.replace('REPLACE_ME', 'new string')
+<...>
+
+with open(json_file, 'w') as f:
+    f.write(file_data)
+
+xy = loads(arq.read())
+arq = open('../vaz12.json' % bac), 'r')
+    xy = loads(arq.read())
+    for i in range(len(xy)):
+        dt = datetime.strptime(xy[i][0], '%Y-%m-%d %H:%M:%S')
+        try:
+            dados[dt][1] = xy[i][1]
+        except KeyError:
+            dados[dt] = ref[:]
+            dados[dt][1] = xy[i][1]
+    arq.close()

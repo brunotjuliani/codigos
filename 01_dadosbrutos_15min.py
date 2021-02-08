@@ -44,8 +44,8 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
 #                'Hotel_Cataratas':'25685442'
 #            }
 
-posto_nome = 'Jangada'
-posto_codigo = '26225115'
+posto_nome = 'Solais_Novo'
+posto_codigo = '26055155'
 
 ## COLETA DADOS VAZAO
 

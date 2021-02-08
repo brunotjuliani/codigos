@@ -42,9 +42,10 @@ horaprev = previsao.hour
 ## LEITURA DO ARQUIVO GRIB - 1 HORIZONTE DE PREVISÃO - ENSEMBLE COM N DADOS
 #endereco no servidor do Simepar
 #grbfile = f"/simepar/modelos/ecmwf/ens/{ano:04d}/{mes:02d}/{dia:02d}/00/D1X{mes:02d}{dia:02d}0000{mesprev:02d}{diaprev:02d}{horaprev:02d}001"
-grbfile = f"../dados/D1X{mes:02d}{dia:02d}0000{mesprev:02d}{diaprev:02d}{horaprev:02d}001"
+#grbfile = f"../dados/D1X{mes:02d}{dia:02d}0000{mesprev:02d}{diaprev:02d}{horaprev:02d}001"
+grbfile = "../dados/D1X06150000061716001.grib2"
 grbs = pygrib.open(grbfile)
-
+grbs[1].data()
 # grbs[1].data(lat1=miny, lat2=maxy, lon1=minx, lon2=maxx)
 
 ## CORTE DO ARQUIVO PELA ÁREA E MÉDIA DO VALOR PARA CADA PREVISÃO DO ENSEMBLE

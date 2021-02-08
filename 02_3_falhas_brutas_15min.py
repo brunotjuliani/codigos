@@ -1861,10 +1861,79 @@ erros = {'Rio_Negro' : [
     pd.date_range(start="2010-11-17T01:15:00Z",end="2010-11-17T01:30:00Z",
                   freq='15min').format(formatter=lambda x: x.strftime(
                       '%Y-%m-%dT%H:%M:%SZ')),
-    
+    pd.date_range(start="2011-01-20T18:30:00Z",end="2011-01-21T10:30:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2011-07-02T03:00:00Z',
+    pd.date_range(start="2011-07-11T20:15:00Z",end="2011-07-12T15:45:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2011-07-25T14:15:00Z',
+    '2011-07-25T21:45:00Z',
+    '2011-07-26T13:15:00Z',
+    '2011-07-26T21:15:00Z',
+    '2011-07-27T14:30:00Z',
+    '2011-07-28T13:45:00Z',
+    '2011-07-28T20:15:00Z',
+    '2011-07-28T21:15:00Z',
+    '2011-07-30T19:30:00Z',
+    '2011-08-16T20:00:00Z',
+    '2011-08-17T14:00:00Z',
+    '2011-08-17T21:15:00Z',
+    '2011-08-18T13:45:00Z',
+    '2011-08-29T13:45:00Z',
+    pd.date_range(start="2011-09-12T21:00:00Z",end="2011-09-13T14:30:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2011-11-09T00:00:00Z',
+    '2011-11-21T00:30:00Z',
+    pd.date_range(start="2012-04-21T07:00:00Z",end="2012-04-24T17:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2017-06-21T16:30:00Z',
+    '2017-07-28T12:15:00Z',
+    pd.date_range(start="2018-01-08T18:45:00Z",end="2018-01-08T19:15:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2020-08-23T11:30:00Z',
+    '2020-12-04T01:00:00Z',
+    '2020-12-04T08:30:00Z',
+    '2020-12-07T04:15:00Z',
+    '2020-12-14T21:45:00Z',
                       ],
 
          'Solais_Novo' : [
+    pd.date_range(start="1997-05-01T10:00:00Z",end="1997-11-07T20:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    pd.date_range(start="1998-03-28T20:00:00Z",end="1998-04-09T10:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    pd.date_range(start="1998-08-22T20:00:00Z",end="1999-03-27T23:45:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2000-02-27T20:00:00Z',
+    '2000-02-28T10:00:00Z',
+    '2000-02-28T20:00:00Z',
+    pd.date_range(start="2000-08-26T20:00:00Z",end="2000-10-12T10:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2001-03-07T01:45:00Z',
+    '2002-08-27T16:45:00Z',
+    '2002-08-27T18:15:00Z',
+    pd.date_range(start="2002-09-05T18:15:00Z",end="2002-09-06T02:15:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2003-05-16T15:00:00Z',
+    '2004-03-01T08:45:00Z',
+    '2004-06-28T14:30:00Z',
+    '2004-08-11T18:45:00Z',
+    '2004-08-22T08:15:00Z',
+    '2005-05-07T05:45:00Z',
+    '2005-05-19T22:00:00Z',
+    '2005-10-08T21:30:00Z',
+    '2005-10-26T23:30:00Z',
+    
                           ],
 
          'Porto_Santo_Antonio' : [],
