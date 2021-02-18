@@ -150,12 +150,12 @@ for posto_nome, posto_informacoes in postos_precip.items():
     table_hor['status'] = '1'
 
     #exporta dados horarios para csv
-    with open('../dados/precip/'+posto_nome+'.csv','w',newline='') as file:
+    with open('/discolocal/bruno/Fiu/p_hr/'+posto_nome+'.csv','w',newline='') as file:
         writer = csv.writer(file)
         writer.writerow([posto_ana])
         writer.writerow([posto_nome])
         writer.writerow([posto_long, posto_lat, posto_alt])
-    table_hor.to_csv('../dados/precip/'+posto_nome+'.csv', mode = 'a', sep = ",",
+    table_hor.to_csv('/discolocal/bruno/Fiu/p_hr/'+posto_nome+'.csv', mode = 'a', sep = ",",
                      date_format='%Y-%m-%dT%H:%M:%S+00:00', float_format='%.2f')
 
     print(posto_nome, ' acabou - ', list(postos_precip).index(posto_nome)+1,"/",

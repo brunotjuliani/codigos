@@ -57,8 +57,6 @@ dados_peq['data'] = dados_peq.index.strftime('%m-%d-%H')
 dados_peq['etp'] = dados_peq['data'].map(etp['etp'])
 dados_peq = dados_peq.drop(['data'], axis=1)
 
-e
-
 
 
 dados_peq = pd.merge(dados_peq, etp, how = 'outer',
