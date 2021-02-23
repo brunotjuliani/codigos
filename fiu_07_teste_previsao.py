@@ -31,10 +31,10 @@ def plotar_hidro(idx, PME, ETP, Qobs, Qmon=None, Qsims=None):
     return fig
 
 #Leitura das forçantes do modelo
-arq = open('/discolocal/bruno/Fiu/peq_Fiu_6hrs.csv')
+arq = open('/discolocal/bruno/Fiu/peq_previsao0625_Fiu.csv')
 areainc = float(arq.readline())
 area = areainc
-df = pd.read_csv('/discolocal/bruno/Fiu/peq_Fiu_6hrs.csv', skiprows=[0],
+df = pd.read_csv('/discolocal/bruno/Fiu/peq_previsao0625_Fiu.csv', skiprows=[0],
                   index_col = 'datahora_UTC', parse_dates = True)
 
 df['qmon'] = 0
@@ -46,17 +46,6 @@ Qjus = df['qjus'].to_numpy()
 Qmon = df['qmon'].to_numpy()
 
 
-##MODELO GR5i ##
-x1 = 478.654
-x2 = 0.426158
-x3 = 474.276
-x4 = 4.22446
-x5 = 0.417908
-
-resultado = gr5i.gr5i(dt=dt, area=area, PME=PME, ETP=ETP, Qmon=Qmon,
-                      x1=x1, x2=x2, x3=x3, x4=x4, x5=x5)
-df['q_gr5'] = pd.DataFrame(resultado, index=df.index)
-
 ## GR5i 2a calibracao ##
 x1 = 1480
 x2 = -0.1
@@ -64,25 +53,19 @@ x3 = 94
 x4 = 2.6
 x5 = 0.41
 
-
-
 resultado2 = gr5i.gr5i(dt=dt, area=area, PME=PME, ETP=ETP, Qmon=Qmon,
                       x1=x1, x2=x2, x3=x3, x4=x4, x5=x5)
-df['gr5i_2'] = pd.DataFrame(resultado2, index=df.index)
+df['gr5i_previsao'] = pd.DataFrame(resultado2, index=df.index)
 
 ##CORTE DE TEMPO PARA NASH E PLOTAGEM##
-df2 = df.loc['2020-06-26':'2020-06-29']
+df2 = df.loc['2020-06-25':'2020-07-01']
 df2.index
-Qsimulado2 = df2[['q_gr5', 'gr5i_2']]
+Qsimulado2 = df2[['gr5i_previsao']]
 
-
-nash_gr = he.nse(df2['q_gr5'],df2['qjus'])
+nash_gr = he.nse(df2['gr5i_previsao'],df2['qjus'])
 print('Nash GR5i = ' + str(nash_gr))
-nash_gr2 = he.nse(df2['gr5i_2'],df2['qjus'])
-print('Nash GR5i_2 = ' + str(nash_gr2))
 
-data_texto = (f'Nash GR5i = {nash_gr:.2f}' + '\n' +
-              f'Nash GR5i_2 = {nash_gr2:.2f}')
+data_texto = (f'Nash GR5i = {nash_gr:.2f}')
 
 # Plotagem
 fig = plotar_hidro(idx=df2.index,
