@@ -58,3 +58,10 @@ for N in range(0, 51):
     df.loc[horizonte,N] = p
 
 df
+grbfile = '/Users/brunojuliani/github/WRFPOS_DASSE5km.op05_2021-03-02T000000_2021-03-02T010000.grib2'
+grbs = pygrib.open(grbfile)
+wrf = grbs.select(name = 'Total Precipitation')
+wrf = grbs.select(name = 'Total Precipitation')
+data, lats, lons = wrf[0].data(lat1=miny, lat2=maxy, lon1=minx, lon2=maxx)
+data2 = np.hstack(data)
+data2

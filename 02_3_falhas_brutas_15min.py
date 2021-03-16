@@ -1996,9 +1996,139 @@ erros = {'Rio_Negro' : [
                       '%Y-%m-%dT%H:%M:%SZ')),
                           ],
 
-         'Porto_Santo_Antonio' : [],
+         'Porto_Santo_Antonio' : [
+    '1997-06-18T21:15:00Z',
+    pd.date_range(start="1997-06-27T19:15:00Z",end="1997-06-27T20:30:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '1997-07-27T11:15:00Z',
+    '1997-10-10T16:30:00Z',
+    '1999-04-05T03:15:00Z',
+    pd.date_range(start="2000-03-30T20:30:00Z",end="2000-03-31T11:15:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2000-06-02T15:00:00Z',
+    '2000-06-13T22:15:00Z',
+    '2000-06-13T22:45:00Z',
+    '2000-07-11T02:00:00Z',
+    '2000-07-12T12:30:00Z',
+    pd.date_range(start="2000-10-11T04:45:00Z",end="2000-10-11T15:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2000-11-08T20:45:00Z',
+    '2001-03-03T02:15:00Z',
+    pd.date_range(start="2001-03-03T09:30:00Z",end="2001-03-03T11:15:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2001-03-03T16:00:00Z',
+    pd.date_range(start="2001-10-16T18:00:00Z",end="2001-10-16T18:30:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2002-04-29T17:15:00Z',
+    '2002-10-26T19:15:00Z',
+    '2004-03-18T00:00:00Z',
+    '2004-07-20T12:00:00Z',
+    pd.date_range(start="2004-08-20T12:15:00Z",end="2004-08-20T17:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2004-09-20T12:15:00Z',
+    '2005-05-09T13:00:00Z',
+    '2005-08-11T21:30:00Z',
+    '2006-11-22T17:30:00Z',
+    '2007-05-06T09:15:00Z',
+    '2007-05-25T21:00:00Z',
+    pd.date_range(start="2007-11-08T18:00:00Z",end="2007-11-08T18:15:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2008-02-18T09:15:00Z',
+    pd.date_range(start="2008-02-27T21:00:00Z",end="2008-02-29T08:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2008-03-18T01:00:00Z',
+    pd.date_range(start="2008-09-16T13:45:00Z",end="2008-09-16T15:30:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2008-10-22T21:15:00Z',
+    '2008-11-25T00:45:00Z',
+    '2008-12-07T23:00:00Z',
+    '2009-01-25T09:30:00Z',
+    '2009-02-12T21:15:00Z',
+    '2009-05-24T20:30:00Z',
+    '2009-07-03T18:15:00Z',
+    pd.date_range(start="2009-07-06T20:00:00Z",end="2009-07-07T10:45:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2009-09-18T10:30:00Z',
+    pd.date_range(start="2010-03-18T18:00:00Z",end="2010-03-21T04:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2010-03-24T01:00:00Z',
+    '2010-03-25T01:00:00Z',
+    '2010-03-25T11:00:00Z',
+    '2010-03-30T03:15:00Z',
+    '2010-04-02T08:30:00Z',
+    '2010-04-02T12:30:00Z',
+    '2010-04-06T02:00:00Z',
+    '2010-04-08T00:00:00Z',
+    '2010-04-24T04:15:00Z',
+    '2010-04-24T06:15:00Z',
+    '2010-05-05T09:15:00Z',
+    '2010-05-06T22:15:00Z',
+    '2010-07-15T18:45:00Z',
+    pd.date_range(start="2010-09-01T15:15:00Z",end="2010-09-02T04:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2010-09-14T11:15:00Z',
+    '2010-11-25T16:00:00Z',
+    '2012-03-01T01:00:00Z',
+    '2013-12-18T23:45:00Z',
+    pd.date_range(start="2014-06-26T18:45:00Z",end="2014-06-28T10:15:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    pd.date_range(start="2014-09-11T14:15:00Z",end="2014-09-11T15:30:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2015-03-05T02:00:00Z',
+         ],
 
          'Aguas_do_Vere' : [
+    pd.date_range(start="1997-06-24T20:45:00Z",end="1997-06-25T00:30:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '1997-07-11T18:00:00Z',
+    '1997-08-15T18:00:00Z',
+    '1997-08-18T10:45:00Z',
+    '1997-09-02T20:00:00Z',
+    '1999-04-03T03:15:00Z',
+    '2000-02-17T02:45:00Z',
+    pd.date_range(start="2000-10-05T13:45:00Z",end="2000-10-05T14:15:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    pd.date_range(start="2001-05-29T12:00:00Z",end="2001-05-31T21:00:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    pd.date_range(start="2001-06-01T14:30:00Z",end="2001-06-01T14:45:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2001-12-01T00:15:00Z',
+    '2002-04-11T05:15:00Z',
+    '2002-08-23T16:15:00Z',
+    pd.date_range(start="2002-08-28T13:30:00Z",end="2002-08-28T13:45:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2002-09-07T20:45:00Z',
+    pd.date_range(start="2003-05-16T14:00:00Z",end="2003-05-16T14:15:00Z",
+                  freq='15min').format(formatter=lambda x: x.strftime(
+                      '%Y-%m-%dT%H:%M:%SZ')),
+    '2003-05-24T08:00:00Z',
+    '2004-01-05T23:30:00Z',
+    '2004-03-18T12:00:00Z',
+    '2004-04-05T23:45:00Z',
+    '2004-12-04T12:30:00Z',
+    '2005-07-25T00:15:00Z',
+    '2005-10-12T07:30:00Z',
+    '2005-11-25T00:00:00Z',
+    
                             ],
 
          'Porto_Capanema' : [
