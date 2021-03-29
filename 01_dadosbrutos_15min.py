@@ -42,10 +42,11 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
 #                'Aguas_do_Vere':'25465256',
 #                'Porto_Capanema':'25345435',
 #                'Hotel_Cataratas':'25685442'
+
 #            }
 
-posto_nome = 'Aguas_do_Vere'
-posto_codigo = '25465256'
+posto_nome = 'Hotel_Cataratas'
+posto_codigo = '25685442'
 
 ## COLETA DADOS VAZAO
 

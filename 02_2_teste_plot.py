@@ -9,8 +9,8 @@ from dateutil.relativedelta import relativedelta
 gbl = globals()
 
 #DEFINICAO PERIODO ANALISE
-data_inicial = dt.datetime(2005, 1, 1,  0,  0) #YYYY, M, D, H, Min
-data_final = dt.datetime(2005, 12, 31,  23,  59)
+data_inicial = dt.datetime(2020, 1, 1,  0,  0) #YYYY, M, D, H, Min
+data_final = dt.datetime(2020, 12, 31,  23,  59)
 
 # dir_consistencia = "/discolocal/bruno/Observado/Pre_Consistencia"
 # os.chdir(dir_consistencia)
@@ -18,8 +18,8 @@ data_final = dt.datetime(2005, 12, 31,  23,  59)
 dir_dados = '../dados'
 os.chdir(dir_dados)
 
-posto_nome = 'Aguas_do_Vere'
-posto_codigo = '25465256'
+posto_nome = 'Hotel_Cataratas'
+posto_codigo = '25685442'
 
 serie_completa = pd.read_csv(posto_nome+'FC.csv', sep =';', index_col = 0)
 serie_completa.index = pd.to_datetime(serie_completa.index)

@@ -4,9 +4,6 @@ import os
 
 #detalha horario de erros grosseiros
 #revisao ate 31/12/2020
-#pd.date_range(start="2019-01-11 08:00:00",end="2019-01-15 11:00:00",
-#              freq='15min').format(formatter=lambda x: x.strftime(
-#                   '%Y-%m-%d %H:%M:%S'))
 erros = {'Rio_Negro' : [
     pd.date_range(start="1997-10-24T03:15:00Z",end="1997-10-31T11:45:00Z",
                   freq='15min').format(formatter=lambda x: x.strftime(
@@ -2286,9 +2283,5 @@ erros = {'Rio_Negro' : [
                               ],
                   }
 
-# json.dump(erros, open(
-#     '/discolocal/bruno/Observado/Pre_Consistencia/erros_grosseiros_bruto.txt',
-#     'w'),indent = 2)
 json.dump(erros, open(
-    '../dados/erros_grosseiros_bruto.txt',
-    'w'),indent = 2)
+    '../Dados/Vazao_Bruto/erros_grosseiros_bruto.txt','w'),indent = 2)
