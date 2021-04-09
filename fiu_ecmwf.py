@@ -66,6 +66,9 @@ data, lats, lons = wrf[0].data(lat1=miny, lat2=maxy, lon1=minx, lon2=maxx)
 data2 = np.hstack(data)
 data2
 
-grbfile = f"../Fiu/D1X03260000032601001.grib2"
+grbfile = f"../Fiu/D1E03300000033001001.grib2"
 grbs = pygrib.open(grbfile)
 membro = grbs.select(perturbationNumber=0)
+membro
+data, lats, lons = membro[0].data()
+lons
