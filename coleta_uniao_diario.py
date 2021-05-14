@@ -10,8 +10,7 @@ import pytz
 import json
 import psycopg2, psycopg2.extras
 
-dir_observado = "../dados/"
-os.chdir(dir_observado)
+
 lista = []
 
 def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
@@ -65,8 +64,9 @@ postos_vazao = {
 
 for posto_nome, posto_codigo in postos_vazao.items():
     print('Coletando vazao',posto_nome)
-    t_ini = dt.datetime(2021, 1, 1,  0,  0) #AAAA, M, D, H, Min
-    t_fim = dt.datetime.now()
+    t_ini = dt.datetime(2017, 6, 1,  0,  0) #AAAA, M, D, H, Min
+    t_fim = dt.datetime(2017, 9, 1,  0,  0)
+    #t_fim = dt.datetime.now()
 
     #coleta dados de vazao
     dados_vazao = coletar_dados(t_ini,t_fim, posto_codigo, '(33)')
@@ -130,6 +130,12 @@ for posto_nome, posto_codigo in postos_vazao.items():
     table_hor[table_hor['q_m3s'] < 0] = np.nan
     table_dia[table_dia['q_m3s'] < 0] = np.nan
 
+
+    def tratamento(sr_bruta):
+        sr_bruta = sr_bruta.asfreq('D')
+        sr_tratada = sr_bruta.interpolate(method='spline', order=3)
+        return sr_tratada
+    table_dia = tratamento(table_dia)
 
     #exporta observado para csv
 #    table_hor.to_csv('vazao_'+posto_nome+'.csv')

@@ -1,49 +1,17 @@
 import pandas as pd
 import numpy as np
-from datetime import date, timedelta
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-import seaborn as sns
-import sys
-sys.path.append('../modelos/')
-from plotar_hidro import plotar_hidro
-from json import loads
 
-bac = 12
-dirSite = 'abc/'
-
-pc = (dirSite + str('vaz%2.2i.json' % bac))
-pc
-
-arq = '../vaz12.json'
-with open(arq) as f:
-    file_data = f.read()
-file_data
-file_data = file_data.replace('nan', 'null')
-xy = loads(file_data)
-del file_data
-file_data
-
-json_file = 'my_file.json'
+df = pd.read_csv('timbu.csv', parse_dates=True, skiprows=12, header=None, dtype=str)
+df
 
 
-with open(json_file) as f:
-    file_data = f.read()
+df2 = pd.DataFrame()
+df2['temperatura_C'] = pd.to_numeric(df[3] + '.' + df[4])
+df2['pressao_M'] = pd.to_numeric(df[5] + '.' + df[6])
+df2.index = (pd.to_datetime(df[1], dayfirst=True) + pd.to_timedelta(df[2])).rename('datahora')
 
-file_data = file_data.replace('REPLACE_ME', 'new string')
-<...>
+print(df2)
 
-with open(json_file, 'w') as f:
-    f.write(file_data)
+df3 = pd.read_csv('dados_20190525.csv', index_col='datahora', parse_dates=True)
 
-xy = loads(arq.read())
-arq = open('../vaz12.json' % bac), 'r')
-    xy = loads(arq.read())
-    for i in range(len(xy)):
-        dt = datetime.strptime(xy[i][0], '%Y-%m-%d %H:%M:%S')
-        try:
-            dados[dt][1] = xy[i][1]
-        except KeyError:
-            dados[dt] = ref[:]
-            dados[dt][1] = xy[i][1]
-    arq.close()
+df3
