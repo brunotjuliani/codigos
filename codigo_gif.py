@@ -5,8 +5,8 @@ import glob
 import os
 
 #DEFINE VARIAVEIS
-modelo = "ECMWF" #COPEL / ECMWF / NCEP_WRF5K
-data = "2021-05-10"
+modelo = "NCEP_WRF5K" #COPEL / ECMWF / NCEP_WRF5K
+data = "2021-05-31"
 #diretorio = "/discolocal/bruno/Mapas_Chuva/"+modelo+"/"+data
 diretorio = "/Users/brunojuliani/github/dados/"+modelo+"/"+data
 

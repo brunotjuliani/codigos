@@ -28,8 +28,8 @@ import psycopg2, psycopg2.extras
 #                'Hotel_Cataratas':'25685442'
 #            }
 
-posto_nome = 'Solais_Novo'
-posto_codigo = '26055155'
+posto_nome = 'Porto_Amazonas'
+posto_codigo = '25334953'
 
 ########## SERIES HORARIAS ##########
 

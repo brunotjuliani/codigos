@@ -18,8 +18,8 @@ data_final = dt.datetime(2020, 12, 31,  23,  59)
 dir_dados = '../dados'
 os.chdir(dir_dados)
 
-posto_nome = 'Hotel_Cataratas'
-posto_codigo = '25685442'
+posto_nome = 'Porto_Amazonas'
+posto_codigo = '25334953'
 
 serie_completa = pd.read_csv(posto_nome+'FC.csv', sep =';', index_col = 0)
 serie_completa.index = pd.to_datetime(serie_completa.index)

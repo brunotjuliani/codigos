@@ -21,8 +21,8 @@ import json
 #                'Hotel_Cataratas':'25685442'
 #            }
 
-posto_nome = 'Hotel_Cataratas'
-posto_codigo = '25685442'
+posto_nome = 'Porto_Amazonas'
+posto_codigo = '25334953'
 
 ########## SERIES 15 MIN ##########
 print('Tratando ',posto_nome)
