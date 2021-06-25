@@ -5,10 +5,10 @@ import glob
 import os
 
 #DEFINE VARIAVEIS
-modelo = "NCEP_WRF5K" #COPEL / ECMWF / NCEP_WRF5K
-data = "2021-06-14"
-#diretorio = "/discolocal/bruno/Mapas_Chuva/"+modelo+"/"+data
-diretorio = "/Users/brunojuliani/github/dados/"+modelo+"/"+data
+modelo = "ECMWF" #COPEL / ECMWF / NCEP_WRF5K
+data = "2021-06-21"
+diretorio = "/discolocal/bruno/Mapas_Chuva/"+modelo+"/"+data
+#diretorio = "/Users/brunojuliani/github/dados/"+modelo+"/"+data
 
 #CODIGO USUAL
 os.chdir(diretorio)

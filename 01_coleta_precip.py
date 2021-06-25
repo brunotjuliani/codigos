@@ -84,6 +84,10 @@ postos_precip = {
     'Vossoroca':['25494905', '2549102', '-25.8166', '-49.0833', '851'],
     }
 
+# postos = pd.DataFrame.from_dict(postos_precip, orient='index',
+#                                 columns=['Codigo', 'ANA', 'Lat', 'Lon', 'Alt'])
+# postos.to_csv('postos_precip_sispshi.csv')
+
 ## COLETA DADOS PRECIPITACAO
 for posto_nome, posto_informacoes in postos_precip.items():
     posto_codigo = posto_informacoes[0]

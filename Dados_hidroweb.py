@@ -7,11 +7,13 @@ import os
 diretorio = '/discolocal/bruno/Observado/Hidroweb'
 os.chdir(diretorio)
 
-estacoes = {'Sao_Jose':'2351027',
-            'Marilandia_do_Sul' : '2351063',
-            'Lerroville' : '2351039',
-            'Fabrica_de_Papelao' : '2351040',
-            'Bairro_Tres_Vendas' : '2351041'
+estacoes = {
+            'Balsa_Nova':'65028000'
+            #'Sao_Jose':'2351027',
+            #'Marilandia_do_Sul' : '2351063',
+            #'Lerroville' : '2351039',
+            #'Fabrica_de_Papelao' : '2351040',
+            #'Bairro_Tres_Vendas' : '2351041'
             #'Porto_Amazonas':'65035000',
             #'Sao_Bento':'65155000',
             #'Pontilhao':'65200000',
