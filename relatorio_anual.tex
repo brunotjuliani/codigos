@@ -1,0 +1,569 @@
+% Papel A4, fonte Times tamanho 12
+\documentclass[a4paper,12pt]{article}
+
+% Determinando tamanhos de margens
+\usepackage[left=2.5cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+
+% Preâmbulo para documentos em português
+\usepackage[brazilian]{babel}     % Idioma do texto (regras de hifenização e textos automáticos i.e. Figura, Tabela)
+\usepackage[utf8]{inputenc}       % Codificação do texto (caracteres especiais)
+\usepackage[T1]{fontenc}          % Operações de fontes (tipo, tamanho, etc.)
+\usepackage{amsmath}
+% Pacote para inclusão de imagens PNG, JPEG e PDF
+\usepackage[pdftex]{graphicx}
+%\usepackage{subfigure}            % Pacote necessário para geração de subfiguras
+\usepackage{multirow}
+% Cabecário com figura
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhead{}     % Limpa cabeçalho
+\fancyfoot{}     % Limpa rodapé
+\fancyhead[L]{\includegraphics[width = 4cm]{../logo_simepar.png}}
+\fancyhead[R]{\thepage}
+
+
+\begin{document}
+
+% Capa do relatório
+\thispagestyle{empty}
+
+\begin{flushleft}
+\textbf{Sistema Meteorológico do Paraná --- SIMEPAR} \\
+Curitiba --- PR, Caixa Postal 19100, CEP 81531-990, Tel/Fax: + 55 (41) 3320-2001
+\end{flushleft}
+
+\vspace{5.0cm}
+
+\begin{center}
+\fontsize{24pt}{28pt}\selectfont
+\textbf{Relatório anual de acompanhamento climatológico na região da UHE Baixo Iguaçu}\\
+\vspace{18pt}
+\textbf{Julho de 2019 a junho de 2020
+}\end{center}
+
+\vspace{4.0cm}
+
+\begin{center}
+\textbf{José Eduardo Gonçalves}\\
+Pesquisador\\
+
+\vspace{12pt}
+
+\textbf{Itamar Adilson Moreira}\\
+Meteorologista\\
+\end{center}
+
+\vspace{12pt}
+
+{\raggedleft \textbf{\textsc{Cesar Augustus Assis Beneti}}} \hfill \textsc{\textbf{Reinaldo Bonfim Silveira}}\\
+\textit{Diretor Executivo} \hfill \textit{Coordenador de Modelagem Numérica}
+
+\vspace{60pt}
+
+\begin{center}
+\textbf{Curitiba} \\
+\textbf{Julho de 2021}
+\end{center}
+
+\newpage
+\section{Introdução}
+
+\hspace{0.5cm}Em atendimento ao Projeto Básico Ambiental da Usina Hidrelétrica Baixo Iguaçu,
+o presente relatório tem por finalidade fazer uma análise climatológica da região. Para tanto, as
+variáveis meteorológicas apresentadas nos relatórios mensais serão comparadas com o clima da região através de
+análise de anomalia das médias e dos desvios-padrão mensais.
+
+Os parâmetros climatológicos --- média ($\overline{X}_C$) e desvio-padrão ($\sigma_{XC}$)
+esperados para cada variável meteorológica $X$ em
+cada mês na região --- foram calculados a partir de toda série diária histórica medida
+nas estações Cascavel (24535333), Nova Prata do Iguaçu (25345331), São Miguel do Iguaçu (25115408),
+Dois Vizinhos (25415305) e Planalto (23435346).
+
+Na sequência, para os meses em análise no presente relatório foram calculadas as médias mensais ($\overline{X}$) e os
+desvios-padrão ($\sigma_X$) (ambos baseados nos dados médios diários) para as variáveis meteorológicas medidas em cada posto.
+Desta forma, as anomalias das médias e dos desvios-padrão serão, respectivamente, dadas por
+%
+\begin{align*}
+\overline{A}_{\mathrm{m\hat{e}s}} = \overline{X}_{\mathrm{m\hat{e}s}} - \overline{X}_{C_{\mathrm{m\hat{e}s}}} \\
+\sigma_{A_\mathrm{m\hat{e}s}} = \sigma_{X_\mathrm{m\hat{e}s}} - \sigma_{XC_\mathrm{m\hat{e}s}}
+\end{align*}
+%
+em que $\overline{A}_\mathrm{m\hat{e}s}$ e $\sigma_{A_\mathrm{m\hat{e}s}}$  são as anomalias da média e do
+desvio-padrão para a variável meteorológica $X$ no mês em análise
+no posto estudado. Esta análise será realizada para as seguintes variáveis: temperatura do ar média, máxima
+e mínima ($^\circ$C),
+umidade relativa (\%), evapotranspiração (mm), radiação solar incidente (MJ m$^{-2}$),
+pressão atmosférica (hPa) e velocidade do vento (m/s).
+
+Com relação à precipitação, a anomalia desta variável será analisada apenas com base no desvio da média do acumulado mensal. Neste sentido,
+com base nas séries históricas das cinco estações foi quantificada a precipitação acumulada mensal
+esperada na região em cada mês. Desta forma, a anomalia será o desvio entre o acumulado no mês
+em análise e o acumulado esperado para este mês na região.
+
+Por fim, a análise da direção do vento foi realizada apenas de forma qualitativa, uma vez que normalmente
+ela é caracterizada por condições muito locais do relevo no entorno do posto de monitoranto. Sendo assim, será
+apresentada uma tabela com a direção predominante em cada mês para cada estação, assim como a direção predominante no histórico
+de registros, para possibilitar a comparação entre o registrado e o esperado na região.
+
+
+
+\newpage
+
+
+        \section{Temperatura média do ar }
+        \subsection{Julho a dezembro de 2019}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável temperatura média do ar
+        registrada entre os meses de julho de 2019 e dezembro de 2019 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_tmed_0.pdf}
+        \caption{Anomalias na média da temperatura média do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figmed_tmed_0}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_tmed_0.pdf}
+        \caption{Anomalias no desvio padrão da temperatura média do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figstd_tmed_0}
+        \end{figure}
+
+        \newpage
+        \subsection{Janeiro a junho de 2020}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável temperatura média do ar
+        registrada entre os meses de janeiro de 2020 e junho de 2020 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_tmed_1.pdf}
+        \caption{Anomalias na média da temperatura média do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figmed_tmed_1}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_tmed_1.pdf}
+        \caption{Anomalias no desvio padrão da temperatura média do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figstd_tmed_1}
+        \end{figure}
+
+
+        \newpage
+
+        \section{Temperatura mínima do ar }
+        \subsection{Julho a dezembro de 2019}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável temperatura mínima do ar
+        registrada entre os meses de julho de 2019 e dezembro de 2019 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_tmin_0.pdf}
+        \caption{Anomalias na média da temperatura mínima do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figmed_tmin_0}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_tmin_0.pdf}
+        \caption{Anomalias no desvio padrão da temperatura mínima do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figstd_tmin_0}
+        \end{figure}
+
+        \newpage
+        \subsection{Janeiro a junho de 2020}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável temperatura mínima do ar
+        registrada entre os meses de janeiro de 2020 e junho de 2020 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_tmin_1.pdf}
+        \caption{Anomalias na média da temperatura mínima do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figmed_tmin_1}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_tmin_1.pdf}
+        \caption{Anomalias no desvio padrão da temperatura mínima do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figstd_tmin_1}
+        \end{figure}
+
+
+        \newpage
+
+        \section{Temperatura máxima do ar }
+        \subsection{Julho a dezembro de 2019}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável temperatura máxima do ar
+        registrada entre os meses de julho de 2019 e dezembro de 2019 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_tmax_0.pdf}
+        \caption{Anomalias na média da temperatura máxima do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figmed_tmax_0}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_tmax_0.pdf}
+        \caption{Anomalias no desvio padrão da temperatura máxima do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figstd_tmax_0}
+        \end{figure}
+
+        \newpage
+        \subsection{Janeiro a junho de 2020}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável temperatura máxima do ar
+        registrada entre os meses de janeiro de 2020 e julho de 2020 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_tmax_1.pdf}
+        \caption{Anomalias na média da temperatura máxima do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figmed_tmax_1}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_tmax_1.pdf}
+        \caption{Anomalias no desvio padrão da temperatura máxima do ar ($^\circ$C) no semestre analisado.}
+        \label{fig:figstd_tmax_1}
+        \end{figure}
+
+
+        \newpage
+
+        \section{Velocidade do vento }
+        \subsection{Julho a dezembro de 2019}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável velocidade do vento
+        registrada entre os meses de julho de 2019 e dezembro de 2019 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_vento_0.pdf}
+        \caption{Anomalias na média da velocidade do vento (m/s) no semestre analisado.}
+        \label{fig:figmed_vento_0}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_vento_0.pdf}
+        \caption{Anomalias no desvio padrão da velocidade do vento (m/s) no semestre analisado.}
+        \label{fig:figstd_vento_0}
+        \end{figure}
+
+        \newpage
+        \subsection{Janeiro a junho de 2020}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável velocidade do vento
+        registrada entre os meses de janeiro de 2020 e junho de 2020 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_vento_1.pdf}
+        \caption{Anomalias na média da velocidade do vento (m/s) no semestre analisado.}
+        \label{fig:figmed_vento_1}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_vento_1.pdf}
+        \caption{Anomalias no desvio padrão da velocidade do vento (m/s) no semestre analisado.}
+        \label{fig:figstd_vento_1}
+        \end{figure}
+
+
+        \newpage
+
+        \section{Umidade relativa }
+        \subsection{Julho a dezembro de 2019}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável umidade relativa
+        registrada entre os meses de julho de 2019 e dezembro de 2019 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_ur_0.pdf}
+        \caption{Anomalias na média da umidade relativa (\%) no semestre analisado.}
+        \label{fig:figmed_ur_0}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_ur_0.pdf}
+        \caption{Anomalias no desvio padrão da umidade relativa (\%) no semestre analisado.}
+        \label{fig:figstd_ur_0}
+        \end{figure}
+
+        \newpage
+        \subsection{Janeiro a junho de 2020}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável umidade relativa
+        registrada entre os meses de janeiro de 2020 e junho de 2020 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_ur_1.pdf}
+        \caption{Anomalias na média da umidade relativa (\%) no semestre analisado.}
+        \label{fig:figmed_ur_1}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_ur_1.pdf}
+        \caption{Anomalias no desvio padrão da umidade relativa (\%) no semestre analisado.}
+        \label{fig:figstd_ur_1}
+        \end{figure}
+
+
+        \newpage
+
+        \section{Radiação solar incidente }
+        \subsection{Julho a dezembro de 2019}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável radiação solar incidente
+        registrada entre os meses de julho de 2019 e dezembro de 2019 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_radiacao_0.pdf}
+        \caption{Anomalias na média da radiação solar incidente (MJ/m$^2$) no semestre analisado.}
+        \label{fig:figmed_radiacao_0}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_radiacao_0.pdf}
+        \caption{Anomalias no desvio padrão da radiação solar incidente (MJ/m$^2$) no semestre analisado.}
+        \label{fig:figstd_radiacao_0}
+        \end{figure}
+
+        \newpage
+        \subsection{Janeiro a junho de 2020}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável radiação solar incidente
+        registrada entre os meses de janeiro de 2020 e junho de 2020 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_radiacao_1.pdf}
+        \caption{Anomalias na média da radiação solar incidente (MJ/m$^2$) no semestre analisado.}
+        \label{fig:figmed_radiacao_1}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_radiacao_1.pdf}
+        \caption{Anomalias no desvio padrão da radiação solar incidente (MJ/m$^2$) no semestre analisado.}
+        \label{fig:figstd_radiacao_1}
+        \end{figure}
+
+
+        \newpage
+
+        \section{Evapotranspiração }
+        \subsection{Julho a dezembro de 2019}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável evapotranspiração
+        registrada entre os meses de julho de 2019 e dezembro de 2019 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_evapo_0.pdf}
+        \caption{Anomalias na média da evapotranspiração (mm) no semestre analisado.}
+        \label{fig:figmed_evapo_0}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_evapo_0.pdf}
+        \caption{Anomalias no desvio padrão da evapotranspiração (mm) no semestre analisado.}
+        \label{fig:figstd_evapo_0}
+        \end{figure}
+
+        \newpage
+        \subsection{Janeiro a junho de 2020}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável evapotranspiração
+        registrada entre os meses de janeiro de 2020 e junho de 2020 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_evapo_1.pdf}
+        \caption{Anomalias na média da evapotranspiração (mm) no semestre analisado.}
+        \label{fig:figmed_evapo_1}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_evapo_1.pdf}
+        \caption{Anomalias no desvio padrão da evapotranspiração (mm) no semestre analisado.}
+        \label{fig:figstd_evapo_1}
+        \end{figure}
+
+
+        \newpage
+
+        \section{Pressão atmosférica }
+        \subsection{Julho a dezembro de 2019}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável pressão atmosférica
+        registrada entre os meses de julho de 2019 e dezembro de 2019 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_pressao_0.pdf}
+        \caption{Anomalias na média da pressão atmosférica (hPa) no semestre analisado.}
+        \label{fig:figmed_pressao_0}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_pressao_0.pdf}
+        \caption{Anomalias no desvio padrão da pressão atmosférica (hPa) no semestre analisado.}
+        \label{fig:figstd_pressao_0}
+        \end{figure}
+
+        \newpage
+        \subsection{Janeiro a junho de 2020}
+        \hspace{0.5cm} A seguir são exibidas as figuras das anomalias das médias e desvios-padrão da variável pressão atmosférica
+        registrada entre os meses de janeiro de 2020 e junho de 2020 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_pressao_1.pdf}
+        \caption{Anomalias na média da pressão atmosférica (hPa) no semestre analisado.}
+        \label{fig:figmed_pressao_1}
+        \end{figure}
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{std_pressao_1.pdf}
+        \caption{Anomalias no desvio padrão da pressão atmosférica (hPa) no semestre analisado.}
+        \label{fig:figstd_pressao_1}
+        \end{figure}
+
+
+        \newpage
+
+        \section{Precipitação }
+        \subsection{Julho a dezembro de 2019}
+        \hspace{0.5cm} A seguir é exibida a anomalia dos acumulados mensais da variável precipitação registrados entre
+        os meses de julho de 2019 e dezembro de 2019 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_chuva_0.pdf}
+        \caption{Anomalias na média da precipitação (mm) no semestre analisado.}
+        \label{fig:figmed_chuva_0}
+        \end{figure}
+
+        \newpage
+        \subsection{Janeiro a junho de 2020}
+        \hspace{0.5cm} A seguir é exibida a anomalia dos acumulados mensais da variável precipitação registrados entre
+        os meses de janeiro de 2020 e junho de 2020 na região da UHE Baixo Iguaçu.
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=.7 \textwidth]{med_chuva_1.pdf}
+        \caption{Anomalias na média da precipitação (mm) no semestre analisado.}
+        \label{fig:figmed_chuva_1}
+        \end{figure}
+
+\newpage
+\section{Direção do vento}
+
+\hspace{0.5cm} Na sequência são exibidas as direções predominantes dos meses em análise, assim como as direções
+climatológicas de cada posto, nas estações próximas à UHE Baixo Iguaçu. A estação UHE Baixo Iguaçu, por
+ser recente e não possuir histórico de medições, apresenta apenas as direções predominantes registradas nos
+últimos meses.
+
+\subsection{Julho a dezembro de 2019}
+
+\begin{table}[!hbt]
+\begin{center}
+\caption{Direções predominantes da velocidade do vento na região da UHE Baixo Iguaçu.}
+\label{tab:dire_0}
+\begin{tabular}{lccc}
+\hline
+Estação & Mês & Direção predominante & Direção predominante \\
+        &     &      no mês          &      Climatológica   \\
+\hline\multirow{6}{*}{Cascavel} & Julho & NE & NE \\
+            & Agosto & NE & NE \\
+            & Setembro & SE & NE \\
+            & Outubro & NE & NE \\
+            & Novembro & NE & NE \\
+            & Dezembro & NE & NE \\
+\hline\multirow{6}{*}{Dois Vizinhos} & Julho & S & S \\
+            & Agosto & S & S \\
+            & Setembro & S & S \\
+            & Outubro & --- & S \\
+            & Novembro & --- & S \\
+            & Dezembro & S & S \\
+\hline\multirow{6}{*}{Planalto} & Julho & L & L \\
+            & Agosto & L & L \\
+            & Setembro & L & L \\
+            & Outubro & L & L \\
+            & Novembro & L & L \\
+            & Dezembro & SO & L \\
+\hline\multirow{6}{*}{São Miguel do Iguaçu} & Julho & SE & SE \\
+            & Agosto & SE & SE \\
+            & Setembro & SE & SE \\
+            & Outubro & SE & SE \\
+            & Novembro & SE & SE \\
+            & Dezembro & SE & SE \\
+\hline\multirow{6}{*}{\textbf{UHE Baixo Iguaçu}} & \textbf{Julho} & \textbf{L} & \textbf{---} \\
+            & \textbf{Agosto} & \textbf{L} & \textbf{{---}} \\
+            & \textbf{Setembro} & \textbf{L} & \textbf{{---}} \\
+            & \textbf{Outubro} & \textbf{L} & \textbf{{---}} \\
+            & \textbf{Novembro} & \textbf{L} & \textbf{{---}} \\
+            & \textbf{Dezembro} & \textbf{L} & \textbf{{---}} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\newpage
+\subsection{Janeiro a junho de 2020}
+
+\begin{table}[!hbt]
+\begin{center}
+\caption{Direções predominantes da velocidade do vento na região da UHE Baixo Iguaçu.}
+\label{tab:dire_1}
+\begin{tabular}{lccc}
+\hline
+Estação & Mês & Direção predominante & Direção predominante \\
+        &     &      no mês          &      Climatológica   \\
+\hline\multirow{6}{*}{Cascavel} & Janeiro & NE & NE \\
+            & Fevereiro & NE & NE \\
+            & Março & NE & NE \\
+            & Abril & NE & NE \\
+            & Maio & NE & NE \\
+            & Junho & NE & NE \\
+\hline\multirow{6}{*}{Dois Vizinhos} & Janeiro & S & S \\
+            & Fevereiro & S & S \\
+            & Março & S & S \\
+            & Abril & S & S \\
+            & Maio & S & S \\
+            & Junho & S & S \\
+\hline\multirow{6}{*}{Planalto} & Janeiro & SO & L \\
+            & Fevereiro & SO & L \\
+            & Março & SO & L \\
+            & Abril & SO & L \\
+            & Maio & SO & L \\
+            & Junho & SO & L \\
+\hline\multirow{6}{*}{São Miguel do Iguaçu} & Janeiro & SE & SE \\
+            & Fevereiro & SE & SE \\
+            & Março & SE & SE \\
+            & Abril & SE & SE \\
+            & Maio & SE & SE \\
+            & Junho & N & SE \\
+\hline\multirow{6}{*}{\textbf{UHE Baixo Iguaçu}} & \textbf{Janeiro} & \textbf{L} & \textbf{---} \\
+            & \textbf{Fevereiro} & \textbf{L} & \textbf{{---}} \\
+            & \textbf{Março} & \textbf{L} & \textbf{{---}} \\
+            & \textbf{Abril} & \textbf{N} & \textbf{{---}} \\
+            & \textbf{Maio} & \textbf{NE} & \textbf{{---}} \\
+            & \textbf{Junho} & \textbf{L} & \textbf{{---}} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\newpage
+\section{Conclusão}
+
+
+\end{document}
