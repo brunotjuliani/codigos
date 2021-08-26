@@ -1,0 +1,15 @@
+,index,estcodigo,estnome,orgsigla,esttipo,estlongitude,estlatitude,estaltitude,estiniciooperacao
+0,65,98888886,Laboratório Met300,Testes Laboratório,M,-49.16,-25.26,,2010-02-08
+1,133,20224024,Vale - Teste,Testes Laboratório,H,-40.24488,-20.27691,0.0,2019-03-22
+2,171,25444923,Politécnico Meteorológica,Testes Laboratório,M,-49.23066,-25.44868,935.0,2017-07-10
+3,195,98888885,Teste - PCH Bela Vista -Reservatório,Testes Laboratório,H,-49.2666,-25.4333,,2015-02-19
+4,223,99999993,01 - Teste Offset,Testes Laboratório,H,-49.23033,-25.44817,935.0,2008-03-06
+5,224,98888883,TS + sat1 - 300,Testes Laboratório,H,-49.2666,-25.4333,,2009-03-06
+6,388,25574835,Esteio,Testes Laboratório,M,-48.35016,-25.57374,0.0,2019-03-14
+7,425,99991111,Laboratório - Teste 1,Testes Laboratório,M,-48.0,-25.0,,
+8,583,22844678,Rio Jaguari em Buenópolis- Testes,Testes Laboratório,H,-46.77833,-22.84972,,2019-01-02
+9,747,98888881,02 - Teste Offset,Testes Laboratório,H,-49.2666,-25.4333,,2015-02-13
+10,3761,99999995,IDP2,Testes Laboratório,H,-49.2666,-25.4333,935.0,2007-10-04
+11,5074,25454923,SIGFOX-PYCOM_DevKit_1-device,Testes Laboratório,M,-25.45187,49.23687,901.0,2020-01-01
+12,5075,25454924,SIGFOX-PYCOM_DevKit_2-device,Testes Laboratório,M,-25.45187,49.23687,901.0,2020-01-01
+13,5108,22924694,Rio Atibaia Captação Valinhos- Testes,Testes Laboratório,H,-46.93953,-22.92878,,2019-01-02
