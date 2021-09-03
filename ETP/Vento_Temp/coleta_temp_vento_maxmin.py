@@ -28,6 +28,8 @@ def coletar_dados(t_ini,t_fim,posto_codigo,sensores):
 
 # PARA COLETA DOS DADOS DE ESTACOES SELECIONADAS
 postos = pd.read_csv(f'dados_selecao.csv', index_col=0)
+postos = postos[postos['orgsigla']=='Inmet'].reset_index()
+
 t_ini = dt.datetime(1990,1,1)
 t_fim = dt.datetime.now()
 
