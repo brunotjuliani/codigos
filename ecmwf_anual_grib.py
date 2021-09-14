@@ -24,4 +24,4 @@ for dates in date_range:
             "type" : "fc",
             "target" : "data.grib2"
         },
-        "../Dados/ECMWF_Grib/teste_ECMWF_3meses.grib2")
+        "../Dados/ECMWF_Grib/teste_ECMWF_anual.grib2")
