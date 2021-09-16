@@ -23,3 +23,8 @@ steps = grbs.index.unique('step')
 
 xx = grbs['x'].unique()
 xx
+
+with xr.open_dataset('./teste.grib2', engine='cfgrib') as ds:
+    grbs = ds.to_dataframe()
+
+grbs

@@ -7,7 +7,7 @@ from ecmwfapi import ECMWFService
 date_range = pd.date_range(start='20210801',end='20210801', freq="D").strftime('%Y%m%d').to_list()
 for dates in date_range:
     server = ECMWFService( "mars", url = "https://api.ecmwf.int/v1",
-                           key = "66dc9750b0f18814d51fa8658c52d73f", email = "rafael.toshio@simepar.br")
+                           key = "60f7f41f253aef87cd57738132d2e634", email = "rafael.toshio@simepar.br")
     server.execute(
         {
             "class" :"od",
